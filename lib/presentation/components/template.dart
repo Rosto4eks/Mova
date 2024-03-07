@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mova/presentation/components/navBar.dart';
 
 class Template extends StatefulWidget {
   final Widget _topWidget;
@@ -18,7 +17,7 @@ class _TemplateState extends State<Template> {
             gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color.fromRGBO(124, 122, 243, 1), Colors.black],
+          colors: [Color.fromARGB(255, 124, 122, 243), Colors.black],
           stops: [0.5, 1],
         )),
         child: Column(children: [

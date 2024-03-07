@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mova/presentation/home.dart';
+import 'package:mova/presentation/pages/mainPage.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -7,12 +7,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Mova",
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: Home(),
+      home: MainPage(),
     );
   }
 }

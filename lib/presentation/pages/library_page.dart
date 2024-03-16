@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:mova/presentation/components/template.dart";
+import "package:mova/presentation/components/home_screen_template.dart";
 
 class LibraryPage extends StatefulWidget {
   const LibraryPage({super.key});
@@ -12,7 +12,7 @@ class _LibraryPage extends State<LibraryPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Template(
+      body: HomeTemplate(
           Center(
             child: Text("LIBRARY"),
           ),

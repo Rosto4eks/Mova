@@ -35,7 +35,7 @@ class InsertWordsTaskScreen extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 0),
             child: Text(
               task.text,
-              style: const TextStyle(fontSize: 27),
+              style: const TextStyle(fontSize: 22),
             ),
           ),
         ),
@@ -48,19 +48,22 @@ class InsertWordsTaskScreen extends StatelessWidget {
                 alignment: WrapAlignment.center,
                 spacing: 20,
                 runSpacing: 10,
-                children: task.words
+                children: task.words.entries
                     .map<GestureDetector>(
                       (e) => GestureDetector(
                         onTap: () {
-                          task.insertWord(e);
-                          Provider.of<StudyProvider>(context, listen: false)
-                              .refresh();
+                          if (e.value) {
+                            task.insertWord(e.key);
+                            Provider.of<StudyProvider>(context, listen: false)
+                                .refresh();
+                          }
                         },
-                        child: Container(
+                        child: AnimatedContainer(
+                          duration: Duration(milliseconds: 200),
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 25),
                           decoration: BoxDecoration(
-                            color: white,
+                            color: e.value ? white : grey,
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
@@ -72,11 +75,14 @@ class InsertWordsTaskScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          child: Text(
-                            e,
-                            style: TextStyle(
-                              color: black,
-                              fontSize: 22,
+                          child: AnimatedContainer(
+                            duration: Duration(milliseconds: 200),
+                            child: Text(
+                              e.key,
+                              style: TextStyle(
+                                color: e.value ? black : grey,
+                                fontSize: 20,
+                              ),
                             ),
                           ),
                         ),

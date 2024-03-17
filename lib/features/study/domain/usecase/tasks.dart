@@ -66,24 +66,24 @@ class InsertWordsTask extends InsertionTask {
   final String _text;
   late List<String> _allWords;
   late final List<int> _wordIndexes;
-  late List<String> _words;
+  late Map<String, bool> _words;
   int _index = 0;
 
   String get text => _allWords.join(' ');
-  List<String> get words => _words;
+  Map<String, bool> get words => _words;
 
   InsertWordsTask(super.name, this._text, Set<int> wordIndexes,
       [super.id, super.lessonId, super._everCompleted]) {
     _wordIndexes = wordIndexes.toList();
     _allWords = _text.split(' ');
-    _words = [];
+    _words = {};
     _wordIndexes.shuffle();
     for (var elem in _wordIndexes) {
       if (elem < 0 || elem >= _allWords.length) {
         throw Exception("out of text range");
       }
 
-      _words.add(_allWords[elem]);
+      _words[_allWords[elem]] = true;
       _allWords[elem] = "_" * _allWords[elem].length;
     }
     _wordIndexes.sort();
@@ -91,10 +91,10 @@ class InsertWordsTask extends InsertionTask {
 
   @override
   void insertWord(String word) {
-    if (!_words.contains(word)) {
+    if (!_words.keys.contains(word)) {
       throw Exception("word not found");
     }
-    _words.remove(word);
+    _words[word] = false;
     _allWords[_wordIndexes[_index]] = word;
     _index++;
   }
@@ -106,7 +106,7 @@ class InsertWordsTask extends InsertionTask {
     }
     _index--;
     var word = _allWords[_wordIndexes[_index]];
-    _words.add(word);
+    _words[word] = true;
     _allWords[_wordIndexes[_index]] = "_" * word.length;
   }
 
@@ -127,10 +127,9 @@ class InsertWordsTask extends InsertionTask {
   @override
   void reset() {
     _allWords = _text.split(' ');
-    _words = [];
 
     for (var elem in _wordIndexes) {
-      _words.add(_allWords[elem]);
+      _words[_allWords[elem]] = true;
       _allWords[elem] = "_" * _allWords[elem].length;
     }
     _wordIndexes.sort();
@@ -148,25 +147,29 @@ class TranslateTextTask extends InsertionTask {
   final String _text;
   final String _translation;
   late List<String> _insertedWords;
-  late List<String> _words;
+  late Map<String, bool> _words;
 
   String get text => _text;
-  List<String> get words => _words;
+  Map<String, bool> get words => _words;
   String get translation => _insertedWords.join(' ');
 
   TranslateTextTask(super.name, this._text, this._translation,
       [super.id, super.lessonId, super._everCompleted]) {
-    _words = _translation.split(' ');
-    _words.shuffle();
     _insertedWords = [];
+    _words = {};
+    var tempwords = _translation.split(' ');
+    tempwords.shuffle();
+    for (var word in tempwords) {
+      _words[word] = true;
+    }
   }
 
   @override
   void insertWord(String word) {
-    if (!_words.contains(word)) {
+    if (!_words.keys.contains(word)) {
       throw Exception("word not found");
     }
-    _words.remove(word);
+    _words[word] = false;
     _insertedWords.add(word);
   }
 
@@ -174,7 +177,7 @@ class TranslateTextTask extends InsertionTask {
   void removeLast() {
     if (_insertedWords.isEmpty) return;
     var word = _insertedWords.last;
-    _words.add(word);
+    _words[word] = true;
     _insertedWords.removeLast();
   }
 
@@ -194,8 +197,11 @@ class TranslateTextTask extends InsertionTask {
 
   @override
   void reset() {
-    _words = _translation.split(' ');
-    _words.shuffle();
+    var tempwords = translation.split(' ');
+    tempwords.shuffle();
+    for (var word in tempwords) {
+      _words[word] = true;
+    }
     _insertedWords = [];
     _isCompleted = false;
   }

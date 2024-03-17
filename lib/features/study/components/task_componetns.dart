@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mova/features/study/providers/study_provider.dart';
@@ -5,6 +6,8 @@ import 'package:mova/presentation/components/colors.dart';
 import 'package:provider/provider.dart';
 
 void checkTask(BuildContext context, bool complete) {
+  var player = AudioPlayer();
+  player.play(AssetSource(complete ? 'sounds/correct.wav' : "sounds/fail.mp3"));
   showModalBottomSheet(
       isDismissible: false,
       context: context,

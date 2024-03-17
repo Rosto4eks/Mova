@@ -31,7 +31,7 @@ class TranslateTextTaskScreen extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 0),
           child: Text(
             task.text,
-            style: const TextStyle(fontSize: 25),
+            style: const TextStyle(fontSize: 22),
           ),
         ),
         Container(
@@ -49,31 +49,34 @@ class TranslateTextTaskScreen extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 0),
             child: Text(
               task.translation,
-              style: const TextStyle(fontSize: 25),
+              style: const TextStyle(fontSize: 22),
             ),
           ),
         ),
         Expanded(
             flex: 2,
             child: Container(
-              margin: const EdgeInsets.only(bottom: 100),
               alignment: Alignment.bottomCenter,
+              margin: EdgeInsets.only(bottom: 100),
               child: Wrap(
-                spacing: 20,
-                runSpacing: 10,
-                children: task.words
+                spacing: 10,
+                runSpacing: 8,
+                children: task.words.entries
                     .map<GestureDetector>(
                       (e) => GestureDetector(
                         onTap: () {
-                          task.insertWord(e);
-                          Provider.of<StudyProvider>(context, listen: false)
-                              .refresh();
+                          if (e.value) {
+                            task.insertWord(e.key);
+                            Provider.of<StudyProvider>(context, listen: false)
+                                .refresh();
+                          }
                         },
-                        child: Container(
+                        child: AnimatedContainer(
+                          duration: Duration(milliseconds: 200),
                           padding: const EdgeInsets.symmetric(
                               vertical: 4, horizontal: 10),
                           decoration: BoxDecoration(
-                            color: white,
+                            color: e.value ? white : grey,
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
@@ -85,9 +88,13 @@ class TranslateTextTaskScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          child: Text(
-                            e,
-                            style: TextStyle(color: black, fontSize: 23),
+                          child: AnimatedContainer(
+                            duration: Duration(milliseconds: 200),
+                            child: Text(
+                              e.key,
+                              style: TextStyle(
+                                  color: e.value ? black : grey, fontSize: 20),
+                            ),
                           ),
                         ),
                       ),

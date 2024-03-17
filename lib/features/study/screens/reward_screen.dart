@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,6 +15,7 @@ class RewardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AudioPlayer().play(AssetSource("sounds/complete.mp3"), volume: 0.6);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(

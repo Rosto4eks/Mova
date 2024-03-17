@@ -9,25 +9,32 @@ class Repository {
     modules.add(Module("Жывёлы", 3, 0, false));
     modules.add(Module("Стравы", 2, 1, false));
 
-    lessons.add(Lesson("тест", 2, 0, 0, false));
-    lessons.add(Lesson("Хто жыве ў лесе?", 9, 1, 0, false));
+    lessons.add(Lesson("хто такі трус?", 2, 0, 0, false));
+    lessons.add(Lesson("жывёлы радзімы", 9, 1, 0, false));
     lessons.add(Lesson("lesson 3", 3, 2, 0, false));
 
     lessons.add(Lesson("lesson 1", 2, 3, 1, false));
     lessons.add(Lesson("lesson 2", 3, 4, 1, false));
 
-    tasks.add(TranslateTextTask("task 1", "aboba", "aboba", 0, 0, false));
-    tasks.add(TranslateTextTask("task 2", "bebra", "bebra", 1, 0, false));
+    tasks.add(TranslateWordTask("task 1", "Хто такі трус?",
+        ["кролик", "трус", "мышь", "заяц"], 0, 0, 0, false));
+    tasks.add(InsertWordsTask(
+        "task 2",
+        "пухнастыя звяры, якія пераважна жывуць y лесе, на палях i ў сельскай мясцовасці",
+        {1, 3, 6, 12},
+        1,
+        0,
+        false));
 
     tasks.add(TranslateWordTask("task 1", "вавёрка",
         ["лиса", "белка", "выдра", "куница"], 1, 2, 1, false));
     tasks.add(TranslateWordTask("task 2", "дзік",
         ["медведь", "зубр", "волк", "кабан"], 3, 3, 1, false));
-    tasks.add(TranslateWordTask("task 3", "пацук",
-        ["крыса", "мышь", "хомяк", "шиншила"], 0, 4, 1, false));
+    tasks.add(TranslateWordTask("task 3", "бусел",
+        ["аист", "цапля", "лебедь", "фламинго"], 0, 4, 1, false));
     tasks.add(InsertWordsTask(
         "task 4",
-        "Там дзе сонечныя промні прасочваюцца праз густыя яліны, жыве дзік",
+        "Там дзе сонечныя промні прасочваюцца праз густыя яліны, жыве невялічкі дзік",
         {2, 5, 9},
         5,
         1,
@@ -35,19 +42,14 @@ class Repository {
     tasks.add(WriteTranslationTask("task 5", "белка", "вавёрка", 6, 1, false));
     tasks.add(InsertWordsTask(
         "task 6",
-        "Маленькі пацук, які зусім нядаўна з'явіўся на свет, ужо хутка поўзае",
-        {1, 4, 7, 10},
+        "Буслы ў той год не данеслі вясну на крылах — згубілі недзе па дарозе.",
+        {3, 5, 8, 11},
         7,
         1,
         false));
     tasks.add(WriteTranslationTask("task 7", "кабан", "дзік", 8, 1, false));
-    tasks.add(TranslateTextTask(
-        "task 8",
-        "Тры дня таму Алеся ўпершыню убачыла шэрага пацука",
-        "три дня назад Алеся впервые увидела серую крысу",
-        9,
-        1,
-        false));
+    tasks.add(TranslateTextTask("task 8", "Каля нашай хаты звілі гняздо буслы",
+        "Возле нашего дома свили гнездо аисты", 9, 1, false));
     tasks.add(TranslateWordTask("task 9", "белка",
         ["ліса", "куніца", "выдра", "вавёрка"], 3, 10, 1, false));
 

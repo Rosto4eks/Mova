@@ -1,10 +1,11 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter/widgets.dart";
+import "package:mova/features/study/providers/study_provider.dart";
+import "package:mova/features/study/screens/lesson_screen.dart";
 import "package:mova/presentation/components/colors.dart";
 import "package:mova/presentation/components/home_screen_template.dart";
-import "package:mova/features/study/screens/study_screen.dart";
-import "package:mova/presentation/pages/main_page.dart";
+import "package:provider/provider.dart";
 
 class HomePage extends StatefulWidget {
   PageController _pageController;
@@ -15,26 +16,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomeState extends State<HomePage> {
-  double _moduleProgress = 0.8;
-  String _moduleName = "занятак 1 - 3";
   String _prevBook = "Дзікае паляванне караля стаха";
-
-  void _navigateToLesson() {
-    widget._pageController.jumpToPage(2);
-  }
 
   @override
   Widget build(BuildContext context) {
+    var lesson = Provider.of<StudyProvider>(context).lastUncompletedLesson();
     return Scaffold(
       body: HomeTemplate(
           Center(
             child: Text(
-              "HOME",
-              style: TextStyle(
-                color: color3,
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-              ),
+              "хатняя",
+              style: TextStyle(color: white, fontSize: 40),
             ),
           ),
           Center(
@@ -46,7 +38,7 @@ class _HomeState extends State<HomePage> {
                       margin:
                           EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                       decoration: BoxDecoration(
-                          color: color3,
+                          color: white,
                           boxShadow: [
                             BoxShadow(
                               color: Color.fromARGB(255, 189, 189, 189)
@@ -84,12 +76,22 @@ class _HomeState extends State<HomePage> {
                   ),
                   Expanded(
                     child: GestureDetector(
-                      onTap: _navigateToLesson,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (ctx) => LessonScreen(
+                                Provider.of<StudyProvider>(context,
+                                        listen: false)
+                                    .setLastUncompletedLesson()),
+                          ),
+                        );
+                      },
                       child: Container(
                         margin:
                             EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                         decoration: BoxDecoration(
-                            color: color3,
+                            color: white,
                             boxShadow: [
                               BoxShadow(
                                 color: Color.fromARGB(255, 189, 189, 189)
@@ -108,7 +110,7 @@ class _HomeState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                _moduleName,
+                                lesson.name,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -117,10 +119,11 @@ class _HomeState extends State<HomePage> {
                               Container(
                                 margin: const EdgeInsets.all(20),
                                 child: LinearProgressIndicator(
-                                  value: _moduleProgress,
+                                  value: lesson.elementsCompleted.toDouble() /
+                                      lesson.elementsCount.toDouble(),
                                   minHeight: 8,
                                   borderRadius: BorderRadius.circular(30),
-                                  color: color4,
+                                  color: blue,
                                 ),
                               ),
                               Text(

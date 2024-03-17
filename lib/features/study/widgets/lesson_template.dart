@@ -37,68 +37,48 @@ class LessonTemplate extends StatelessWidget {
         child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 255, 255, 255),
-              borderRadius: BorderRadius.circular(15),
+              color: lesson.everCompleted
+                  ? const Color.fromARGB(255, 123, 248, 161)
+                  : white,
+              borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
-                  color:
-                      const Color.fromARGB(255, 160, 160, 160).withOpacity(0.2),
+                  color: grey.withOpacity(0.2),
                   spreadRadius: 1,
-                  blurRadius: 7,
+                  blurRadius: 10,
                   offset: const Offset(0, 5), // changes position of shadow
                 ),
               ],
             ),
-            padding: const EdgeInsets.all(20),
             child: Row(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(30),
-                    ),
-                    color: lesson.everCompleted
-                        ? const Color.fromARGB(255, 127, 206, 129)
-                        : isEnabled
-                            ? const Color.fromARGB(255, 121, 188, 233)
-                            : Colors.white,
-                  ),
-                  height: 16,
-                  width: 16,
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                ),
-                Text(
-                  lesson.name,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: isEnabled
-                        ? color4
-                        : const Color.fromARGB(255, 189, 189, 189),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
                 Expanded(
                   child: Container(
-                    alignment: Alignment.centerRight,
-                    margin: const EdgeInsets.only(left: 15.0, right: 5),
+                    decoration: BoxDecoration(
+                      color: white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: const EdgeInsets.all(20),
                     child: Text(
-                      "${lesson.elementsCount}",
+                      lesson.name,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 18,
-                        color: isEnabled
-                            ? color2
-                            : const Color.fromARGB(255, 189, 189, 189),
-                      ),
+                          fontSize: 18,
+                          color: isEnabled ? black : grey,
+                          fontWeight: FontWeight.normal,
+                          fontFamily: "Nunito"),
                     ),
                   ),
                 ),
                 Container(
-                  alignment: Alignment.topCenter,
-                  child: Icon(
-                    Icons.category,
-                    color: color2,
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    "${lesson.elementsCompleted}/${lesson.elementsCount}",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: lesson.everCompleted ? white : grey,
+                    ),
                   ),
                 ),
               ],

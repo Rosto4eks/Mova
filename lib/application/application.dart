@@ -16,10 +16,11 @@ class App extends StatelessWidget {
         ChangeNotifierProvider<StudyProvider>(
             create: (context) => StudyProvider(studyService))
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
+        theme: ThemeData(fontFamily: 'Comfortaa'),
         debugShowCheckedModeBanner: false,
         title: "Mova",
-        home: MainPage(),
+        home: const MainPage(),
       ),
     );
   }

@@ -39,7 +39,7 @@ class TranslateWordTask extends Task {
   @override
   bool check() {
     _isCompleted = _selectedIndex == _rightIndex;
-    if (_isCompleted && !_everCompleted) {
+    if (_isCompleted) {
       _everCompleted = true;
       notifier.notify(Event(
         "Task",
@@ -113,7 +113,7 @@ class InsertWordsTask extends InsertionTask {
   @override
   bool check() {
     _isCompleted = _text == text;
-    if (_isCompleted && !_everCompleted) {
+    if (_isCompleted) {
       _everCompleted = true;
       notifier.notify(Event(
         "Task",
@@ -181,7 +181,7 @@ class TranslateTextTask extends InsertionTask {
   @override
   bool check() {
     _isCompleted = _translation == translation;
-    if (_isCompleted && !_everCompleted) {
+    if (_isCompleted) {
       _everCompleted = true;
       notifier.notify(Event(
         "Task",
@@ -223,7 +223,7 @@ class WriteTranslationTask extends Task {
   @override
   bool check() {
     _isCompleted = _translation.toLowerCase() == input.toLowerCase();
-    if (_isCompleted && !_everCompleted) {
+    if (_isCompleted) {
       _everCompleted = true;
       notifier.notify(Event(
         "Task",

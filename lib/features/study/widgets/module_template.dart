@@ -37,7 +37,7 @@ class ModuleTemplate extends StatelessWidget {
             padding: const EdgeInsets.all(30),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: isEnabled ? color2 : Color.fromARGB(22, 0, 0, 0),
+              color: isEnabled ? lightBlue : grey,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -45,9 +45,9 @@ class ModuleTemplate extends StatelessWidget {
                 Text(
                   module.name,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 30,
-                    color: color3,
+                    color: white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -58,7 +58,7 @@ class ModuleTemplate extends StatelessWidget {
                         module.elementsCount.toDouble(),
                     minHeight: 10,
                     borderRadius: BorderRadius.circular(20),
-                    color: color4,
+                    color: lightGreen,
                   ),
                 ),
                 Container(
@@ -77,7 +77,7 @@ class ModuleTemplate extends StatelessWidget {
                           : "закрыта",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: color3,
+                        color: white,
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                       ),

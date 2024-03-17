@@ -20,9 +20,14 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  
+  fonts:
+  - family: Comfortaa
+    fonts:
+      - asset: fonts/Comfortaa-VariableFont_wght.ttf
 
-assets:
-  - assets/images/
+  assets:
+    - assets/images/sigma.gif
 
 flutter_native_splash:
   color: "#9694ff"

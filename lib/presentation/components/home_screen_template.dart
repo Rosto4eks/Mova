@@ -14,8 +14,8 @@ class HomeTemplate extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            color1,
-            color2,
+            lightBlue,
+            lightGreen,
           ],
           stops: [0, 0.75],
         )),
@@ -27,7 +27,7 @@ class HomeTemplate extends StatelessWidget {
               child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
-                color: color3,
+                color: white,
                 boxShadow: [
                   BoxShadow(
                     color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),

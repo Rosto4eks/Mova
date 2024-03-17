@@ -23,6 +23,14 @@ class Lesson extends Entity with EntityContainer<Task> {
     return _elements[elementsCompleted];
   }
 
+  void resetTasks() {
+    for (int i = 0; i < _elementsCount; i++) {
+      _elements[i].reset();
+    }
+    _elementsCompleted = 0;
+    _isCompleted = false;
+  }
+
   void _notifierEvent(Event event) {
     if (event.name != "Task" || event.eventType != "Completed") return;
     _elementsCompleted++;

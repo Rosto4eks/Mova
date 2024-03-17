@@ -9,47 +9,47 @@ class Repository {
     modules.add(Module("Жывёлы", 3, 0, false));
     modules.add(Module("Стравы", 2, 1, false));
 
-    lessons.add(Lesson("Хто жыве ў лесе?", 9, 0, 0, false));
-    lessons.add(Lesson("lesson 2", 2, 1, 0, false));
+    lessons.add(Lesson("тест", 2, 0, 0, false));
+    lessons.add(Lesson("Хто жыве ў лесе?", 9, 1, 0, false));
     lessons.add(Lesson("lesson 3", 3, 2, 0, false));
 
     lessons.add(Lesson("lesson 1", 2, 3, 1, false));
     lessons.add(Lesson("lesson 2", 3, 4, 1, false));
 
+    tasks.add(TranslateTextTask("task 1", "aboba", "aboba", 0, 0, false));
+    tasks.add(TranslateTextTask("task 2", "bebra", "bebra", 1, 0, false));
+
     tasks.add(TranslateWordTask("task 1", "вавёрка",
-        ["лиса", "белка", "выдра", "куница"], 1, 0, 0, false));
+        ["лиса", "белка", "выдра", "куница"], 1, 2, 1, false));
     tasks.add(TranslateWordTask("task 2", "дзік",
-        ["медведь", "зубр", "волк", "кабан"], 3, 1, 0, false));
+        ["медведь", "зубр", "волк", "кабан"], 3, 3, 1, false));
     tasks.add(TranslateWordTask("task 3", "пацук",
-        ["крыса", "мышь", "хомяк", "шиншила"], 0, 2, 0, false));
+        ["крыса", "мышь", "хомяк", "шиншила"], 0, 4, 1, false));
     tasks.add(InsertWordsTask(
         "task 4",
         "Там дзе сонечныя промні прасочваюцца праз густыя яліны, жыве дзік",
         {2, 5, 9},
-        3,
-        0,
+        5,
+        1,
         false));
-    tasks.add(WriteTranslationTask("task 5", "белка", "вавёрка", 4, 0, false));
+    tasks.add(WriteTranslationTask("task 5", "белка", "вавёрка", 6, 1, false));
     tasks.add(InsertWordsTask(
         "task 6",
         "Маленькі пацук, які зусім нядаўна з'явіўся на свет, ужо хутка поўзае",
         {1, 4, 7, 10},
-        5,
-        0,
+        7,
+        1,
         false));
-    tasks.add(WriteTranslationTask("task 7", "кабан", "дзік", 6, 0, false));
+    tasks.add(WriteTranslationTask("task 7", "кабан", "дзік", 8, 1, false));
     tasks.add(TranslateTextTask(
         "task 8",
         "Тры дня таму Алеся ўпершыню убачыла шэрага пацука",
         "три дня назад Алеся впервые увидела серую крысу",
-        7,
-        0,
+        9,
+        1,
         false));
     tasks.add(TranslateWordTask("task 9", "белка",
-        ["ліса", "куніца", "выдра", "вавёрка"], 3, 8, 0, false));
-
-    tasks.add(TranslateTextTask("task 1", "d", "d", 10, 1, false));
-    tasks.add(TranslateTextTask("task 2", "e", "e", 11, 1, false));
+        ["ліса", "куніца", "выдра", "вавёрка"], 3, 10, 1, false));
 
     tasks.add(TranslateTextTask("task 1", "f", "f", 12, 2, false));
     tasks.add(TranslateTextTask("task 2", "g", "g", 13, 2, false));

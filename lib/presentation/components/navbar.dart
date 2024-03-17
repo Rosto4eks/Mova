@@ -9,34 +9,30 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(10),
       child: GNav(
+        duration: Duration(milliseconds: 350),
         onTabChange: (val) => onTabChange(val),
-        activeColor: color3,
-        tabBackgroundColor: color4,
+        activeColor: white,
+        tabBackgroundColor: lightBlue,
         color: const Color.fromARGB(255, 191, 207, 202),
-        padding: const EdgeInsets.all(5),
+        padding: const EdgeInsets.all(10),
         iconSize: 30,
         tabs: const [
           GButton(
             icon: Icons.home,
-            text: "Хатняя",
           ),
           GButton(
             icon: Icons.translate,
-            text: "Перавесці",
           ),
           GButton(
             icon: Icons.book,
-            text: "Вучыцца",
           ),
           GButton(
             icon: Icons.archive,
-            text: "Архіў",
           ),
           GButton(
             icon: Icons.account_circle,
-            text: "Профіль",
           ),
         ],
       ),

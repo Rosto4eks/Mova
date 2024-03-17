@@ -5,6 +5,7 @@ class StudyProvider extends ChangeNotifier {
   final StudyService _service;
   late Module _selectedModule;
   late Lesson _selectedLesson;
+  late bool _everFinished;
 
   StudyProvider(this._service);
 
@@ -30,11 +31,31 @@ class StudyProvider extends ChangeNotifier {
 
   void selectLesson(int index) {
     _selectedLesson = _selectedModule.avaiableLessons[index];
+    _everFinished = _selectedLesson.everCompleted;
+  }
+
+  void resetTasks() {
+    _selectedLesson.resetTasks();
+    _everFinished = _selectedLesson.everCompleted;
   }
 
   Task getTask() {
     if (_selectedLesson.isCompleted) throw Exception("aboba");
     return _selectedLesson.nextTask();
+  }
+
+  bool isLessonEverFinished() => _everFinished;
+
+  Lesson lastUncompletedLesson() => _service
+          .avaiableModules[_service.elementsCompleted].avaiableLessons[
+      _service.avaiableModules[_service.elementsCompleted].elementsCompleted];
+
+  int setLastUncompletedLesson() {
+    _selectedModule = _service.avaiableModules[_service.elementsCompleted];
+    _selectedLesson =
+        _selectedModule.avaiableLessons[_selectedModule.elementsCompleted];
+    _everFinished = _selectedLesson.everCompleted;
+    return _selectedModule.elementsCompleted;
   }
 
   void refresh() {

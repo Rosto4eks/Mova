@@ -7,7 +7,12 @@ class StudyProvider extends ChangeNotifier {
   late Lesson _selectedLesson;
   late bool _everFinished;
 
-  StudyProvider(this._service);
+  StudyProvider(this._service) {
+    _selectedModule = _service.avaiableModules[_service.elementsCompleted];
+    _selectedLesson =
+        _selectedModule.avaiableLessons[_selectedModule.elementsCompleted];
+    _everFinished = _selectedLesson.everCompleted;
+  }
 
   int getModulesCount() {
     return _service.elementsCount;
@@ -46,9 +51,13 @@ class StudyProvider extends ChangeNotifier {
 
   bool isLessonEverFinished() => _everFinished;
 
-  Lesson lastUncompletedLesson() => _service
-          .avaiableModules[_service.elementsCompleted].avaiableLessons[
-      _service.avaiableModules[_service.elementsCompleted].elementsCompleted];
+  Lesson lastUncompletedLesson() {
+    if (_service.elementsCompleted == _service.elementsCount) {
+      throw Exception("all modules completed");
+    }
+    return _service.avaiableModules[_service.elementsCompleted].avaiableLessons[
+        _service.avaiableModules[_service.elementsCompleted].elementsCompleted];
+  }
 
   int setLastUncompletedLesson() {
     _selectedModule = _service.avaiableModules[_service.elementsCompleted];
@@ -56,6 +65,13 @@ class StudyProvider extends ChangeNotifier {
         _selectedModule.avaiableLessons[_selectedModule.elementsCompleted];
     _everFinished = _selectedLesson.everCompleted;
     return _selectedModule.elementsCompleted;
+  }
+
+  int getCurrentModule() {
+    if (_service.elementsCompleted == _service.elementsCount) {
+      return _service.elementsCount - 1;
+    }
+    return _service.avaiableModules.indexOf(_selectedModule);
   }
 
   void refresh() {

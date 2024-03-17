@@ -21,9 +21,21 @@ class ModuleScreen extends StatelessWidget {
         arrow: true,
       ),
       backgroundColor: lightGrey,
-      body: ListView(
-        children: List<LessonTemplate>.generate(
-            module.elementsCount, (index) => LessonTemplate(index)),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: RadialGradient(
+            center: Alignment.bottomCenter,
+            radius: 1.5,
+            colors: [
+              lightBlue,
+              lightGrey,
+            ],
+          ),
+        ),
+        child: ListView(
+          children: List<LessonTemplate>.generate(
+              module.elementsCount, (index) => LessonTemplate(index)),
+        ),
       ),
     );
   }

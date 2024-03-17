@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mova/features/study/providers/module_provider.dart';
 import 'package:mova/features/study/providers/study_provider.dart';
 import 'package:mova/features/study/screens/module_screen.dart';
 import 'package:mova/presentation/components/colors.dart';
@@ -22,6 +23,7 @@ class ModuleTemplate extends StatelessWidget {
     var module = Provider.of<StudyProvider>(context).getModule(moduleIndex);
     var isEnabled =
         Provider.of<StudyProvider>(context).isModuleEnabled(moduleIndex);
+    int activeIndex = Provider.of<ModuleProvider>(context).index;
     return Container(
       alignment: Alignment.bottomCenter,
       child: GestureDetector(
@@ -32,12 +34,27 @@ class ModuleTemplate extends StatelessWidget {
                 openModule(context);
               }
             : () {},
-        child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+        child: AnimatedContainer(
+            duration: Duration(milliseconds: 300),
+            margin: moduleIndex == activeIndex
+                ? EdgeInsets.symmetric(vertical: 55, horizontal: 0)
+                : EdgeInsets.symmetric(vertical: 65, horizontal: 15),
             padding: const EdgeInsets.all(30),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: isEnabled ? lightBlue : grey,
+              color: moduleIndex == activeIndex
+                  ? isEnabled
+                      ? lightBlue.withOpacity(0.8)
+                      : const Color.fromARGB(255, 241, 241, 241)
+                  : lightBlue.withOpacity(0.4),
+              boxShadow: [
+                BoxShadow(
+                  color: grey.withOpacity(0.6),
+                  spreadRadius: 2,
+                  blurRadius: 10,
+                  offset: const Offset(0, 5), // changes position of shadow
+                ),
+              ],
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -45,9 +62,9 @@ class ModuleTemplate extends StatelessWidget {
                 Text(
                   module.name,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 30,
-                    color: white,
+                    color: isEnabled ? white : grey,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -59,6 +76,7 @@ class ModuleTemplate extends StatelessWidget {
                     minHeight: 10,
                     borderRadius: BorderRadius.circular(20),
                     color: lightGreen,
+                    backgroundColor: isEnabled ? white : Colors.transparent,
                   ),
                 ),
                 Container(
@@ -70,16 +88,17 @@ class ModuleTemplate extends StatelessWidget {
                     ),
                     child: Text(
                       isEnabled
-                          ? switch (module.elementsCompleted) {
-                              (0) => "пачаць",
-                              _ => "працягнуць"
-                            }
+                          ? module.elementsCompleted == 0
+                              ? "пачаць"
+                              : module.elementsCompleted == module.elementsCount
+                                  ? "зроблена"
+                                  : "працягнуць"
                           : "закрыта",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: white,
-                        fontSize: 25,
+                        color: isEnabled ? white : grey,
                         fontWeight: FontWeight.bold,
+                        fontSize: 25,
                       ),
                     ),
                   ),

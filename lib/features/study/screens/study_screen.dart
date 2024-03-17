@@ -1,6 +1,7 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter/widgets.dart";
+import "package:mova/features/study/providers/module_provider.dart";
 import "package:mova/features/study/providers/study_provider.dart";
 import "package:mova/presentation/components/appbar.dart";
 import "package:mova/presentation/components/colors.dart";
@@ -22,10 +23,22 @@ class _StudyState extends State<StudyScreen> {
         body: Consumer<StudyProvider>(
           builder: (context, study, child) {
             return PageView(
-                scrollDirection: Axis.vertical,
-                controller: PageController(viewportFraction: 0.7),
-                children: List<ModuleTemplate>.generate(
-                    study.getModulesCount(), (index) => ModuleTemplate(index)));
+              controller: PageController(
+                viewportFraction: 0.75,
+                initialPage: () {
+                  var i = study.getCurrentModule();
+                  Provider.of<ModuleProvider>(context, listen: false).index = i;
+                  return i;
+                }(),
+              ),
+              onPageChanged: (index) =>
+                  Provider.of<ModuleProvider>(context, listen: false)
+                      .setIndex(index),
+              children: List<ModuleTemplate>.generate(
+                study.getModulesCount(),
+                (index) => ModuleTemplate(index),
+              ),
+            );
           },
         ));
   }

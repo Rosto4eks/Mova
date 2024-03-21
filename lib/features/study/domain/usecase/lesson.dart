@@ -4,8 +4,13 @@ class Lesson extends Entity with EntityContainer<Task> {
   late final int? moduleId;
 
   Lesson(super.name, int count,
-      [super.id, this.moduleId, super._everCompleted]) {
+      [super.id,
+      this.moduleId,
+      super._everCompleted,
+      super._isCompleted,
+      int elementsCompleted = 0]) {
     _elementsCount = count;
+    _elementsCompleted = elementsCompleted;
     listeners.add(_notifierEvent);
   }
 
@@ -34,14 +39,16 @@ class Lesson extends Entity with EntityContainer<Task> {
   void _notifierEvent(Event event) {
     if (event.name != "Task" || event.eventType != "Completed") return;
     _elementsCompleted++;
+    event.data["moduleId"] = moduleId;
+    notifier.notify(event);
     if (elementsCompleted == elementsCount) {
       _isCompleted = true;
-      if (_isCompleted && !everCompleted) {
+      if (!everCompleted) {
         _everCompleted = true;
         notifier.notify(Event(
           "Lesson",
           "Completed",
-          {"id": id},
+          {"id": id, "moduleId": moduleId},
         ));
       }
     }

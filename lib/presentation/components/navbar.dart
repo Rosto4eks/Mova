@@ -9,6 +9,19 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: white,
+        boxShadow: [
+          BoxShadow(
+            color: black.withOpacity(0.1),
+            spreadRadius: 2,
+            blurRadius: 10,
+            offset: const Offset(0, 5), // changes position of shadow
+          ),
+        ],
+      ),
       padding: const EdgeInsets.all(10),
       child: GNav(
         duration: Duration(milliseconds: 350),

@@ -6,12 +6,11 @@ import 'package:mova/presentation/pages/main_page.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  final StudyService studyService;
+  const App(this.studyService, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    var repository = Repository();
-    var studyService = StudyService(repository, "", 2);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<StudyProvider>(
@@ -20,9 +19,12 @@ class App extends StatelessWidget {
         ChangeNotifierProvider<ModuleProvider>(
           create: (context) => ModuleProvider(0),
         ),
+        ChangeNotifierProvider<LessonProvider>(
+          create: (context) => LessonProvider(0),
+        ),
       ],
       child: MaterialApp(
-        theme: ThemeData(fontFamily: 'Comfortaa'),
+        theme: ThemeData(fontFamily: 'Geologica'),
         debugShowCheckedModeBanner: false,
         title: "Mova",
         home: const MainPage(),

@@ -8,9 +8,19 @@ class StudyProvider extends ChangeNotifier {
   late bool _everFinished;
 
   StudyProvider(this._service) {
-    _selectedModule = _service.avaiableModules[_service.elementsCompleted];
-    _selectedLesson =
-        _selectedModule.avaiableLessons[_selectedModule.elementsCompleted];
+    if (_service.elementsCompleted == _service.elementsCount) {
+      _selectedModule =
+          _service.avaiableModules[_service.elementsCompleted - 1];
+    } else {
+      _selectedModule = _service.avaiableModules[_service.elementsCompleted];
+    }
+    if (_selectedModule.elementsCompleted == _selectedModule.elementsCount) {
+      _selectedLesson = _selectedModule
+          .avaiableLessons[_selectedModule.elementsCompleted - 1];
+    } else {
+      _selectedLesson =
+          _selectedModule.avaiableLessons[_selectedModule.elementsCompleted];
+    }
     _everFinished = _selectedLesson.everCompleted;
   }
 
@@ -36,6 +46,7 @@ class StudyProvider extends ChangeNotifier {
 
   void selectLesson(int index) {
     _selectedLesson = _selectedModule.avaiableLessons[index];
+    print(_selectedLesson.everCompleted);
     _everFinished = _selectedLesson.everCompleted;
   }
 
@@ -72,6 +83,13 @@ class StudyProvider extends ChangeNotifier {
       return _service.elementsCount - 1;
     }
     return _service.avaiableModules.indexOf(_selectedModule);
+  }
+
+  int getCurrentLesson() {
+    if (_selectedModule.elementsCompleted == _selectedModule.elementsCount) {
+      return _selectedModule.elementsCount - 1;
+    }
+    return _selectedModule.avaiableLessons.indexOf(_selectedLesson);
   }
 
   void refresh() {

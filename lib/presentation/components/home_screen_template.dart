@@ -9,13 +9,14 @@ class HomeTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: const BoxDecoration(
+        padding: EdgeInsets.only(bottom: 100),
+        decoration: BoxDecoration(
             gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
             lightBlue,
-            lightGreen,
+            lightGreen.withOpacity(0.6),
           ],
           stops: [0, 0.75],
         )),
@@ -27,15 +28,6 @@ class HomeTemplate extends StatelessWidget {
               child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
-                color: white,
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
-                    spreadRadius: 5,
-                    blurRadius: 10,
-                    offset: const Offset(0, 3), // changes position of shadow
-                  ),
-                ],
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30))),

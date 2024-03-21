@@ -9,4 +9,19 @@ class ModuleProvider extends ChangeNotifier {
     index = i;
     notifyListeners();
   }
+
+  int getIndex() => index;
+}
+
+class LessonProvider extends ChangeNotifier {
+  int index;
+
+  LessonProvider(this.index);
+
+  void setIndex(int i) {
+    index = i;
+    notifyListeners();
+  }
+
+  int getIndex() => index;
 }

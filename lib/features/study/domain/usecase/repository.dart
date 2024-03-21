@@ -1,11 +1,11 @@
 part of study;
 
-class Repository {
+class FakeRepository {
   late final List<Module> modules = [];
   late final List<Lesson> lessons = [];
   late final List<Task> tasks = [];
 
-  Repository() {
+  FakeRepository() {
     modules.add(Module("Жывёлы", 3, 0, false));
     modules.add(Module("Стравы", 2, 1, false));
 

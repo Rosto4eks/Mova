@@ -31,7 +31,6 @@ class LessonScreen extends StatelessWidget {
         w = const WriteTranslationTaskScreen();
       }
     } catch (e) {
-      print(lesson.everCompleted);
       return Provider.of<StudyProvider>(context).isLessonEverFinished()
           ? CompleteScreen(lesson, lessonIndex)
           : RewardScreen(lesson, lessonIndex);

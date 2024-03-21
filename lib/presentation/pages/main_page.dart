@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mova/presentation/components/navbar.dart';
 import 'package:mova/features/study/screens/study_screen.dart';
 import 'package:mova/presentation/pages/home_page.dart';
@@ -29,18 +30,27 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         forceMaterialTransparency: true,
       ),
-      bottomNavigationBar: NavBar(
-        onTabChange: (index) => navigate(index),
-      ),
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: _pageController,
+      body: Stack(
         children: [
-          HomePage(_pageController),
-          const TranslatePage(),
-          const StudyScreen(),
-          const LibraryPage(),
-          const ProfilePage(),
+          PageView(
+            physics: const NeverScrollableScrollPhysics(),
+            controller: _pageController,
+            children: [
+              HomePage(_pageController),
+              const TranslatePage(),
+              const StudyScreen(),
+              const LibraryPage(),
+              const ProfilePage(),
+            ],
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: NavBar(
+              onTabChange: (index) => navigate(index),
+            ),
+          )
         ],
       ),
     );

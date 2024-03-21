@@ -12,8 +12,13 @@ class Module extends Entity with EntityContainer<Lesson> {
     return _elements;
   }
 
-  Module(super.name, int count, [super.id, super.everCompleted]) {
+  Module(super.name, int count,
+      [super.id,
+      super.everCompleted,
+      super._isCompleted,
+      int elementsCompleted = 0]) {
     _elementsCount = count;
+    _elementsCompleted = elementsCompleted;
     listeners.add(_notifierEvent);
   }
 

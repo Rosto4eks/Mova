@@ -13,6 +13,7 @@ class TranslateTextTaskScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var task =
         Provider.of<StudyProvider>(context).getTask() as TranslateTextTask;
+    print(task.words);
     return Column(
       children: [
         Container(

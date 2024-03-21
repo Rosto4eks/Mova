@@ -48,8 +48,7 @@ class _HomeState extends State<HomePage> {
                           color: white,
                           boxShadow: [
                             BoxShadow(
-                              color: Color.fromARGB(255, 189, 189, 189)
-                                  .withOpacity(0.5),
+                              color: grey.withOpacity(0.5),
                               spreadRadius: 1,
                               blurRadius: 7,
                               offset:
@@ -102,8 +101,7 @@ class _HomeState extends State<HomePage> {
                               color: white,
                               boxShadow: [
                                 BoxShadow(
-                                  color: Color.fromARGB(255, 189, 189, 189)
-                                      .withOpacity(0.5),
+                                  color: grey.withOpacity(0.5),
                                   spreadRadius: 1,
                                   blurRadius: 7,
                                   offset: Offset(
@@ -131,7 +129,8 @@ class _HomeState extends State<HomePage> {
                                         lesson.elementsCount.toDouble(),
                                     minHeight: 8,
                                     borderRadius: BorderRadius.circular(30),
-                                    color: blue,
+                                    color: lightGreen,
+                                    backgroundColor: grey.withOpacity(0.3),
                                   ),
                                 ),
                                 Text(

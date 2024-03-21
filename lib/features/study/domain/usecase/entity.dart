@@ -10,7 +10,8 @@ abstract class Entity {
   bool get everCompleted => _everCompleted;
   bool get isCompleted => _isCompleted;
 
-  Entity(this.name, [this.id, this._everCompleted = false]);
+  Entity(this.name,
+      [this.id, this._everCompleted = false, this._isCompleted = false]);
 }
 
 abstract mixin class EntityContainer<T extends Entity> {

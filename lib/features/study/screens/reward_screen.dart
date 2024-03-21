@@ -1,12 +1,9 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mova/features/study/domain/usecase/study.dart';
-import 'package:mova/features/study/providers/study_provider.dart';
 import 'package:mova/features/study/screens/complete_screen.dart';
 import 'package:mova/presentation/components/colors.dart';
-import 'package:provider/provider.dart';
 
 class RewardScreen extends StatelessWidget {
   final Lesson lesson;

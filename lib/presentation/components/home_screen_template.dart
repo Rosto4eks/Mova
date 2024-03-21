@@ -9,30 +9,23 @@ class HomeTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.only(bottom: 100),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.only(bottom: 100),
+        decoration: const BoxDecoration(
             gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
           colors: [
-            lightBlue,
-            lightGreen.withOpacity(0.6),
+            purple,
+            lightPurple,
           ],
-          stops: [0, 0.75],
         )),
         child: Column(children: [
           Expanded(
             child: _topWidget,
           ),
           Expanded(
-              child: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30))),
             child: _bottomWidget,
-          )),
+          ),
         ]));
   }
 }

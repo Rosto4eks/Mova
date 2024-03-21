@@ -1,7 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mova/features/study/domain/usecase/study.dart';
+import 'package:mova/features/study/domain/usecase/service.dart';
 import 'package:mova/features/study/screens/complete_screen.dart';
 import 'package:mova/presentation/components/colors.dart';
 
@@ -44,19 +44,17 @@ class RewardScreen extends StatelessWidget {
                 children: [
                   Container(
                     margin: const EdgeInsets.all(20),
-                    child: Text(
+                    child: const Text(
                       "228",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 25,
                       ),
                     ),
                   ),
-                  Container(
-                    child: Image.asset(
-                      "assets/images/sigma.gif",
-                      height: 400,
-                    ),
+                  Image.asset(
+                    "assets/images/sigma.gif",
+                    height: 400,
                   ),
                   GestureDetector(
                     onTap: () => Navigator.pushReplacement(

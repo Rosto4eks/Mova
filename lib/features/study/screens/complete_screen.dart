@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:mova/features/study/domain/usecase/study.dart';
+import 'package:mova/features/study/domain/usecase/service.dart';
 import 'package:mova/features/study/providers/study_provider.dart';
 import 'package:mova/features/study/screens/lesson_screen.dart';
 import 'package:mova/presentation/components/colors.dart';
@@ -62,11 +60,9 @@ class CompleteScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    child: Image.asset(
-                      "assets/images/sigma.gif",
-                      height: 400,
-                    ),
+                  Image.asset(
+                    "assets/images/sigma.gif",
+                    height: 400,
                   ),
                   GestureDetector(
                     onTap: () {

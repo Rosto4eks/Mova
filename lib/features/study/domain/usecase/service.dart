@@ -4,14 +4,14 @@ import 'dart:developer';
 import 'dart:math';
 
 import 'package:mova/features/study/domain/repository/dto.dart';
-import 'package:mova/features/study/domain/repository/study.dart';
+import 'package:mova/features/study/domain/repository/repository.dart';
 
 part 'module.dart';
 part 'lesson.dart';
 part 'tasks.dart';
 part 'entity.dart';
 part 'events.dart';
-part 'repository.dart';
+part '../repository/fake_repository.dart';
 part 'functions.dart';
 
 extension on List<ModuleDTO> {
@@ -44,9 +44,11 @@ class StudyService extends Entity with EntityContainer<Module> {
   StudyService(this._repository, super.name, int count,
       [super.id, super.everCompleted]) {
     _elements = _repository.getModules().toModules();
-    _elements.forEach((element) {
-      if (element._isCompleted) _elementsCompleted++;
-    });
+
+    for (var element in _elements) {
+      if (element.everCompleted) _elementsCompleted++;
+    }
+
     for (int i = 0; i < _elements.length; i++) {
       _elements[i].notifier.add(_notifierEvent);
       _elements[i].notifier.add(_elementHandler);
@@ -77,37 +79,33 @@ class StudyService extends Entity with EntityContainer<Module> {
         _repository.updateModule(ModuleDTO.fromModule(
             _elements.firstWhere((element) => element.id == event.data["id"])));
       } else if (event.name == "Lesson") {
-        _repository.updateLesson(LessonDTO.fromLesson(_elements
-            .firstWhere((element) => element.id == event.data["moduleId"])
-            ._elements
-            .firstWhere((element) => element.id == event.data["id"])));
-
-        _repository.updateModule(ModuleDTO.fromModule(_elements
-            .firstWhere((element) => element.id == event.data["moduleId"])));
-      } else if (event.name == "Task") {
-        _repository.updateLesson(LessonDTO.fromLesson(_elements
-            .firstWhere((element) => element.id == event.data["moduleId"])
-            ._elements
-            .firstWhere((element) => element.id == event.data["lessonId"])));
-        var task = _elements
-            .firstWhere((element) => element.id == event.data["moduleId"])
-            ._elements
-            .firstWhere((element) => element.id == event.data["lessonId"])
-            ._elements
+        var tempModule = _elements
+            .firstWhere((element) => element.id == event.data["moduleId"]);
+        var tempLesson = tempModule._elements
             .firstWhere((element) => element.id == event.data["id"]);
-        if (event.data["type"] == "WriteTranslationTask") {
-          _repository.updateTask(
-              TaskDTO.fromWriteTranslationTask(task as WriteTranslationTask));
-        } else if (event.data["type"] == "TranslateTextTask") {
-          _repository.updateTask(
-              TaskDTO.fromTranslateTextTask(task as TranslateTextTask));
-        } else if (event.data["type"] == "InsertWordsTask") {
-          _repository
-              .updateTask(TaskDTO.fromInsertWordsTask(task as InsertWordsTask));
-        } else if (event.data["type"] == "TranslateWordTask") {
-          _repository.updateTask(
-              TaskDTO.fromTranslateWordTask(task as TranslateWordTask));
-        }
+        _repository.updateLesson(LessonDTO.fromLesson(tempLesson));
+
+        _repository.updateModule(ModuleDTO.fromModule(tempModule));
+      } else if (event.name == "Task") {
+        var tempModule = _elements
+            .firstWhere((element) => element.id == event.data["moduleId"]);
+        var tempLesson = tempModule._elements
+            .firstWhere((element) => element.id == event.data["lessonId"]);
+        var task = tempLesson._elements
+            .firstWhere((element) => element.id == event.data["id"]);
+
+        TaskDTO taskdto = switch (event.data["type"]) {
+          "WriteTranslationTask" =>
+            TaskDTO.fromWriteTranslationTask(task as WriteTranslationTask),
+          "TranslateTextTask" =>
+            TaskDTO.fromTranslateTextTask(task as TranslateTextTask),
+          "InsertWordsTask" =>
+            TaskDTO.fromInsertWordsTask(task as InsertWordsTask),
+          _ => TaskDTO.fromTranslateWordTask(task as TranslateWordTask),
+        };
+
+        _repository.updateLesson(LessonDTO.fromLesson(tempLesson));
+        _repository.updateTask(taskdto);
       }
     }
     if (event.eventType != "Init") return;

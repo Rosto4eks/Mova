@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mova/features/study/domain/usecase/study.dart';
+import 'package:mova/features/study/domain/usecase/service.dart';
 import 'package:mova/features/study/providers/study_provider.dart';
 import 'package:mova/features/study/screens/insert_words_task_screen.dart';
 import 'package:mova/features/study/screens/complete_screen.dart';
@@ -41,11 +41,11 @@ class LessonScreen extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           gradient: RadialGradient(
-            center: Alignment.bottomLeft,
-            radius: 1.5,
+            center: Alignment.bottomCenter,
+            radius: 2.5,
             colors: [
-              lightBlue,
-              lightGrey,
+              purple,
+              lightPurple,
             ],
           ),
         ),

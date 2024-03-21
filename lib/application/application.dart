@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mova/features/study/domain/usecase/study.dart';
+import 'package:mova/features/study/domain/usecase/service.dart';
 import 'package:mova/features/study/providers/module_provider.dart';
 import 'package:mova/features/study/providers/study_provider.dart';
 import 'package:mova/presentation/pages/main_page.dart';

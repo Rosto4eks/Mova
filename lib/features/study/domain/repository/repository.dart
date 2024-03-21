@@ -1,6 +1,6 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:mova/features/study/domain/repository/dto.dart';
-import 'package:mova/features/study/domain/usecase/study.dart';
+import 'package:mova/features/study/domain/usecase/service.dart';
 
 abstract interface class IRepository {
   List<ModuleDTO> getModules();

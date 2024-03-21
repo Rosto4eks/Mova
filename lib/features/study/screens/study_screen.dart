@@ -19,7 +19,7 @@ class _StudyState extends State<StudyScreen> {
     var study = Provider.of<StudyProvider>(context);
     var index = Provider.of<ModuleProvider>(context).index;
     var count = study.getModulesCount();
-    var _pageController = PageController(
+    var pageController = PageController(
       viewportFraction: 1,
       initialPage: () {
         var i = study.getCurrentModule();
@@ -29,22 +29,22 @@ class _StudyState extends State<StudyScreen> {
 
     return Scaffold(
       body: AnimatedContainer(
-        duration: Duration(milliseconds: 400),
+        duration: const Duration(milliseconds: 400),
         decoration: BoxDecoration(
             gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            study.isModuleEnabled(index) ? white : lightGrey,
-            study.isModuleEnabled(index) ? lightBlue : grey,
+            study.isModuleEnabled(index) ? lightPurple : lightGrey,
+            study.isModuleEnabled(index) ? purple : grey,
           ],
         )),
-        padding: EdgeInsets.only(bottom: 100),
+        padding: const EdgeInsets.only(bottom: 100),
         child: Column(
           children: [
             Expanded(
               child: PageView(
-                controller: _pageController,
+                controller: pageController,
                 onPageChanged: (index) =>
                     Provider.of<ModuleProvider>(context, listen: false)
                         .setIndex(index),
@@ -55,12 +55,10 @@ class _StudyState extends State<StudyScreen> {
               ),
             ),
             SmoothPageIndicator(
-              controller: _pageController,
+              controller: pageController,
               count: count,
-              effect: ExpandingDotsEffect(
-                  activeDotColor: blue.withOpacity(0.5),
-                  dotHeight: 12,
-                  dotWidth: 12),
+              effect: const ExpandingDotsEffect(
+                  activeDotColor: white, dotHeight: 12, dotWidth: 12),
               onDotClicked: (index) {},
             )
           ],

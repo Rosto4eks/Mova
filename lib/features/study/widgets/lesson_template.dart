@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mova/features/study/providers/module_provider.dart';
 import 'package:mova/features/study/providers/study_provider.dart';
 import 'package:mova/features/study/screens/lesson_screen.dart';
@@ -40,20 +39,24 @@ class LessonTemplate extends StatelessWidget {
             duration: const Duration(milliseconds: 400),
             height: 400,
             width: double.infinity,
-            margin: EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: currentIndex == lessonIndex ? 45 : 15),
+            margin: EdgeInsets.only(
+              left: 10,
+              right: 10,
+              bottom: currentIndex == lessonIndex ? 55 : 5,
+              top: currentIndex == lessonIndex ? 5 : 55,
+            ),
             decoration: BoxDecoration(
-              color: isEnabled ? white : grey.withOpacity(0.5),
-              borderRadius: BorderRadius.circular(20),
+              color: isEnabled ? white : grey.withOpacity(0.4),
               boxShadow: [
-                BoxShadow(
-                  color: grey.withOpacity(0.2),
-                  spreadRadius: 1,
-                  blurRadius: 10,
-                  offset: const Offset(0, 5), // changes position of shadow
-                ),
+                if (isEnabled)
+                  BoxShadow(
+                    color: black.withOpacity(0.2),
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                    offset: const Offset(0, 5), // changes position of shadow
+                  ),
               ],
+              borderRadius: BorderRadius.circular(20),
             ),
             child: Column(
               children: [
@@ -64,10 +67,10 @@ class LessonTemplate extends StatelessWidget {
                       lesson.name,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 25,
-                          color: isEnabled ? black : black.withOpacity(0.4),
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Nunito"),
+                        fontSize: 27,
+                        color: isEnabled ? lightPurple : black.withOpacity(0.2),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -77,10 +80,11 @@ class LessonTemplate extends StatelessWidget {
                   child: LinearProgressIndicator(
                     value: lesson.elementsCompleted.toDouble() /
                         lesson.elementsCount.toDouble(),
-                    color: const Color.fromARGB(255, 123, 248, 161),
+                    color: lightGreen,
                     minHeight: 7,
                     borderRadius: BorderRadius.circular(15),
-                    backgroundColor: isEnabled ? grey : Colors.transparent,
+                    backgroundColor:
+                        isEnabled ? grey.withOpacity(0.5) : Colors.transparent,
                   ),
                 ),
                 Container(
@@ -98,20 +102,21 @@ class LessonTemplate extends StatelessWidget {
                   Expanded(
                       child: Container(
                     alignment: Alignment.bottomCenter,
-                    padding: EdgeInsets.all(30),
+                    padding: const EdgeInsets.all(30),
                     child: Container(
                       width: double.infinity,
                       height: 60,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: lightBlue,
+                        color: lightPurple,
                       ),
-                      child: Text(
+                      child: const Text(
                         "перайсці",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
+                          color: white,
                         ),
                       ),
                     ),

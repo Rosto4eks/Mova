@@ -1,5 +1,4 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mova/features/study/providers/study_provider.dart';
 import 'package:mova/presentation/components/colors.dart';
@@ -40,33 +39,7 @@ void checkTask(BuildContext context, bool complete) {
                         }
                         Navigator.of(context).pop();
                       },
-                      child: Container(
-                        margin: const EdgeInsets.only(
-                            left: 15, top: 40, bottom: 40),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: white,
-                          borderRadius: BorderRadius.circular(55),
-                          boxShadow: [
-                            BoxShadow(
-                              color: black.withOpacity(0.2),
-                              spreadRadius: 1,
-                              blurRadius: 10,
-                              offset: const Offset(
-                                  0, 8), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        child: Text(
-                          complete ? "далей" : "яшчэ раз",
-                          style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: black),
-                        ),
-                      ),
+                      child: nextButton(complete),
                     ),
                   )
                 ],
@@ -74,3 +47,26 @@ void checkTask(BuildContext context, bool complete) {
             ),
           ));
 }
+
+Container nextButton(bool complete) => Container(
+      margin: const EdgeInsets.only(left: 15, top: 40, bottom: 40),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: white,
+        borderRadius: BorderRadius.circular(55),
+        boxShadow: [
+          BoxShadow(
+            color: black.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 10,
+            offset: const Offset(0, 8), // changes position of shadow
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Text(
+        complete ? "далей" : "яшчэ раз",
+        style: const TextStyle(
+            fontSize: 20, fontWeight: FontWeight.bold, color: black),
+      ),
+    );

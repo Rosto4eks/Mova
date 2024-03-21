@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mova/features/study/components/task_buttons.dart';
 import 'package:mova/features/study/components/task_componetns.dart';
-import 'package:mova/features/study/domain/usecase/study.dart';
+import 'package:mova/features/study/domain/usecase/service.dart';
 import 'package:mova/features/study/providers/study_provider.dart';
 import 'package:mova/presentation/components/colors.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +22,8 @@ class WriteTranslationTaskScreen extends StatelessWidget {
             "Перакладзіце тэкст",
             style: TextStyle(
               fontSize: 30,
-              color: black,
+              color: white,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -33,7 +34,11 @@ class WriteTranslationTaskScreen extends StatelessWidget {
               Text(
                 task.text,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 30, color: Colors.black),
+                style: const TextStyle(
+                  fontSize: 30,
+                  color: white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),
@@ -50,13 +55,20 @@ class WriteTranslationTaskScreen extends StatelessWidget {
                       task.setInput(val);
                     },
                     minLines: 1,
-                    maxLines: 7,
+                    maxLines: 3,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 22),
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
+                    cursorColor: white,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      color: white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    decoration: InputDecoration(
+                      fillColor: white,
+                      border: const UnderlineInputBorder(),
                       hintText: "напішыце перавод...",
-                      contentPadding: EdgeInsets.all(10),
+                      hintStyle: TextStyle(color: white.withOpacity(0.4)),
+                      contentPadding: const EdgeInsets.all(10),
                     ),
                   ),
                 ),

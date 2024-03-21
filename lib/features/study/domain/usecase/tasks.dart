@@ -211,7 +211,7 @@ class TranslateTextTask extends InsertionTask {
 
   @override
   void reset() {
-    var tempwords = translation.split(' ');
+    var tempwords = rightTranslation.split(' ');
     tempwords.shuffle();
     for (var word in tempwords) {
       _words[word] = true;

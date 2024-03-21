@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mova/features/study/components/task_buttons.dart';
 import 'package:mova/features/study/components/task_componetns.dart';
-import 'package:mova/features/study/domain/usecase/study.dart';
+import 'package:mova/features/study/domain/usecase/service.dart';
 import 'package:mova/features/study/providers/study_provider.dart';
 import 'package:mova/presentation/components/colors.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +21,8 @@ class InsertWordsTaskScreen extends StatelessWidget {
             "Устаўце словы",
             style: TextStyle(
               fontSize: 30,
-              color: black,
+              color: white,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -35,7 +36,11 @@ class InsertWordsTaskScreen extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 0),
             child: Text(
               task.text,
-              style: const TextStyle(fontSize: 22),
+              style: const TextStyle(
+                fontSize: 22,
+                color: white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
@@ -43,7 +48,7 @@ class InsertWordsTaskScreen extends StatelessWidget {
             flex: 2,
             child: Container(
               alignment: Alignment.bottomCenter,
-              margin: EdgeInsets.only(bottom: 100),
+              margin: const EdgeInsets.only(bottom: 100),
               child: Wrap(
                 alignment: WrapAlignment.center,
                 spacing: 20,
@@ -59,7 +64,7 @@ class InsertWordsTaskScreen extends StatelessWidget {
                           }
                         },
                         child: AnimatedContainer(
-                          duration: Duration(milliseconds: 200),
+                          duration: const Duration(milliseconds: 200),
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 25),
                           decoration: BoxDecoration(
@@ -70,18 +75,19 @@ class InsertWordsTaskScreen extends StatelessWidget {
                                 color: black.withOpacity(0.2),
                                 spreadRadius: 1,
                                 blurRadius: 15,
-                                offset:
-                                    Offset(0, 8), // changes position of shadow
+                                offset: const Offset(
+                                    0, 8), // changes position of shadow
                               ),
                             ],
                           ),
                           child: AnimatedContainer(
-                            duration: Duration(milliseconds: 200),
+                            duration: const Duration(milliseconds: 200),
                             child: Text(
                               e.key,
                               style: TextStyle(
                                 color: e.value ? black : grey,
                                 fontSize: 20,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),

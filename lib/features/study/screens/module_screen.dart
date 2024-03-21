@@ -17,11 +17,10 @@ class ModuleScreen extends StatelessWidget {
     var module = study.getModule(moduleIndex);
     var pageController = PageController(
       viewportFraction: 0.8,
-      initialPage: () {
-        var i = study.getCurrentLesson();
-        return i;
-      }(),
+      initialPage: study.getCurrentLesson(),
     );
+    Provider.of<LessonProvider>(context, listen: false).index =
+        study.getCurrentLesson();
     return Scaffold(
       appBar: MAppBar(
         module.name,
@@ -30,41 +29,46 @@ class ModuleScreen extends StatelessWidget {
       ),
       backgroundColor: lightGrey,
       body: Container(
-        padding: EdgeInsets.only(bottom: 20),
         decoration: const BoxDecoration(
           gradient: RadialGradient(
             center: Alignment.bottomCenter,
             radius: 1.5,
             colors: [
-              lightBlue,
-              lightGrey,
+              purple,
+              lightPurple,
             ],
           ),
         ),
-        child: Column(
-          children: [
-            Expanded(
-              child: PageView(
-                controller: pageController,
-                onPageChanged: (index) =>
-                    Provider.of<LessonProvider>(context, listen: false)
-                        .setIndex(index),
-                children: List<LessonTemplate>.generate(
-                    module.elementsCount, (index) => LessonTemplate(index)),
-              ),
+        child: Container(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            color: white,
+            height: MediaQuery.sizeOf(context).height / 2,
+            padding: const EdgeInsets.symmetric(vertical: 15),
+            child: Column(
+              children: [
+                Expanded(
+                  child: PageView(
+                    controller: pageController,
+                    onPageChanged: (index) =>
+                        Provider.of<LessonProvider>(context, listen: false)
+                            .setIndex(index),
+                    children: List<LessonTemplate>.generate(
+                        module.elementsCount, (index) => LessonTemplate(index)),
+                  ),
+                ),
+                SmoothPageIndicator(
+                  controller: pageController,
+                  count: module.elementsCount,
+                  effect: const ExpandingDotsEffect(
+                      activeDotColor: lightPurple, dotHeight: 16, dotWidth: 16),
+                  onDotClicked: (index) => pageController.animateToPage(index,
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.decelerate),
+                )
+              ],
             ),
-            SmoothPageIndicator(
-              controller: pageController,
-              count: module.elementsCount,
-              effect: ExpandingDotsEffect(
-                  activeDotColor: blue.withOpacity(0.5),
-                  dotHeight: 16,
-                  dotWidth: 16),
-              onDotClicked: (index) => pageController.animateToPage(index,
-                  duration: Duration(milliseconds: 400),
-                  curve: Curves.decelerate),
-            )
-          ],
+          ),
         ),
       ),
     );

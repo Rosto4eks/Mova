@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mova/features/study/domain/usecase/study.dart';
+import 'package:mova/features/study/domain/usecase/service.dart';
 
 class StudyProvider extends ChangeNotifier {
   final StudyService _service;
@@ -46,7 +46,6 @@ class StudyProvider extends ChangeNotifier {
 
   void selectLesson(int index) {
     _selectedLesson = _selectedModule.avaiableLessons[index];
-    print(_selectedLesson.everCompleted);
     _everFinished = _selectedLesson.everCompleted;
   }
 
@@ -56,7 +55,7 @@ class StudyProvider extends ChangeNotifier {
   }
 
   Task getTask() {
-    if (_selectedLesson.isCompleted) throw Exception("aboba");
+    if (_selectedLesson.isCompleted) throw Exception("all tasks completed");
     return _selectedLesson.nextTask();
   }
 

@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:mova/features/study/domain/usecase/study.dart';
+import 'package:mova/features/study/domain/usecase/service.dart';
 
 part 'dto.g.dart';
 

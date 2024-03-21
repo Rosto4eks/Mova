@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mova/features/study/providers/study_provider.dart';
 import 'package:mova/features/study/screens/module_screen.dart';
 import 'package:mova/presentation/components/colors.dart';
@@ -34,29 +35,31 @@ class ModuleTemplate extends StatelessWidget {
             : () {},
         child: AnimatedContainer(
             duration: const Duration(milliseconds: 400),
-            margin: const EdgeInsets.only(top: 100),
+            margin: const EdgeInsets.only(
+                top: 100, left: 15, right: 15, bottom: 15),
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
+              color: lightGrey.withOpacity(0.15),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Expanded(
-                    child: Column(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       module.name,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 30,
-                        color: black,
+                        color: isEnabled ? white : black.withOpacity(0.3),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Container(
-                      margin: const EdgeInsets.symmetric(vertical: 30),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 30, horizontal: 30),
                       child: LinearProgressIndicator(
                         value: module.elementsCompleted.toDouble() /
                             module.elementsCount.toDouble(),
@@ -69,20 +72,28 @@ class ModuleTemplate extends StatelessWidget {
                       ),
                     ),
                   ],
-                )),
+                ),
+                Container(
+                  height: 300,
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  child: Image.asset(
+                    "assets/images/${module.name}.png",
+                    color: isEnabled ? whitePurple : grey,
+                  ),
+                ),
                 Container(
                   width: double.infinity,
                   height: 60,
                   alignment: Alignment.center,
                   margin:
-                      const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18),
                     color: isEnabled ? white : null,
                     boxShadow: [
                       if (isEnabled)
                         BoxShadow(
-                          color: black.withOpacity(0.1),
+                          color: black.withOpacity(0.05),
                           spreadRadius: 1,
                           blurRadius: 10,
                           offset:
@@ -94,14 +105,13 @@ class ModuleTemplate extends StatelessWidget {
                     isEnabled
                         ? module.elementsCompleted == 0
                             ? "пачаць"
-                            : module.elementsCompleted == module.elementsCount
-                                ? "зроблена"
-                                : "працягнуць"
+                            : "працягнуць"
                         : "закрыта",
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: black,
+                    style: TextStyle(
+                      color: isEnabled ? purple : black.withOpacity(0.6),
                       fontSize: 25,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),

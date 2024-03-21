@@ -18,6 +18,7 @@ dependencies:
   hive_flutter: ^1.1.0
   hive_generator: ^2.0.1
   build_runner: ^2.4.8
+  flutter_launcher_icons: ^0.13.1
 
 
 dev_dependencies:
@@ -34,12 +35,18 @@ flutter:
       - asset: fonts/Geologica.ttf
 
   assets:
-    - assets/images/sigma.gif
+    - assets/images/
     - assets/sounds/
 
 flutter_native_splash:
-  color: "#9694ff"
+  color: "#a85af1"
   image: assets/images/logo.png
   android_12:
-    color: "#9694ff"
+    color: "#a85af1"
     image: assets/images/logo.png
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21

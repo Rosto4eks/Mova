@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mova/application/application.dart';
-import 'package:mova/features/study/domain/repository/study.dart';
-import 'package:mova/features/study/domain/usecase/study.dart';
+import 'package:mova/features/study/domain/repository/repository.dart';
+import 'package:mova/features/study/domain/usecase/service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -20,7 +20,7 @@ var checkButton = Container(
   child: const Text(
     "праверыць",
     style: TextStyle(
-      color: blue,
+      color: purple,
       fontWeight: FontWeight.bold,
       fontSize: 20,
     ),
@@ -34,7 +34,7 @@ var returnButton = Container(
   child: const Text(
     "назад",
     style: TextStyle(
-      color: black,
+      color: white,
       fontWeight: FontWeight.bold,
       fontSize: 18,
     ),

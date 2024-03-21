@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mova/features/study/components/task_buttons.dart';
 import 'package:mova/features/study/components/task_componetns.dart';
-import 'package:mova/features/study/domain/usecase/study.dart';
+import 'package:mova/features/study/domain/usecase/service.dart';
 import 'package:mova/features/study/providers/study_provider.dart';
 import 'package:mova/presentation/components/colors.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +30,8 @@ class _TranslateWordTaskScreenState extends State<TranslateWordTaskScreen> {
             "Перакладзіце слова",
             style: TextStyle(
               fontSize: 25,
-              color: black,
+              color: white,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -41,7 +42,7 @@ class _TranslateWordTaskScreenState extends State<TranslateWordTaskScreen> {
             task.word,
             style: const TextStyle(
               fontSize: 30,
-              color: blue,
+              color: white,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -73,7 +74,8 @@ class _TranslateWordTaskScreenState extends State<TranslateWordTaskScreen> {
                         color: black.withOpacity(0.1),
                         spreadRadius: 1,
                         blurRadius: 20,
-                        offset: Offset(0, 8), // changes position of shadow
+                        offset:
+                            const Offset(0, 8), // changes position of shadow
                       ),
                     ],
                   ),
@@ -82,6 +84,7 @@ class _TranslateWordTaskScreenState extends State<TranslateWordTaskScreen> {
                     style: const TextStyle(
                       color: black,
                       fontSize: 25,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),

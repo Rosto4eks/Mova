@@ -18,7 +18,7 @@ class MAppBar extends StatelessWidget implements PreferredSizeWidget {
     return PreferredSize(
       preferredSize: preferredSize,
       child: Container(
-        color: lightPurple,
+        color: color1,
         alignment: Alignment.bottomLeft,
         padding: const EdgeInsets.all(20),
         child: Row(
@@ -28,13 +28,13 @@ class MAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onTap: () => Navigator.pop(context),
                 child: const Icon(
                   Icons.arrow_back_ios,
-                  color: white,
+                  color: black,
                 ),
               ),
             Text(
               title,
               style: const TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 40, color: white),
+                  fontWeight: FontWeight.bold, fontSize: 40, color: black),
             )
           ],
         ),

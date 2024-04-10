@@ -16,13 +16,12 @@ class TranslateTextTaskScreen extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          alignment: Alignment.topLeft,
+          margin: const EdgeInsets.symmetric(vertical: 20),
           child: const Text(
             "Расстаўце словы",
             style: TextStyle(
               fontSize: 30,
-              color: white,
+              color: black,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -34,7 +33,7 @@ class TranslateTextTaskScreen extends StatelessWidget {
             task.text,
             style: const TextStyle(
               fontSize: 22,
-              color: white,
+              color: black,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -42,7 +41,7 @@ class TranslateTextTaskScreen extends StatelessWidget {
         Container(
           height: 1,
           width: double.infinity,
-          color: white,
+          color: black,
         ),
         GestureDetector(
           onTap: () {
@@ -56,7 +55,7 @@ class TranslateTextTaskScreen extends StatelessWidget {
               task.translation,
               style: const TextStyle(
                 fontSize: 22,
-                color: white,
+                color: black,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -85,7 +84,7 @@ class TranslateTextTaskScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               vertical: 4, horizontal: 10),
                           decoration: BoxDecoration(
-                            color: e.value ? white : grey,
+                            color: e.value ? white : black,
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
@@ -102,7 +101,7 @@ class TranslateTextTaskScreen extends StatelessWidget {
                             child: Text(
                               e.key,
                               style: TextStyle(
-                                color: e.value ? black : grey,
+                                color: e.value ? black : black,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),

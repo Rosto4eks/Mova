@@ -20,7 +20,7 @@ class CompleteScreen extends StatelessWidget {
             center: Alignment.bottomLeft,
             radius: 1.5,
             colors: [
-              lightBlue,
+              color4,
               lightGrey,
             ],
           ),

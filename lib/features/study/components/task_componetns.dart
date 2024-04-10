@@ -52,7 +52,7 @@ Container nextButton(bool complete) => Container(
       margin: const EdgeInsets.only(left: 15, top: 40, bottom: 40),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: white,
+        color: black,
         borderRadius: BorderRadius.circular(55),
         boxShadow: [
           BoxShadow(
@@ -67,6 +67,6 @@ Container nextButton(bool complete) => Container(
       child: Text(
         complete ? "далей" : "яшчэ раз",
         style: const TextStyle(
-            fontSize: 20, fontWeight: FontWeight.bold, color: black),
+            fontSize: 20, fontWeight: FontWeight.bold, color: white),
       ),
     );

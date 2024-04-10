@@ -24,13 +24,12 @@ class _TranslateWordTaskScreenState extends State<TranslateWordTaskScreen> {
     return Column(
       children: [
         Container(
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          alignment: Alignment.topLeft,
+          margin: const EdgeInsets.symmetric(vertical: 20),
           child: const Text(
             "Перакладзіце слова",
             style: TextStyle(
               fontSize: 25,
-              color: white,
+              color: black,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -42,7 +41,7 @@ class _TranslateWordTaskScreenState extends State<TranslateWordTaskScreen> {
             task.word,
             style: const TextStyle(
               fontSize: 30,
-              color: white,
+              color: black,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -67,17 +66,11 @@ class _TranslateWordTaskScreenState extends State<TranslateWordTaskScreen> {
                   duration: const Duration(milliseconds: 200),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: index == selectedIndex ? lightBlue : white,
+                    color: index == selectedIndex ? white : Colors.transparent,
                     borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: black.withOpacity(0.1),
-                        spreadRadius: 1,
-                        blurRadius: 20,
-                        offset:
-                            const Offset(0, 8), // changes position of shadow
-                      ),
-                    ],
+                    border: Border.all(
+                        color: index == selectedIndex ? white : black,
+                        width: 0.5),
                   ),
                   child: Text(
                     task.translations[index],

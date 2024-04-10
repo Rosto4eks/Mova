@@ -30,15 +30,7 @@ class _StudyState extends State<StudyScreen> {
     return Scaffold(
       body: AnimatedContainer(
         duration: const Duration(milliseconds: 400),
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            study.isModuleEnabled(index) ? lightPurple : lightGrey,
-            study.isModuleEnabled(index) ? purple : grey,
-          ],
-        )),
+        color: color1,
         padding: const EdgeInsets.only(bottom: 100),
         child: Column(
           children: [
@@ -58,7 +50,10 @@ class _StudyState extends State<StudyScreen> {
               controller: pageController,
               count: count,
               effect: const ExpandingDotsEffect(
-                  activeDotColor: white, dotHeight: 12, dotWidth: 12),
+                  activeDotColor: black,
+                  dotColor: white,
+                  dotHeight: 12,
+                  dotWidth: 12),
               onDotClicked: (index) {},
             )
           ],

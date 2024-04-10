@@ -36,10 +36,10 @@ class ModuleTemplate extends StatelessWidget {
         child: AnimatedContainer(
             duration: const Duration(milliseconds: 400),
             margin: const EdgeInsets.only(
-                top: 100, left: 15, right: 15, bottom: 15),
+                top: 100, left: 20, right: 20, bottom: 15),
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
-              color: lightGrey.withOpacity(0.15),
+              color: white,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Column(
@@ -53,8 +53,16 @@ class ModuleTemplate extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 30,
-                        color: isEnabled ? white : black.withOpacity(0.3),
+                        color: isEnabled ? black : black.withOpacity(0.3),
                         fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Container(
+                      height: 300,
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      child: Image.asset(
+                        "assets/images/${module.name}.png",
+                        color: isEnabled ? color1 : grey,
                       ),
                     ),
                     Container(
@@ -74,14 +82,6 @@ class ModuleTemplate extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  height: 300,
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  child: Image.asset(
-                    "assets/images/${module.name}.png",
-                    color: isEnabled ? whitePurple : grey,
-                  ),
-                ),
-                Container(
                   width: double.infinity,
                   height: 60,
                   alignment: Alignment.center,
@@ -89,7 +89,7 @@ class ModuleTemplate extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18),
-                    color: isEnabled ? white : null,
+                    color: isEnabled ? black : null,
                     boxShadow: [
                       if (isEnabled)
                         BoxShadow(
@@ -109,7 +109,7 @@ class ModuleTemplate extends StatelessWidget {
                         : "закрыта",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: isEnabled ? purple : black.withOpacity(0.6),
+                      color: isEnabled ? white : black.withOpacity(0.6),
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),

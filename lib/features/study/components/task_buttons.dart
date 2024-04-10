@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:mova/presentation/components/colors.dart';
 
 var checkButton = Container(
-  height: 50,
+  height: 60,
   margin: const EdgeInsets.only(left: 15),
   decoration: BoxDecoration(
-    color: white,
-    borderRadius: BorderRadius.circular(65),
+    color: black,
+    borderRadius: BorderRadius.circular(20),
     boxShadow: [
       BoxShadow(
         color: black.withOpacity(0.1),
@@ -20,9 +20,9 @@ var checkButton = Container(
   child: const Text(
     "праверыць",
     style: TextStyle(
-      color: purple,
+      color: white,
       fontWeight: FontWeight.bold,
-      fontSize: 20,
+      fontSize: 21,
     ),
   ),
 );
@@ -34,7 +34,7 @@ var returnButton = Container(
   child: const Text(
     "назад",
     style: TextStyle(
-      color: white,
+      color: black,
       fontWeight: FontWeight.bold,
       fontSize: 18,
     ),

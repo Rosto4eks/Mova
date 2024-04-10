@@ -16,12 +16,11 @@ class InsertWordsTaskScreen extends StatelessWidget {
       children: [
         Container(
           margin: const EdgeInsets.symmetric(vertical: 30),
-          alignment: Alignment.topLeft,
           child: const Text(
             "Устаўце словы",
             style: TextStyle(
               fontSize: 30,
-              color: white,
+              color: black,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -38,7 +37,7 @@ class InsertWordsTaskScreen extends StatelessWidget {
               task.text,
               style: const TextStyle(
                 fontSize: 22,
-                color: white,
+                color: black,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -68,7 +67,7 @@ class InsertWordsTaskScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 25),
                           decoration: BoxDecoration(
-                            color: e.value ? white : grey,
+                            color: e.value ? black : grey,
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
@@ -85,7 +84,7 @@ class InsertWordsTaskScreen extends StatelessWidget {
                             child: Text(
                               e.key,
                               style: TextStyle(
-                                color: e.value ? black : grey,
+                                color: e.value ? white : grey,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),

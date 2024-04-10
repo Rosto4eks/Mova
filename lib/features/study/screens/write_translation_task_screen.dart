@@ -16,13 +16,12 @@ class WriteTranslationTaskScreen extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          alignment: Alignment.topLeft,
+          margin: const EdgeInsets.symmetric(vertical: 20),
           child: const Text(
             "Перакладзіце тэкст",
             style: TextStyle(
               fontSize: 30,
-              color: white,
+              color: black,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -36,7 +35,7 @@ class WriteTranslationTaskScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 30,
-                  color: white,
+                  color: black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -57,17 +56,19 @@ class WriteTranslationTaskScreen extends StatelessWidget {
                     minLines: 1,
                     maxLines: 3,
                     textAlign: TextAlign.center,
-                    cursorColor: white,
+                    cursorColor: black,
                     style: const TextStyle(
                       fontSize: 22,
-                      color: white,
+                      color: black,
                       fontWeight: FontWeight.bold,
                     ),
                     decoration: InputDecoration(
-                      fillColor: white,
+                      fillColor: black,
                       border: const UnderlineInputBorder(),
+                      focusedBorder: const UnderlineInputBorder(),
+                      enabledBorder: const UnderlineInputBorder(),
                       hintText: "напішыце перавод...",
-                      hintStyle: TextStyle(color: white.withOpacity(0.4)),
+                      hintStyle: TextStyle(color: black.withOpacity(0.4)),
                       contentPadding: const EdgeInsets.all(10),
                     ),
                   ),

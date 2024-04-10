@@ -44,8 +44,8 @@ class LessonScreen extends StatelessWidget {
             center: Alignment.bottomCenter,
             radius: 2.5,
             colors: [
-              purple,
-              lightPurple,
+              color3,
+              color1,
             ],
           ),
         ),

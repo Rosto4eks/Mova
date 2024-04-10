@@ -9,16 +9,16 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(15),
+      margin: EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: white,
         boxShadow: [
           BoxShadow(
-            color: black.withOpacity(0.1),
-            spreadRadius: 2,
+            color: black.withOpacity(0.05),
+            spreadRadius: 4,
             blurRadius: 10,
-            offset: const Offset(0, 5), // changes position of shadow
+            offset: const Offset(0, 3), // changes position of shadow
           ),
         ],
       ),
@@ -27,7 +27,7 @@ class NavBar extends StatelessWidget {
         duration: Duration(milliseconds: 350),
         onTabChange: (val) => onTabChange(val),
         activeColor: white,
-        tabBackgroundColor: lightPurple,
+        tabBackgroundColor: black,
         color: const Color.fromARGB(255, 191, 207, 202),
         padding: const EdgeInsets.all(10),
         iconSize: 30,

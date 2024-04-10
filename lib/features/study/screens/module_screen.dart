@@ -27,48 +27,32 @@ class ModuleScreen extends StatelessWidget {
         175,
         arrow: true,
       ),
-      backgroundColor: lightGrey,
+      backgroundColor: color1,
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: RadialGradient(
-            center: Alignment.bottomCenter,
-            radius: 1.5,
-            colors: [
-              purple,
-              lightPurple,
-            ],
-          ),
-        ),
-        child: Container(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            color: white,
-            height: MediaQuery.sizeOf(context).height / 2,
-            padding: const EdgeInsets.symmetric(vertical: 15),
-            child: Column(
-              children: [
-                Expanded(
-                  child: PageView(
-                    controller: pageController,
-                    onPageChanged: (index) =>
-                        Provider.of<LessonProvider>(context, listen: false)
-                            .setIndex(index),
-                    children: List<LessonTemplate>.generate(
-                        module.elementsCount, (index) => LessonTemplate(index)),
-                  ),
-                ),
-                SmoothPageIndicator(
-                  controller: pageController,
-                  count: module.elementsCount,
-                  effect: const ExpandingDotsEffect(
-                      activeDotColor: lightPurple, dotHeight: 16, dotWidth: 16),
-                  onDotClicked: (index) => pageController.animateToPage(index,
-                      duration: const Duration(milliseconds: 400),
-                      curve: Curves.decelerate),
-                )
-              ],
+        alignment: Alignment.bottomCenter,
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        child: Column(
+          children: [
+            Expanded(
+              child: PageView(
+                controller: pageController,
+                onPageChanged: (index) =>
+                    Provider.of<LessonProvider>(context, listen: false)
+                        .setIndex(index),
+                children: List<LessonTemplate>.generate(
+                    module.elementsCount, (index) => LessonTemplate(index)),
+              ),
             ),
-          ),
+            SmoothPageIndicator(
+              controller: pageController,
+              count: module.elementsCount,
+              effect: const ExpandingDotsEffect(
+                  activeDotColor: lightPurple, dotHeight: 16, dotWidth: 16),
+              onDotClicked: (index) => pageController.animateToPage(index,
+                  duration: const Duration(milliseconds: 400),
+                  curve: Curves.decelerate),
+            )
+          ],
         ),
       ),
     );

@@ -26,7 +26,7 @@ class LessonTemplate extends StatelessWidget {
     }
 
     return Container(
-      alignment: Alignment.bottomLeft,
+      alignment: Alignment.center,
       child: GestureDetector(
         onTap: isEnabled
             ? () {
@@ -36,93 +36,95 @@ class LessonTemplate extends StatelessWidget {
               }
             : () {},
         child: AnimatedContainer(
-            duration: const Duration(milliseconds: 400),
-            height: 400,
-            width: double.infinity,
-            margin: EdgeInsets.only(
-              left: 10,
-              right: 10,
-              bottom: currentIndex == lessonIndex ? 55 : 5,
-              top: currentIndex == lessonIndex ? 5 : 55,
-            ),
-            decoration: BoxDecoration(
-              color: isEnabled ? white : grey.withOpacity(0.4),
-              boxShadow: [
-                if (isEnabled)
-                  BoxShadow(
-                    color: black.withOpacity(0.2),
-                    spreadRadius: 1,
-                    blurRadius: 10,
-                    offset: const Offset(0, 5), // changes position of shadow
-                  ),
-              ],
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(20),
-                    child: Text(
-                      lesson.name,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 27,
-                        color: isEnabled ? lightPurple : black.withOpacity(0.2),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+          duration: const Duration(milliseconds: 400),
+          height: 300,
+          width: double.infinity,
+          margin: EdgeInsets.only(
+            left: 10,
+            right: 10,
+            bottom: currentIndex == lessonIndex ? 55 : 5,
+            top: currentIndex == lessonIndex ? 5 : 55,
+          ),
+          decoration: BoxDecoration(
+            color: isEnabled ? white : white.withOpacity(0.5),
+            boxShadow: [
+              if (isEnabled)
+                BoxShadow(
+                  color: black.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 10,
+                  offset: const Offset(0, 5), // changes position of shadow
                 ),
-                Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-                  child: LinearProgressIndicator(
-                    value: lesson.elementsCompleted.toDouble() /
-                        lesson.elementsCount.toDouble(),
-                    color: lightGreen,
-                    minHeight: 7,
-                    borderRadius: BorderRadius.circular(15),
-                    backgroundColor:
-                        isEnabled ? grey.withOpacity(0.5) : Colors.transparent,
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
+            ],
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(20),
                   child: Text(
-                    "${lesson.elementsCompleted}/${lesson.elementsCount}",
+                    lesson.name,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 18,
-                      color: isEnabled ? black : black.withOpacity(0.5),
+                      fontSize: 27,
+                      color: isEnabled ? black : black.withOpacity(0.2),
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                if (isEnabled)
-                  Expanded(
-                      child: Container(
-                    alignment: Alignment.bottomCenter,
-                    padding: const EdgeInsets.all(30),
+              ),
+              Container(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                child: LinearProgressIndicator(
+                  value: lesson.elementsCompleted.toDouble() /
+                      lesson.elementsCount.toDouble(),
+                  color: lightGreen,
+                  minHeight: 7,
+                  borderRadius: BorderRadius.circular(15),
+                  backgroundColor:
+                      isEnabled ? white.withOpacity(0.5) : Colors.transparent,
+                ),
+              ),
+              Container(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Text(
+                  "${lesson.elementsCompleted}/${lesson.elementsCount}",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: isEnabled ? black : black.withOpacity(0.5),
+                  ),
+                ),
+              ),
+              if (isEnabled)
+                Expanded(
                     child: Container(
-                      width: double.infinity,
-                      height: 60,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: lightPurple,
-                      ),
-                      child: const Text(
-                        "перайсці",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: white,
-                        ),
+                  alignment: Alignment.bottomCenter,
+                  padding: const EdgeInsets.all(30),
+                  child: Container(
+                    width: double.infinity,
+                    height: 60,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: black,
+                    ),
+                    child: const Text(
+                      "перайсці",
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: white,
                       ),
                     ),
-                  ))
-              ],
-            )),
+                  ),
+                ))
+            ],
+          ),
+        ),
       ),
     );
   }

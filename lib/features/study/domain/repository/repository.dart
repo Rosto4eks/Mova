@@ -9,6 +9,8 @@ abstract interface class IRepository {
 
   void updateTask(TaskDTO task);
 
+  void clear();
+
   void updateLesson(LessonDTO lesson);
 
   void updateModule(ModuleDTO module);
@@ -20,23 +22,28 @@ class StudyRepository implements IRepository {
   Box<TaskDTO>? tasks;
 
   Future<StudyRepository> init() async {
-    await Hive.initFlutter();
-    Hive.registerAdapter(TaskDTOAdapter());
-    Hive.registerAdapter(LessonDTOAdapter());
-    Hive.registerAdapter(ModuleDTOAdapter());
     tasks = await Hive.openBox<TaskDTO>("tasks");
     lessons = await Hive.openBox<LessonDTO>("lessons");
     modules = await Hive.openBox<ModuleDTO>("modules");
     if (tasks!.isEmpty) {
-      initTasks();
+      await initTasks();
     }
     if (lessons!.isEmpty) {
-      initLessons();
+      await initLessons();
     }
     if (modules!.isEmpty) {
-      initModules();
+      await initModules();
     }
     return this;
+  }
+
+  @override
+  void clear() async {
+    await Hive.deleteBoxFromDisk("tasks");
+    await Hive.deleteBoxFromDisk("lessons");
+    await Hive.deleteBoxFromDisk("modules");
+
+    init();
   }
 
   @override
@@ -75,23 +82,26 @@ class StudyRepository implements IRepository {
     modules!.put(module.id, module);
   }
 
-  void initModules() {
-    modules!.put(0, ModuleDTO.fromModule(Module("Жывёлы", 3, 0, false)));
-    modules!.put(1, ModuleDTO.fromModule(Module("Стравы", 2, 1, false)));
+  Future initModules() async {
+    await modules!.put(0, ModuleDTO.fromModule(Module("Жывёлы", 3, 0, false)));
+    await modules!.put(1, ModuleDTO.fromModule(Module("Стравы", 2, 1, false)));
   }
 
-  void initLessons() {
-    lessons!
+  Future initLessons() async {
+    await lessons!
         .put(0, LessonDTO.fromLesson(Lesson("хто такі трус?", 2, 0, 0, false)));
-    lessons!
+    await lessons!
         .put(1, LessonDTO.fromLesson(Lesson("жывёлы радзімы", 9, 1, 0, false)));
-    lessons!.put(2, LessonDTO.fromLesson(Lesson("lesson 3", 3, 2, 0, false)));
-    lessons!.put(3, LessonDTO.fromLesson(Lesson("lesson 1", 2, 3, 1, false)));
-    lessons!.put(4, LessonDTO.fromLesson(Lesson("lesson 2", 3, 4, 1, false)));
+    await lessons!
+        .put(2, LessonDTO.fromLesson(Lesson("lesson 3", 3, 2, 0, false)));
+    await lessons!
+        .put(3, LessonDTO.fromLesson(Lesson("lesson 1", 2, 3, 1, false)));
+    await lessons!
+        .put(4, LessonDTO.fromLesson(Lesson("lesson 2", 3, 4, 1, false)));
   }
 
-  void initTasks() {
-    tasks!.put(
+  Future initTasks() async {
+    await tasks!.put(
         0,
         TaskDTO.fromTranslateWordTask(TranslateWordTask(
             "task 1",
@@ -101,7 +111,7 @@ class StudyRepository implements IRepository {
             0,
             0,
             false)));
-    tasks!.put(
+    await tasks!.put(
         1,
         TaskDTO.fromInsertWordsTask(InsertWordsTask(
             "task 2",
@@ -111,19 +121,19 @@ class StudyRepository implements IRepository {
             0,
             false)));
 
-    tasks!.put(
+    await tasks!.put(
         2,
         TaskDTO.fromTranslateWordTask(TranslateWordTask("task 1", "вавёрка",
             ["лиса", "белка", "выдра", "куница"], 1, 2, 1, false)));
-    tasks!.put(
+    await tasks!.put(
         3,
         TaskDTO.fromTranslateWordTask(TranslateWordTask("task 2", "дзік",
             ["медведь", "зубр", "волк", "кабан"], 3, 3, 1, false)));
-    tasks!.put(
+    await tasks!.put(
         4,
         TaskDTO.fromTranslateWordTask(TranslateWordTask("task 3", "бусел",
             ["аист", "цапля", "лебедь", "фламинго"], 0, 4, 1, false)));
-    tasks!.put(
+    await tasks!.put(
         5,
         TaskDTO.fromInsertWordsTask(InsertWordsTask(
             "task 4",
@@ -132,11 +142,11 @@ class StudyRepository implements IRepository {
             5,
             1,
             false)));
-    tasks!.put(
+    await tasks!.put(
         6,
         TaskDTO.fromWriteTranslationTask(
             WriteTranslationTask("task 5", "белка", "вавёрка", 6, 1, false)));
-    tasks!.put(
+    await tasks!.put(
         7,
         TaskDTO.fromInsertWordsTask(InsertWordsTask(
             "task 6",
@@ -145,11 +155,11 @@ class StudyRepository implements IRepository {
             7,
             1,
             false)));
-    tasks!.put(
+    await tasks!.put(
         8,
         TaskDTO.fromWriteTranslationTask(
             WriteTranslationTask("task 7", "кабан", "дзік", 8, 1, false)));
-    tasks!.put(
+    await tasks!.put(
         9,
         TaskDTO.fromTranslateTextTask(TranslateTextTask(
             "task 8",
@@ -158,42 +168,42 @@ class StudyRepository implements IRepository {
             9,
             1,
             false)));
-    tasks!.put(
+    await tasks!.put(
         10,
         TaskDTO.fromTranslateWordTask(TranslateWordTask("task 9", "белка",
             ["ліса", "куніца", "выдра", "вавёрка"], 3, 10, 1, false)));
 
-    tasks!.put(
+    await tasks!.put(
         11,
         TaskDTO.fromTranslateTextTask(
             TranslateTextTask("task 1", "f", "f", 11, 2, false)));
-    tasks!.put(
+    await tasks!.put(
         12,
         TaskDTO.fromTranslateTextTask(
             TranslateTextTask("task 2", "g", "g", 12, 2, false)));
-    tasks!.put(
+    await tasks!.put(
         13,
         TaskDTO.fromTranslateTextTask(
             TranslateTextTask("task 3", "h", "h", 13, 2, false)));
 
-    tasks!.put(
+    await tasks!.put(
         14,
         TaskDTO.fromTranslateTextTask(
             TranslateTextTask("task 1", "i", "i", 14, 3, false)));
-    tasks!.put(
+    await tasks!.put(
         15,
         TaskDTO.fromTranslateTextTask(
             TranslateTextTask("task 2", "j", "j", 15, 3, false)));
 
-    tasks!.put(
+    await tasks!.put(
         16,
         TaskDTO.fromTranslateTextTask(
             TranslateTextTask("task 1", "k", "k", 16, 4, false)));
-    tasks!.put(
+    await tasks!.put(
         17,
         TaskDTO.fromTranslateTextTask(
             TranslateTextTask("task 2", "l", "l", 17, 4, false)));
-    tasks!.put(
+    await tasks!.put(
         18,
         TaskDTO.fromTranslateTextTask(
             TranslateTextTask("task 3", "m", "m", 18, 4, false)));

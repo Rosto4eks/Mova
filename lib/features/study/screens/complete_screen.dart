@@ -15,16 +15,7 @@ class CompleteScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: RadialGradient(
-            center: Alignment.bottomLeft,
-            radius: 1.5,
-            colors: [
-              color4,
-              lightGrey,
-            ],
-          ),
-        ),
+        color: color3,
         width: double.infinity,
         padding:
             const EdgeInsets.only(left: 25, right: 25, top: 70, bottom: 10),
@@ -37,33 +28,27 @@ class CompleteScreen extends StatelessWidget {
               minHeight: 7,
               borderRadius: BorderRadius.circular(15),
             ),
+            Container(
+              margin: const EdgeInsets.all(20),
+              child: Text(
+                lesson.name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.all(20),
+              child: const Text(
+                "Занятак пройдзен!",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+            ),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.all(20),
-                    child: Text(
-                      lesson.name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.all(20),
-                    child: const Text(
-                      "Занятак пройдзен!",
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ),
-                  Image.asset(
-                    "assets/images/sigma.gif",
-                    height: 400,
-                  ),
                   GestureDetector(
                     onTap: () {
                       Provider.of<StudyProvider>(context, listen: false)
@@ -80,8 +65,6 @@ class CompleteScreen extends StatelessWidget {
                     child: Container(
                       margin: const EdgeInsets.only(top: 40, bottom: 10),
                       alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
                       child: const Text(
                         "перапрайсці",
                         style: TextStyle(
@@ -97,17 +80,8 @@ class CompleteScreen extends StatelessWidget {
                       margin: const EdgeInsets.only(bottom: 40, top: 10),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: white,
-                        borderRadius: BorderRadius.circular(55),
-                        boxShadow: [
-                          BoxShadow(
-                            color: black.withOpacity(0.2),
-                            spreadRadius: 1,
-                            blurRadius: 10,
-                            offset: const Offset(
-                                0, 8), // changes position of shadow
-                          ),
-                        ],
+                        color: black,
+                        borderRadius: BorderRadius.circular(15),
                       ),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 10),
@@ -116,7 +90,7 @@ class CompleteScreen extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: blue),
+                            color: white),
                       ),
                     ),
                   ),

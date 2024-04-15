@@ -4,7 +4,9 @@ import "package:flutter/widgets.dart";
 import "package:mova/features/study/domain/usecase/service.dart";
 import "package:mova/features/study/providers/study_provider.dart";
 import "package:mova/features/study/screens/lesson_screen.dart";
+import "package:mova/features/users/providers/user_provider.dart";
 import "package:mova/presentation/components/colors.dart";
+import "package:mova/presentation/components/statusbar.dart";
 import "package:provider/provider.dart";
 
 class HomePage extends StatefulWidget {
@@ -21,6 +23,7 @@ class _HomeState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     late Lesson lesson;
+    var userProvider = Provider.of<UserProvider>(context);
     bool allCompleted = false;
     try {
       lesson = Provider.of<StudyProvider>(context).lastUncompletedLesson();
@@ -29,8 +32,9 @@ class _HomeState extends State<HomePage> {
     }
     return Scaffold(
       backgroundColor: color1,
+      appBar: StatusBar(),
       body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 90, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -45,8 +49,8 @@ class _HomeState extends State<HomePage> {
                     Radius.circular(25),
                   ),
                 ),
-                child: const Text(
-                  "Прывітанне!",
+                child: Text(
+                  "Прывітанне! ${userProvider.getUser().name}",
                   style: TextStyle(
                       fontSize: 28, color: black, fontWeight: FontWeight.bold),
                 ),
@@ -63,7 +67,7 @@ class _HomeState extends State<HomePage> {
               height: 150,
               width: double.infinity,
               padding: const EdgeInsets.all(15),
-              margin: const EdgeInsets.symmetric(vertical: 20),
+              margin: const EdgeInsets.symmetric(vertical: 10),
               decoration: BoxDecoration(
                   color: white,
                   boxShadow: [
@@ -108,7 +112,7 @@ class _HomeState extends State<HomePage> {
                 child: Container(
                   height: 150,
                   width: double.infinity,
-                  margin: const EdgeInsets.symmetric(vertical: 20),
+                  margin: const EdgeInsets.symmetric(vertical: 10),
                   padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
                       color: white,

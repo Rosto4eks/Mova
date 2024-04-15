@@ -24,6 +24,11 @@ class StudyProvider extends ChangeNotifier {
     _everFinished = _selectedLesson.everCompleted;
   }
 
+  void clear() {
+    _service.clear();
+    notifyListeners();
+  }
+
   int getModulesCount() {
     return _service.elementsCount;
   }

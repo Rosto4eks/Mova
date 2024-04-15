@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -74,11 +71,22 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyASDz5O83m9rR4KirknWuXcK9OTLc_SP0E',
-    appId: '1:523608283316:ios:ceffa0ae375a3e014e1fe1',
+    appId: '1:523608283316:ios:7a2285cf67de59b84e1fe1',
     messagingSenderId: '523608283316',
     projectId: 'mova-a8d84',
     databaseURL: 'https://mova-a8d84-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'mova-a8d84.appspot.com',
-    iosBundleId: 'com.example.mova.RunnerTests',
+    iosBundleId: 'com.example.mova',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyD25EKSXhiY4_vnqk_wNDhYzF-uqtqAQ8U',
+    appId: '1:523608283316:web:a3d1b226e19471c44e1fe1',
+    messagingSenderId: '523608283316',
+    projectId: 'mova-a8d84',
+    authDomain: 'mova-a8d84.firebaseapp.com',
+    databaseURL: 'https://mova-a8d84-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'mova-a8d84.appspot.com',
+  );
+
 }

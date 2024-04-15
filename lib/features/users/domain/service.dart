@@ -2,17 +2,21 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
+import 'package:hive/hive.dart';
 import 'package:mova/features/service.dart';
+import 'package:mova/features/users/repository/dto.dart';
 
 part "user.dart";
 part "achievements.dart";
-part "repository.dart";
+part "../repository/repository.dart";
 
 class UserService extends Service {
   List<Achievement> _achievements = [];
   late final UserRepository _repository;
 
-  UserService(this._repository);
+  UserService(this._repository) {
+    Service.user = _repository.loadUser();
+  }
 
   void changeName(String name) {
     if (name.isEmpty) {
@@ -20,11 +24,19 @@ class UserService extends Service {
     }
     Service.user._name = name;
     _repository.saveUser(Service.user);
+    _repository.localSaveUser(Service.user);
   }
 
   void changePassword(String password) {
     Service.user._password = _hash(password);
     _repository.saveUser(Service.user);
+    _repository.localSaveUser(Service.user);
+  }
+
+  void addGems(int gems) {
+    Service.user._gems += gems;
+    _repository.saveUser(Service.user);
+    _repository.localSaveUser(Service.user);
   }
 
   List<Achievement> getAchievements() {
@@ -54,6 +66,7 @@ class UserService extends Service {
       var id = await _repository.getNewId();
       User user = User(id, "user", name, email, _hash(password), 0, [], []);
       await _repository.saveUser(user);
+      _repository.localSaveUser(user);
       Service.user = user;
     } else {
       throw Exception("user with this email aready registered");
@@ -74,10 +87,17 @@ class UserService extends Service {
       throw Exception("User not found");
     }
     if (_hash(password) == user._password) {
+      await _repository.saveUser(user);
+      _repository.localSaveUser(user);
       Service.user = user;
     } else {
       throw Exception("Invalid password");
     }
+  }
+
+  void logOut() {
+    Service.user = User.empty;
+    _repository.localSaveUser(User.empty);
   }
 
   User showUser() {

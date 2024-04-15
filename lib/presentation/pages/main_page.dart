@@ -4,7 +4,7 @@ import 'package:mova/presentation/components/navbar.dart';
 import 'package:mova/features/study/screens/study_screen.dart';
 import 'package:mova/presentation/pages/home_page.dart';
 import 'package:mova/presentation/pages/library_page.dart';
-import 'package:mova/presentation/pages/profile_page.dart';
+import 'package:mova/features/users/screens/profile_page.dart';
 import 'package:mova/presentation/pages/translate_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -26,6 +26,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         forceMaterialTransparency: true,

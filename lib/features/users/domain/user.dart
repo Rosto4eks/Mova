@@ -14,11 +14,14 @@ class User {
   String get role => _role;
   String get email => _email;
   int get gems => _gems;
+  String get password => _password;
+  List<int> get Achievements => _achievements;
+  List<int> get books => _books;
 
   User(this.id, this._role, this._name, this._email, this._password, this._gems,
       this._achievements, this._books);
 
-  User.empty() : this(-1, "User", "User", "", "", 0, [], []);
+  static User get empty => User(-1, "", "", "", "", 0, [], []);
 
   Map<String, dynamic> toJson() => {
         "id": id,

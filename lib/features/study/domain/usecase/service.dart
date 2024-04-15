@@ -57,6 +57,10 @@ class StudyService extends Entity with EntityContainer<Module> {
     _elementsCount = count;
   }
 
+  void clear() {
+    _repository.clear();
+  }
+
   void _notifierEvent(Event event) {
     if (event.name != "Module" || event.eventType != "Completed") return;
     _elementsCompleted++;

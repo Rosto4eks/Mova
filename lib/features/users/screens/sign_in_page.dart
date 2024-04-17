@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:mova/features/study/providers/study_provider.dart';
 import 'package:mova/features/users/providers/signin_provider.dart';
 import 'package:mova/features/users/providers/user_provider.dart';
 import 'package:mova/presentation/components/colors.dart';
@@ -13,24 +15,23 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var provider = Provider.of<UserProvider>(context);
     var signin = Provider.of<SigninProvider>(context);
+    var study = Provider.of<StudyProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: color1,
+      backgroundColor: color3,
       body: Container(
-        margin: EdgeInsets.symmetric(vertical: 110, horizontal: 20),
-        padding: EdgeInsets.all(30),
+        margin: const EdgeInsets.symmetric(vertical: 110, horizontal: 20),
+        padding: const EdgeInsets.all(30),
         decoration: BoxDecoration(
             color: white, borderRadius: BorderRadius.circular(20)),
         child: Column(
           children: [
-            Container(
-              child: Text(
-                signin.error,
-                style: TextStyle(
-                  color: Color.fromARGB(255, 236, 73, 73),
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+            Text(
+              signin.error,
+              style: const TextStyle(
+                color: Color.fromARGB(255, 236, 73, 73),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
             ),
             Container(
@@ -95,30 +96,41 @@ class SignInPage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 20),
+              margin: const EdgeInsets.symmetric(vertical: 20),
               child: GestureDetector(
                 onTap: () async {
-                  try {
-                    await InternetAddress.lookup('example.com');
-                  } catch (e) {
+                  ConnectivityResult connectivityResult =
+                      await Connectivity().checkConnectivity();
+                  if (connectivityResult == ConnectivityResult.mobile ||
+                      connectivityResult == ConnectivityResult.wifi) {
+                    showDialog(
+                        context: context,
+                        builder: (context) => const Center(
+                              child: CircularProgressIndicator(
+                                color: lightGreen,
+                              ),
+                            ),
+                        barrierDismissible: false);
+                    provider
+                        .signIn(
+                      signin.email,
+                      signin.password,
+                    )
+                        .then(
+                      (value) {
+                        Navigator.pop(context);
+                        if (value == "") {
+                          study.clear();
+                          provider.refresh();
+                          signin.clear();
+                        } else {
+                          signin.setError(value);
+                        }
+                      },
+                    );
+                  } else {
                     signin.setError("no internet connection");
-                    return;
                   }
-                  provider
-                      .signIn(
-                    signin.email,
-                    signin.password,
-                  )
-                      .then(
-                    (value) {
-                      if (value == "") {
-                        provider.refresh();
-                        signin.clear();
-                      } else {
-                        signin.setError(value);
-                      }
-                    },
-                  );
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -137,6 +149,7 @@ class SignInPage extends StatelessWidget {
               margin: EdgeInsets.symmetric(vertical: 10),
               child: GestureDetector(
                 onTap: () {
+                  signin.clear();
                   provider.logType = "sign-up";
                   provider.refresh();
                 },

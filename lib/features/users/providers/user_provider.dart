@@ -28,8 +28,8 @@ class UserProvider extends ChangeNotifier {
   Future<String> signUp(String email, String name, String password) async {
     try {
       await _service.signUp(email, password, name);
-    } catch (e) {
-      return e.toString();
+    } on FormatException catch (e) {
+      return e.message;
     }
     return "";
   }
@@ -37,8 +37,17 @@ class UserProvider extends ChangeNotifier {
   Future<String> signIn(String email, String password) async {
     try {
       await _service.signIn(email, password);
-    } catch (e) {
-      return e.toString();
+    } on FormatException catch (e) {
+      return e.message;
+    }
+    return "";
+  }
+
+  Future<String> changeName(String name) async {
+    try {
+      await _service.changeName(name);
+    } on FormatException catch (e) {
+      return e.message;
     }
     return "";
   }

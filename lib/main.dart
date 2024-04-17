@@ -24,10 +24,10 @@ void main() async {
   );
 
   var userRepository = await UserRepository().init();
-  var userService = UserService(userRepository);
-
   var studyRepository = await StudyRepository().init();
-  var studyService = StudyService(studyRepository, "", 2);
+
+  var userService = UserService(userRepository);
+  var studyService = StudyService(studyRepository, userRepository, "", 2);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mova/features/study/providers/study_provider.dart';
 import 'package:mova/features/users/providers/signin_provider.dart';
 import 'package:mova/features/users/providers/user_provider.dart';
 import 'package:mova/presentation/components/colors.dart';
@@ -14,9 +16,10 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var provider = Provider.of<UserProvider>(context);
     var signup = Provider.of<SignupProvider>(context);
+    var study = Provider.of<StudyProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: color1,
+      backgroundColor: color3,
       body: Container(
         margin: const EdgeInsets.symmetric(vertical: 110, horizontal: 20),
         padding: const EdgeInsets.all(30),
@@ -122,31 +125,42 @@ class SignUpPage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 20),
+              margin: const EdgeInsets.symmetric(vertical: 20),
               child: GestureDetector(
                 onTap: () async {
-                  try {
-                    await InternetAddress.lookup('example.com');
-                  } catch (e) {
+                  ConnectivityResult connectivityResult =
+                      await Connectivity().checkConnectivity();
+                  if (connectivityResult == ConnectivityResult.mobile ||
+                      connectivityResult == ConnectivityResult.wifi) {
+                    showDialog(
+                        context: context,
+                        builder: (context) => const Center(
+                              child:
+                                  CircularProgressIndicator(color: lightGreen),
+                            ),
+                        barrierDismissible: false);
+                    provider
+                        .signUp(
+                      signup.email,
+                      signup.name,
+                      signup.password,
+                    )
+                        .then(
+                      (value) {
+                        if (value == "") {
+                          Navigator.pop(context);
+                          study.clear();
+                          provider.refresh();
+                          signup.clear();
+                        } else {
+                          signup.setError(value);
+                        }
+                      },
+                    );
+                  } else {
                     signup.setError("no internet connection");
                     return;
                   }
-                  provider
-                      .signUp(
-                    signup.email,
-                    signup.name,
-                    signup.password,
-                  )
-                      .then(
-                    (value) {
-                      if (value == "") {
-                        provider.refresh();
-                        signup.clear();
-                      } else {
-                        signup.setError(value);
-                      }
-                    },
-                  );
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -165,6 +179,7 @@ class SignUpPage extends StatelessWidget {
               margin: EdgeInsets.symmetric(vertical: 10),
               child: GestureDetector(
                 onTap: () {
+                  signup.clear();
                   provider.logType = "sign-in";
                   provider.refresh();
                 },

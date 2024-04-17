@@ -31,9 +31,12 @@ class _HomeState extends State<HomePage> {
       allCompleted = true;
     }
     return Scaffold(
-      backgroundColor: color1,
-      appBar: StatusBar(),
       body: Container(
+        decoration: BoxDecoration(
+            gradient: RadialGradient(
+                colors: [color3, lightGrey],
+                radius: 1.6,
+                center: Alignment.bottomCenter)),
         padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -52,7 +55,7 @@ class _HomeState extends State<HomePage> {
                 child: Text(
                   "Прывітанне! ${userProvider.getUser().name}",
                   style: TextStyle(
-                      fontSize: 28, color: black, fontWeight: FontWeight.bold),
+                      fontSize: 28, color: black, fontWeight: FontWeight.w500),
                 ),
               ),
             ),

@@ -5,6 +5,8 @@ import 'dart:math';
 
 import 'package:mova/features/study/domain/repository/dto.dart';
 import 'package:mova/features/study/domain/repository/repository.dart';
+import 'package:mova/features/service.dart';
+import 'package:mova/features/users/domain/service.dart';
 
 part 'module.dart';
 part 'lesson.dart';
@@ -36,12 +38,13 @@ extension on List<TaskDTO> {
       }).toList();
 }
 
-class StudyService extends Entity with EntityContainer<Module> {
+class StudyService extends Entity with EntityContainer<Module>, Service {
   late final IRepository _repository;
+  late final UserRepository _userRepository;
 
   List<Module> get avaiableModules => _elements;
 
-  StudyService(this._repository, super.name, int count,
+  StudyService(this._repository, this._userRepository, super.name, int count,
       [super.id, super.everCompleted]) {
     _elements = _repository.getModules().toModules();
 
@@ -57,8 +60,21 @@ class StudyService extends Entity with EntityContainer<Module> {
     _elementsCount = count;
   }
 
-  void clear() {
-    _repository.clear();
+  Future clear() async {
+    await _repository.clear();
+    _elements = _repository.getModules().toModules();
+
+    for (var element in _elements) {
+      if (element.everCompleted) _elementsCompleted++;
+    }
+
+    for (int i = 0; i < _elements.length; i++) {
+      _elements[i].notifier.add(_notifierEvent);
+      _elements[i].notifier.add(_elementHandler);
+      _elements[i].listeners.add(_elementHandler);
+    }
+
+    _elementsCompleted = _repository.modulesCompleted();
   }
 
   void _notifierEvent(Event event) {
@@ -91,6 +107,9 @@ class StudyService extends Entity with EntityContainer<Module> {
 
         _repository.updateModule(ModuleDTO.fromModule(tempModule));
       } else if (event.name == "Task") {
+        Service.user.incrementProgress();
+        _userRepository.saveUser(Service.user);
+        _userRepository.localSaveUser(Service.user);
         var tempModule = _elements
             .firstWhere((element) => element.id == event.data["moduleId"]);
         var tempLesson = tempModule._elements

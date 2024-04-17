@@ -62,7 +62,7 @@ class ModuleTemplate extends StatelessWidget {
                       margin: EdgeInsets.symmetric(vertical: 10),
                       child: Image.asset(
                         "assets/images/${module.name}.png",
-                        color: isEnabled ? color1 : grey,
+                        color: isEnabled ? color3 : grey,
                       ),
                     ),
                     Container(
@@ -73,7 +73,7 @@ class ModuleTemplate extends StatelessWidget {
                             module.elementsCount.toDouble(),
                         minHeight: 10,
                         borderRadius: BorderRadius.circular(20),
-                        color: lightGreen,
+                        color: color3,
                         backgroundColor: isEnabled
                             ? black.withOpacity(0.15)
                             : Colors.transparent,

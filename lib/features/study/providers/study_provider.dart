@@ -24,8 +24,8 @@ class StudyProvider extends ChangeNotifier {
     _everFinished = _selectedLesson.everCompleted;
   }
 
-  void clear() {
-    _service.clear();
+  void clear() async {
+    await _service.clear();
     notifyListeners();
   }
 

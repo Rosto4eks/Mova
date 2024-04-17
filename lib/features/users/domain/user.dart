@@ -7,6 +7,7 @@ class User {
   late String _email;
   late String _password;
   int _gems = 0;
+  int _progress = 0;
   final List<int> _achievements;
   final List<int> _books;
 
@@ -14,14 +15,23 @@ class User {
   String get role => _role;
   String get email => _email;
   int get gems => _gems;
+  int get progress => _progress;
   String get password => _password;
   List<int> get Achievements => _achievements;
   List<int> get books => _books;
 
   User(this.id, this._role, this._name, this._email, this._password, this._gems,
-      this._achievements, this._books);
+      this._progress, this._achievements, this._books) {}
 
-  static User get empty => User(-1, "", "", "", "", 0, [], []);
+  static User get empty => User(-1, "", "", "", "", 0, 0, [], []);
+
+  void incrementProgress() {
+    _progress++;
+  }
+
+  void resetProgress() {
+    _progress = 0;
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -30,6 +40,7 @@ class User {
         "password": _password,
         "role": _role,
         "gems": _gems,
+        "progress": _progress,
         "achievements": _achievements,
         "books": _books,
       };
@@ -42,6 +53,7 @@ class User {
         data["email"] as String,
         data["password"] as String,
         data["gems"] as int,
+        data["progress"] as int,
         List.from(data["achievements"]),
         List.from(data["books"]));
     return u;

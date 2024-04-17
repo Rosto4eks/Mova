@@ -24,11 +24,11 @@ class ModuleScreen extends StatelessWidget {
     return Scaffold(
       appBar: MAppBar(
         module.name,
-        175,
+        130,
         arrow: true,
       ),
-      backgroundColor: color1,
       body: Container(
+        color: color3,
         alignment: Alignment.bottomCenter,
         padding: const EdgeInsets.symmetric(vertical: 15),
         child: Column(
@@ -47,7 +47,10 @@ class ModuleScreen extends StatelessWidget {
               controller: pageController,
               count: module.elementsCount,
               effect: const ExpandingDotsEffect(
-                  activeDotColor: lightPurple, dotHeight: 16, dotWidth: 16),
+                  activeDotColor: black,
+                  dotColor: grey,
+                  dotHeight: 16,
+                  dotWidth: 16),
               onDotClicked: (index) => pageController.animateToPage(index,
                   duration: const Duration(milliseconds: 400),
                   curve: Curves.decelerate),

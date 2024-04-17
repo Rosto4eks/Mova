@@ -24,13 +24,14 @@ class UserDTOAdapter extends TypeAdapter<UserDTO> {
       ..password = fields[4] as String
       ..gems = fields[5] as int
       ..achievements = (fields[6] as List).cast<int>()
-      ..books = (fields[7] as List).cast<int>();
+      ..books = (fields[7] as List).cast<int>()
+      ..progress = fields[8] as int;
   }
 
   @override
   void write(BinaryWriter writer, UserDTO obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -46,7 +47,9 @@ class UserDTOAdapter extends TypeAdapter<UserDTO> {
       ..writeByte(6)
       ..write(obj.achievements)
       ..writeByte(7)
-      ..write(obj.books);
+      ..write(obj.books)
+      ..writeByte(8)
+      ..write(obj.progress);
   }
 
   @override

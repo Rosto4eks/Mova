@@ -18,12 +18,12 @@ class UserService extends Service {
     Service.user = _repository.loadUser();
   }
 
-  void changeName(String name) {
-    if (name.isEmpty) {
-      throw Exception("cat be empty");
+  Future changeName(String name) async {
+    if (name.length < 5) {
+      throw FormatException("даўжыня імя павінна быць больш за 6");
     }
     Service.user._name = name;
-    _repository.saveUser(Service.user);
+    await _repository.saveUser(Service.user);
     _repository.localSaveUser(Service.user);
   }
 
@@ -56,42 +56,46 @@ class UserService extends Service {
   }
 
   Future signUp(String email, String password, String name) async {
-    if (email.isEmpty || password.isEmpty || name.isEmpty) {
-      throw Exception("fill all fields");
+    if (name.length < 5) {
+      throw const FormatException("даўжыня імя павінна быць больш за 5");
+    }
+    if (email.length < 7) {
+      throw const FormatException("даўжыня пошты павінна быць больш за 7");
     }
     if (password.length < 8) {
-      throw Exception("too short password");
+      throw const FormatException("даўжыня пароля павінна быць больш за 8");
     }
     if ((await _repository.getUserByEmail(email)).id == -1) {
       var id = await _repository.getNewId();
-      User user = User(id, "user", name, email, _hash(password), 0, [], []);
+      User user = User(id, "user", name, email, _hash(password), 0, 0, [], []);
       await _repository.saveUser(user);
       _repository.localSaveUser(user);
       Service.user = user;
     } else {
-      throw Exception("user with this email aready registered");
+      throw const FormatException(
+          "карыстальнік з гэтай поштай ужо зарэгістраваны");
     }
   }
 
   Future signIn(String email, String password) async {
     User user;
-    if (email.isEmpty || password.isEmpty) {
-      throw Exception("fill all fields");
+    if (email.length < 7) {
+      throw const FormatException("даўжыня пошты павінна быць больш за 7");
     }
     if (password.length < 8) {
-      throw Exception("too short password");
+      throw const FormatException("даўжыня пароля павінна быць больш за 8");
     }
     try {
       user = await _repository.getUserByEmail(email);
     } catch (e) {
-      throw Exception("User not found");
+      throw const FormatException(
+          "карыстальнік з гэтай поштай ужо зарэгістраваны");
     }
     if (_hash(password) == user._password) {
-      await _repository.saveUser(user);
       _repository.localSaveUser(user);
       Service.user = user;
     } else {
-      throw Exception("Invalid password");
+      throw const FormatException("няправільны пароль");
     }
   }
 

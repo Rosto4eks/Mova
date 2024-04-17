@@ -29,6 +29,9 @@ class UserDTO extends HiveObject {
   @HiveField(7)
   late List<int> books;
 
+  @HiveField(8)
+  late int progress;
+
   UserDTO() {
     id = -1;
     name = "";
@@ -38,6 +41,7 @@ class UserDTO extends HiveObject {
     gems = 0;
     achievements = [];
     books = [];
+    progress = 0;
   }
 
   UserDTO.fromUser(User user) {
@@ -49,8 +53,11 @@ class UserDTO extends HiveObject {
     gems = user.gems;
     achievements = user.Achievements;
     books = user.books;
+    progress = user.progress;
   }
 
-  User toUser() =>
-      User(id, role, name, email, password, gems, achievements, books);
+  User toUser() {
+    return User(
+        id, role, name, email, password, gems, progress, achievements, books);
+  }
 }

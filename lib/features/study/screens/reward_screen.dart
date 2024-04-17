@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mova/features/study/domain/usecase/service.dart';
 import 'package:mova/features/study/screens/complete_screen.dart';
@@ -8,19 +11,41 @@ import 'package:mova/features/users/providers/user_provider.dart';
 import 'package:mova/presentation/components/colors.dart';
 import 'package:provider/provider.dart';
 
-class RewardScreen extends StatelessWidget {
+class RewardScreen extends StatefulWidget {
   final Lesson lesson;
   final int lessonIndex;
   const RewardScreen(this.lesson, this.lessonIndex, {super.key});
 
   @override
+  State<RewardScreen> createState() => _RewardScreenState();
+}
+
+class _RewardScreenState extends State<RewardScreen> {
+  var scale = 0.01;
+  var reward = 0;
+  double topd = 50;
+  Timer? timer;
+  @override
   Widget build(BuildContext context) {
-    var reward = Provider.of<UserProvider>(context, listen: false).reward();
-    AudioPlayer().play(AssetSource("sounds/complete.mp3"), volume: 0.6);
+    if (scale == 0.01) {
+      Future.delayed(const Duration(microseconds: 1), () {
+        setState(() {
+          scale = 1;
+          topd = topd == 0 ? 50 : 0;
+        });
+        reward = Provider.of<UserProvider>(context, listen: false).reward();
+        AudioPlayer().play(AssetSource("sounds/complete.mp3"), volume: 0.3);
+      });
+      timer = Timer.periodic(Duration(milliseconds: 2200), (_) {
+        setState(() {
+          topd = topd == 0 ? 50 : 0;
+        });
+      });
+    }
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        color: color1,
+        color: color3,
         width: double.infinity,
         padding:
             const EdgeInsets.only(left: 25, right: 25, top: 70, bottom: 10),
@@ -28,33 +53,60 @@ class RewardScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             LinearProgressIndicator(
-              value: lesson.elementsCompleted.toDouble() /
-                  lesson.elementsCount.toDouble(),
+              value: widget.lesson.elementsCompleted.toDouble() /
+                  widget.lesson.elementsCount.toDouble(),
               color: const Color.fromARGB(255, 123, 248, 161),
               minHeight: 7,
               borderRadius: BorderRadius.circular(15),
             ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 20),
-              child: Image.asset(
-                "assets/images/coin.png",
-                height: 200,
+            const Text(
+              "зароблена крышталаў:",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "$reward",
+              style: const TextStyle(
+                fontWeight: FontWeight.w900,
+                fontSize: 100,
               ),
+              textAlign: TextAlign.center,
             ),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 20),
-              child: Text(
-                "зароблена крышталаў: $reward",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+              height: 300,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  AnimatedPositioned(
+                    duration: Duration(seconds: 2),
+                    curve: Curves.easeInOut,
+                    top: topd,
+                    child: AnimatedScale(
+                      scale: scale,
+                      curve: Curves.decelerate,
+                      duration: Duration(milliseconds: 500),
+                      child: Container(
+                        child: Image.asset(
+                          "assets/images/coin.png",
+                          height: 200,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             GestureDetector(
-              onTap: () => Navigator.pushReplacement(
-                context,
-                CupertinoPageRoute(
-                  builder: (ctx) => CompleteScreen(lesson, lessonIndex),
-                ),
-              ),
+              onTap: () {
+                timer!.cancel();
+                Navigator.pushReplacement(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (ctx) =>
+                        CompleteScreen(widget.lesson, widget.lessonIndex),
+                  ),
+                );
+              },
               child: Container(
                 margin: const EdgeInsets.only(bottom: 40, top: 10),
                 alignment: Alignment.center,

@@ -18,7 +18,7 @@ class MAppBar extends StatelessWidget implements PreferredSizeWidget {
     return PreferredSize(
       preferredSize: preferredSize,
       child: Container(
-        color: color1,
+        color: color3,
         alignment: Alignment.bottomLeft,
         padding: const EdgeInsets.all(20),
         child: Row(

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:mova/presentation/components/colors.dart";
 
 class TranslatePage extends StatefulWidget {
   const TranslatePage({super.key});
@@ -10,6 +11,8 @@ class TranslatePage extends StatefulWidget {
 class _TranslateState extends State<TranslatePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const Scaffold(
+      backgroundColor: color3,
+    );
   }
 }

@@ -27,7 +27,7 @@ class NavBar extends StatelessWidget {
         duration: Duration(milliseconds: 350),
         onTabChange: (val) => onTabChange(val),
         activeColor: white,
-        tabBackgroundColor: black,
+        tabBackgroundColor: color4,
         color: const Color.fromARGB(255, 191, 207, 202),
         padding: const EdgeInsets.all(10),
         iconSize: 30,

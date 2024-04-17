@@ -18,7 +18,7 @@ class SignInPage extends StatelessWidget {
     var study = Provider.of<StudyProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: color3,
+      backgroundColor: color4,
       body: Container(
         margin: const EdgeInsets.symmetric(vertical: 110, horizontal: 20),
         padding: const EdgeInsets.all(30),

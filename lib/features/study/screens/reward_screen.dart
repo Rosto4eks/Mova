@@ -45,7 +45,7 @@ class _RewardScreenState extends State<RewardScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        color: color3,
+        color: color4,
         width: double.infinity,
         padding:
             const EdgeInsets.only(left: 25, right: 25, top: 70, bottom: 10),

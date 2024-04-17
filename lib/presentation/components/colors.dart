@@ -13,3 +13,5 @@ const color1 = Color.fromARGB(255, 155, 202, 247);
 const color2 = Color.fromARGB(255, 242, 250, 255);
 const color3 = Color.fromARGB(255, 181, 238, 255);
 const color4 = Color.fromARGB(255, 194, 213, 255);
+const color5 = Color.fromARGB(255, 138, 157, 199);
+const color6 = Color.fromARGB(255, 65, 75, 95);

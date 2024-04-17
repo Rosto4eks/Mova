@@ -36,12 +36,12 @@ class _MainPageState extends State<MainPage> {
           PageView(
             physics: const NeverScrollableScrollPhysics(),
             controller: _pageController,
-            children: [
-              HomePage(_pageController),
-              const TranslatePage(),
-              const StudyScreen(),
-              const LibraryPage(),
-              const ProfilePage(),
+            children: const [
+              HomePage(),
+              TranslatePage(),
+              StudyScreen(),
+              LibraryPage(),
+              ProfilePage(),
             ],
           ),
           Positioned(

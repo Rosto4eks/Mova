@@ -39,11 +39,7 @@ class LessonScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        decoration: BoxDecoration(
-            gradient: RadialGradient(
-                colors: [color3, lightGrey],
-                radius: 1.5,
-                center: Alignment.bottomCenter)),
+        color: color4,
         width: double.infinity,
         padding:
             const EdgeInsets.only(left: 25, right: 25, top: 70, bottom: 10),

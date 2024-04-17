@@ -28,7 +28,7 @@ class ModuleScreen extends StatelessWidget {
         arrow: true,
       ),
       body: Container(
-        color: color3,
+        color: color4,
         alignment: Alignment.bottomCenter,
         padding: const EdgeInsets.symmetric(vertical: 15),
         child: Column(

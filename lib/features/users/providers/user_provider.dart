@@ -52,6 +52,10 @@ class UserProvider extends ChangeNotifier {
     return "";
   }
 
+  Future<List<User>> getUsersByName(String name) async {
+    return await _service.getUsersByName(name);
+  }
+
   void logout() {
     _service.logOut();
     notifyListeners();

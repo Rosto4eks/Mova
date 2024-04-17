@@ -1,25 +1,19 @@
-import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
-import "package:flutter/widgets.dart";
 import "package:mova/features/study/domain/usecase/service.dart";
 import "package:mova/features/study/providers/study_provider.dart";
 import "package:mova/features/study/screens/lesson_screen.dart";
 import "package:mova/features/users/providers/user_provider.dart";
 import "package:mova/presentation/components/colors.dart";
-import "package:mova/presentation/components/statusbar.dart";
 import "package:provider/provider.dart";
 
 class HomePage extends StatefulWidget {
-  PageController _pageController;
-  HomePage(this._pageController, {super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomeState();
 }
 
 class _HomeState extends State<HomePage> {
-  String _prevBook = "Дзікае паляванне караля стаха";
-
   @override
   Widget build(BuildContext context) {
     late Lesson lesson;
@@ -32,31 +26,24 @@ class _HomeState extends State<HomePage> {
     }
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-            gradient: RadialGradient(
-                colors: [color3, lightGrey],
-                radius: 1.6,
-                center: Alignment.bottomCenter)),
+        color: lightGrey,
         padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            Container(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                "Прывітанне!\n${userProvider.getUser().name}",
+                style: const TextStyle(
+                    fontSize: 28, color: black, fontWeight: FontWeight.w500),
+              ),
+            ),
             Expanded(
               child: Container(
-                alignment: Alignment.topCenter,
-                width: double.infinity,
-                padding: const EdgeInsets.all(15),
-                margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(25),
-                  ),
-                ),
-                child: Text(
-                  "Прывітанне! ${userProvider.getUser().name}",
-                  style: TextStyle(
-                      fontSize: 28, color: black, fontWeight: FontWeight.w500),
-                ),
+                height: MediaQuery.of(context).size.width / 2,
+                alignment: Alignment.bottomRight,
+                child: Image.asset("assets/images/alesya-2.png"),
               ),
             ),
             Container(
@@ -66,101 +53,113 @@ class _HomeState extends State<HomePage> {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
-            Container(
-              height: 150,
-              width: double.infinity,
-              padding: const EdgeInsets.all(15),
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                  color: white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: black.withOpacity(0.05),
-                      spreadRadius: 4,
-                      blurRadius: 10,
-                      offset: const Offset(0, 3), // changes position of shadow
+            allCompleted
+                ? Container(
+                    height: 100,
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.symmetric(vertical: 20),
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        gradient:
+                            const LinearGradient(colors: [color4, lightGrey]),
+                        borderRadius: BorderRadius.circular(15)),
+                    child: const Text(
+                      "усё пройдзена",
+                      style: TextStyle(fontSize: 22, color: color6),
                     ),
-                  ],
-                  borderRadius: BorderRadius.circular(20)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    _prevBook,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        color: black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22),
-                  ),
-                  const Text(
-                    "Чытаць далей",
-                    style: TextStyle(color: black, fontSize: 14),
-                  ),
-                ],
-              ),
-            ),
-            if (!allCompleted)
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (ctx) => LessonScreen(
+                  )
+                : GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LessonScreen(
                           Provider.of<StudyProvider>(context, listen: false)
-                              .setLastUncompletedLesson()),
+                              .setLastUncompletedLesson(),
+                        ),
+                      ),
                     ),
-                  );
-                },
-                child: Container(
-                  height: 150,
-                  width: double.infinity,
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  padding: const EdgeInsets.all(15),
+                    child: Container(
+                      height: 100,
+                      margin: const EdgeInsets.symmetric(vertical: 20),
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          gradient:
+                              const LinearGradient(colors: [color4, lightGrey]),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            lesson.name,
+                            style: const TextStyle(fontSize: 22, color: color6),
+                          ),
+                          Text(
+                            "${lesson.elementsCompleted}/${lesson.elementsCount}",
+                            style: const TextStyle(fontSize: 18, color: color6),
+                          ),
+                          const Icon(
+                            Icons.arrow_forward_ios,
+                            color: color6,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
+                      gradient: const RadialGradient(
+                          colors: [color4, lightGrey],
+                          radius: 1,
+                          center: Alignment.topRight),
                       color: white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: black.withOpacity(0.05),
-                          spreadRadius: 4,
-                          blurRadius: 10,
-                          offset:
-                              const Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(20))),
+                      borderRadius: BorderRadius.circular(15)),
+                  height: MediaQuery.of(context).size.width * 0.43,
+                  width: MediaQuery.of(context).size.width * 0.43,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        lesson.name,
-                        style: TextStyle(
-                            color: black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22),
+                      Image.asset(
+                        "assets/images/book.png",
+                        height: MediaQuery.of(context).size.width * 0.3,
                       ),
-                      Container(
-                        child: LinearProgressIndicator(
-                          value: lesson.elementsCompleted.toDouble() /
-                              lesson.elementsCount.toDouble(),
-                          minHeight: 8,
-                          borderRadius: BorderRadius.circular(30),
-                          color: lightGreen,
-                          backgroundColor: grey.withOpacity(0.3),
-                        ),
+                      const Text(
+                        "чытаць",
+                        style: TextStyle(fontSize: 16, color: color6),
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      gradient: const RadialGradient(
+                          colors: [color4, lightGrey],
+                          radius: 1,
+                          center: Alignment.topLeft),
+                      color: white,
+                      borderRadius: BorderRadius.circular(15)),
+                  height: MediaQuery.of(context).size.width * 0.43,
+                  width: MediaQuery.of(context).size.width * 0.43,
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        "assets/images/translate.png",
+                        height: MediaQuery.of(context).size.width * 0.3,
                       ),
-                      Text(
-                        "Працягнуць",
-                        style: TextStyle(
-                          color: black,
-                          fontSize: 15,
-                        ),
+                      const Text(
+                        "перавесці",
+                        style: TextStyle(fontSize: 16, color: color6),
                       ),
                     ],
                   ),
                 ),
-              ),
+              ],
+            )
           ],
         ),
       ),

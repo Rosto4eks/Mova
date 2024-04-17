@@ -84,7 +84,7 @@ class TranslateTextTaskScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               vertical: 4, horizontal: 10),
                           decoration: BoxDecoration(
-                            color: e.value ? black : white,
+                            color: e.value ? black : grey,
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
@@ -101,7 +101,7 @@ class TranslateTextTaskScreen extends StatelessWidget {
                             child: Text(
                               e.key,
                               style: TextStyle(
-                                color: white,
+                                color: e.value ? white : grey,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),

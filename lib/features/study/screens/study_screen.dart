@@ -17,7 +17,6 @@ class _StudyState extends State<StudyScreen> {
   @override
   Widget build(BuildContext context) {
     var study = Provider.of<StudyProvider>(context);
-    var index = Provider.of<ModuleProvider>(context).index;
     var count = study.getModulesCount();
     var pageController = PageController(
       viewportFraction: 1,
@@ -30,11 +29,7 @@ class _StudyState extends State<StudyScreen> {
     return Scaffold(
       body: AnimatedContainer(
         duration: const Duration(milliseconds: 400),
-        decoration: BoxDecoration(
-            gradient: RadialGradient(
-                colors: [color3, lightGrey],
-                radius: 1.5,
-                center: Alignment.bottomLeft)),
+        color: color4,
         padding: const EdgeInsets.only(bottom: 100),
         child: Column(
           children: [

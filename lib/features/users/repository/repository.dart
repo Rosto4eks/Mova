@@ -21,7 +21,9 @@ class UserRepository {
     List<User> users = [];
     await db
         .collection("users")
-        .where("name", isEqualTo: name)
+        .where("name", isGreaterThanOrEqualTo: name)
+        .where("name", isLessThanOrEqualTo: "$name\uf8ff")
+        .limit(10)
         .get()
         .then((value) {
       for (var user in value.docs) {

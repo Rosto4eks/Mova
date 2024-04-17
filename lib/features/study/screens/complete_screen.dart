@@ -15,7 +15,7 @@ class CompleteScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        color: color3,
+        color: color4,
         width: double.infinity,
         padding:
             const EdgeInsets.only(left: 25, right: 25, top: 70, bottom: 10),
@@ -30,19 +30,16 @@ class CompleteScreen extends StatelessWidget {
             ),
             Container(
               margin: const EdgeInsets.all(20),
-              child: Text(
-                lesson.name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(20),
               child: const Text(
                 "Занятак пройдзен!",
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                height: MediaQuery.of(context).size.width / 2,
+                alignment: Alignment.center,
+                child: Image.asset("assets/images/alesya-3.png"),
               ),
             ),
             Expanded(

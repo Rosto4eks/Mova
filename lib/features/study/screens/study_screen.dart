@@ -48,8 +48,8 @@ class _StudyState extends State<StudyScreen> {
             SmoothPageIndicator(
               controller: pageController,
               count: count,
-              effect: const ExpandingDotsEffect(
-                  activeDotColor: black,
+              effect: const WormEffect(
+                  activeDotColor: white,
                   dotColor: grey,
                   dotHeight: 12,
                   dotWidth: 12),

@@ -46,8 +46,8 @@ class ModuleScreen extends StatelessWidget {
             SmoothPageIndicator(
               controller: pageController,
               count: module.elementsCount,
-              effect: const ExpandingDotsEffect(
-                  activeDotColor: black,
+              effect: const WormEffect(
+                  activeDotColor: white,
                   dotColor: grey,
                   dotHeight: 16,
                   dotWidth: 16),

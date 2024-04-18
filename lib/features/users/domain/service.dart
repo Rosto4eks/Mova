@@ -27,6 +27,31 @@ class UserService extends Service {
     _repository.localSaveUser(Service.user);
   }
 
+  Future adminChangeUser(
+    User user,
+    int gems,
+    int tasks,
+    String role,
+  ) async {
+    if (Service.user.role != "admin") {
+      throw const FormatException("Няма праў");
+    }
+    if (gems < 0) {
+      throw const FormatException("колькасць крышталаў павінна быць станоўчым");
+    }
+    if (tasks < 0) {
+      throw const FormatException(
+          "колькасць выпаўненных заданняў павінна быць станоўчым");
+    }
+    if (role != "admin" && role != "user") {
+      throw const FormatException("няверная роля");
+    }
+    user._gems = gems;
+    user._role = role;
+    user._progress = tasks;
+    await _repository.saveUser(user);
+  }
+
   void changePassword(String password) {
     Service.user._password = _hash(password);
     _repository.saveUser(Service.user);
@@ -51,7 +76,7 @@ class UserService extends Service {
     return await _repository.getUsersByName(name);
   }
 
-  Future<User> getUsersById(int id) async {
+  Future<User> getUserById(int id) async {
     return await _repository.getUserById(id);
   }
 
@@ -85,11 +110,10 @@ class UserService extends Service {
     if (password.length < 8) {
       throw const FormatException("даўжыня пароля павінна быць больш за 8");
     }
-    try {
-      user = await _repository.getUserByEmail(email);
-    } catch (e) {
-      throw const FormatException(
-          "карыстальнік з гэтай поштай ужо зарэгістраваны");
+
+    user = await _repository.getUserByEmail(email);
+    if (user.id == -1) {
+      throw const FormatException("карыстальнік з гэтай поштай не знойдзены");
     }
     if (_hash(password) == user._password) {
       _repository.localSaveUser(user);

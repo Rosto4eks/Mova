@@ -5,9 +5,9 @@ import "package:flutter/material.dart";
 import "package:flutter/widgets.dart";
 import "package:mova/features/service.dart";
 import "package:mova/features/study/providers/study_provider.dart";
-import "package:mova/features/users/providers/change_provider.dart";
+import "package:mova/features/users/providers/change_profile_provider.dart";
 import "package:mova/features/users/providers/user_provider.dart";
-import "package:mova/features/users/screens/change_page.dart";
+import "package:mova/features/users/screens/change_profile_page.dart";
 import "package:mova/features/users/screens/search_user_page.dart";
 import "package:mova/features/users/screens/sign_in_page.dart";
 import "package:mova/features/users/screens/sign_up_page.dart";
@@ -26,7 +26,7 @@ class _ProfileState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     var provider = Provider.of<UserProvider>(context);
     var study = Provider.of<StudyProvider>(context);
-    var changer = Provider.of<ChangeUserProvider>(context, listen: false);
+    var changer = Provider.of<ChangeProfileProvider>(context, listen: false);
     var achievements = ["aboba", "bebra", "biba", "cocos", "molokosos"];
     var user = provider.getUser();
     if (!provider.isSignedIn()) {
@@ -56,7 +56,7 @@ class _ProfileState extends State<ProfilePage> {
                     Navigator.push(
                         context,
                         CupertinoPageRoute(
-                          builder: (context) => ChangeUserPage(),
+                          builder: (context) => ChangeProfilePage(),
                         ));
                   },
                   child: Icon(Icons.edit),

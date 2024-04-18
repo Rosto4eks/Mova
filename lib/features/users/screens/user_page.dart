@@ -3,9 +3,8 @@ import "package:flutter/material.dart";
 import "package:flutter/widgets.dart";
 import "package:mova/features/service.dart";
 import "package:mova/features/users/domain/service.dart";
-import "package:mova/features/users/providers/user_provider.dart";
-import "package:mova/features/users/screens/change_page.dart";
-import "package:mova/features/users/screens/search_user_page.dart";
+import "package:mova/features/users/providers/change_user_provider.dart";
+import "package:mova/features/users/screens/change_user_page.dart";
 import "package:mova/presentation/components/colors.dart";
 import "package:provider/provider.dart";
 
@@ -20,7 +19,7 @@ class UserPage extends StatefulWidget {
 class _UserState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<UserProvider>(context);
+    var changer = Provider.of<ChangeUserProvider>(context, listen: false);
     var achievements = ["aboba", "bebra", "biba", "cocos", "molokosos"];
     var role = Service.user.role;
     return Scaffold(
@@ -30,10 +29,42 @@ class _UserState extends State<UserPage> {
         padding: EdgeInsets.only(bottom: 100, left: 20, right: 20),
         alignment: Alignment.center,
         child: ListView(children: [
-          Text(
-            widget.user.name,
-            style: const TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
-            textAlign: TextAlign.center,
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: const Icon(
+                  Icons.arrow_back_ios,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  widget.user.name,
+                  style: const TextStyle(
+                      fontSize: 40, fontWeight: FontWeight.w700),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Container(
+                child: GestureDetector(
+                  onTap: () {
+                    if (role == "admin") {
+                      changer.clear();
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => ChangeUserPage(widget.user),
+                        ),
+                      );
+                    }
+                  },
+                  child: Icon(
+                    Icons.edit,
+                    color: role == "admin" ? color6 : lightGrey,
+                  ),
+                ),
+              ),
+            ],
           ),
           Container(
             margin: const EdgeInsets.symmetric(vertical: 20),

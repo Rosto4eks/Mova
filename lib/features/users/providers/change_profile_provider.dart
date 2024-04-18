@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ChangeUserProvider extends ChangeNotifier {
+class ChangeProfileProvider extends ChangeNotifier {
   var _name = "";
   var _error = "";
 
@@ -20,5 +20,12 @@ class ChangeUserProvider extends ChangeNotifier {
   void clear() {
     _name = "";
     _error = "";
+  }
+
+  ChangeProfileProvider init(String name) {
+    if (_name == "") {
+      _name = name;
+    }
+    return this;
   }
 }

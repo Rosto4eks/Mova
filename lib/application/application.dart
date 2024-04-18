@@ -3,7 +3,8 @@ import 'package:mova/features/study/domain/usecase/service.dart';
 import 'package:mova/features/study/providers/module_provider.dart';
 import 'package:mova/features/study/providers/study_provider.dart';
 import 'package:mova/features/users/domain/service.dart';
-import 'package:mova/features/users/providers/change_provider.dart';
+import 'package:mova/features/users/providers/change_profile_provider.dart';
+import 'package:mova/features/users/providers/change_user_provider.dart';
 import 'package:mova/features/users/providers/signin_provider.dart';
 import 'package:mova/features/users/providers/user_provider.dart';
 import 'package:mova/presentation/pages/main_page.dart';
@@ -35,6 +36,9 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider<SignupProvider>(
           create: (context) => SignupProvider(),
+        ),
+        ChangeNotifierProvider<ChangeProfileProvider>(
+          create: (context) => ChangeProfileProvider(),
         ),
         ChangeNotifierProvider<ChangeUserProvider>(
           create: (context) => ChangeUserProvider(),

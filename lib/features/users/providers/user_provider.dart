@@ -56,6 +56,20 @@ class UserProvider extends ChangeNotifier {
     return await _service.getUsersByName(name);
   }
 
+  Future<User> getUserById(int id) async {
+    return await _service.getUserById(id);
+  }
+
+  Future<String> AdminChangeUser(
+      User user, int gems, int tasks, String role) async {
+    try {
+      await _service.adminChangeUser(user, gems, tasks, role);
+    } on FormatException catch (e) {
+      return e.message;
+    }
+    return "";
+  }
+
   void logout() {
     _service.logOut();
     notifyListeners();

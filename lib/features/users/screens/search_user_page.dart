@@ -39,10 +39,26 @@ class _SearchUserPageState extends State<SearchUserPage> {
                 child: TextField(
                   maxLength: 20,
                   onSubmitted: (value) async {
-                    var res = users = await provider.getUsersByName(value);
-                    setState(() {
-                      users = res;
-                    });
+                    ConnectivityResult connectivityResult =
+                        await Connectivity().checkConnectivity();
+                    if (connectivityResult == ConnectivityResult.mobile ||
+                        connectivityResult == ConnectivityResult.wifi) {
+                      showDialog(
+                          context: context,
+                          builder: (context) => const Center(
+                                child: CircularProgressIndicator(
+                                  color: lightGreen,
+                                ),
+                              ),
+                          barrierDismissible: false);
+                      var res = users = await provider.getUsersByName(value);
+                      Navigator.pop(context);
+                      setState(
+                        () {
+                          users = res;
+                        },
+                      );
+                    }
                   },
                   minLines: 1,
                   maxLines: 1,
@@ -58,7 +74,7 @@ class _SearchUserPageState extends State<SearchUserPage> {
                     border: const UnderlineInputBorder(),
                     focusedBorder: const UnderlineInputBorder(),
                     enabledBorder: const UnderlineInputBorder(),
-                    hintText: "імя",
+                    hintText: "пошук",
                     hintStyle: TextStyle(color: black.withOpacity(0.4)),
                     contentPadding: const EdgeInsets.all(10),
                   ),
@@ -66,33 +82,37 @@ class _SearchUserPageState extends State<SearchUserPage> {
               ),
             ),
             Expanded(
-                child: ListView.builder(
-                    itemCount: users.length,
-                    itemBuilder: (context, index) => GestureDetector(
-                          onTap: () => Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) =>
-                                      UserPage(users[index]))),
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(vertical: 30),
-                            width: double.infinity,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  users[index].name,
-                                  style: const TextStyle(fontSize: 18),
-                                ),
-                                Text(
-                                  "${users[index].progress} адз.",
-                                  style: const TextStyle(fontSize: 18),
-                                ),
-                                Icon(Icons.search)
-                              ],
-                            ),
-                          ),
-                        )))
+              child: ListView.builder(
+                itemCount: users.length,
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () => Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => UserPage(users[index]))),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 30),
+                    width: double.infinity,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          users[index].name,
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                        const Icon(Icons.arrow_forward_ios),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: const Text(
+                "назад",
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
           ],
         ),
       ),

@@ -60,6 +60,7 @@ class UserRepository {
   }
 
   Future saveUser(User user) async {
+    if (user == User.empty) return;
     db.collection("users").doc("${user.id}").set(user.toJson());
   }
 

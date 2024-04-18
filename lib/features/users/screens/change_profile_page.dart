@@ -1,17 +1,17 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:mova/features/users/providers/change_provider.dart';
+import 'package:mova/features/users/providers/change_profile_provider.dart';
 import 'package:mova/features/users/providers/user_provider.dart';
 import 'package:mova/presentation/components/colors.dart';
 import 'package:provider/provider.dart';
 
-class ChangeUserPage extends StatelessWidget {
-  const ChangeUserPage({super.key});
+class ChangeProfilePage extends StatelessWidget {
+  const ChangeProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<UserProvider>(context);
-    var changer = Provider.of<ChangeUserProvider>(context);
+    var changer = Provider.of<ChangeProfileProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: color3,
@@ -37,7 +37,7 @@ class ChangeUserPage extends StatelessWidget {
                 margin: EdgeInsets.symmetric(vertical: 20),
                 child: Material(
                   color: Colors.transparent,
-                  child: TextField(
+                  child: TextFormField(
                     maxLength: 50,
                     onChanged: (val) {
                       changer.setName(val);
@@ -114,13 +114,11 @@ class ChangeUserPage extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () => Navigator.pop(context),
-                child: Container(
-                  child: Text(
-                    "назад",
-                    style: TextStyle(fontSize: 20),
-                  ),
+                child: const Text(
+                  "назад",
+                  style: TextStyle(fontSize: 20),
                 ),
-              )
+              ),
             ],
           ),
         ),

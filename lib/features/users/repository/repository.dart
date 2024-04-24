@@ -2,7 +2,6 @@ part of "../domain/service.dart";
 
 class UserRepository {
   final db = FirebaseFirestore.instance;
-  List<Achievement> achievements = [];
   Box<UserDTO>? userBox;
 
   Future<UserRepository> init() async {
@@ -66,18 +65,6 @@ class UserRepository {
 
   void localSaveUser(User user) {
     userBox!.put("user", UserDTO.fromUser(user));
-  }
-
-  List<Achievement> getAllAchievements() {
-    return achievements;
-  }
-
-  List<Achievement> getUserAchievements(List<int> ids) {
-    List<Achievement> arr = [];
-    for (int id in ids) {
-      arr.add(achievements.firstWhere((element) => element.id == id));
-    }
-    return arr;
   }
 
   Future<int> getNewId() async {

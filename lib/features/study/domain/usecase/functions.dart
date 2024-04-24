@@ -1,4 +1,4 @@
-part of study;
+part of 'service.dart';
 
 enum Reward { small, medium, large }
 

@@ -8,6 +8,7 @@ import 'package:mova/features/study/domain/usecase/service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mova/features/users/domain/service.dart';
 import 'package:mova/features/users/repository/dto.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -28,8 +29,10 @@ void main() async {
 
   var userService = UserService(userRepository);
   var studyService = StudyService(studyRepository, userRepository, "", 2);
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]).then((value) => runApp(App(studyService, userService)));
+  ]).then(
+      (value) => runApp(OverlaySupport(child: App(studyService, userService))));
 }

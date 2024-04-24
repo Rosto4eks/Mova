@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mova/features/study/providers/study_provider.dart';
 import 'package:mova/features/study/screens/module_screen.dart';
 import 'package:mova/presentation/components/colors.dart';
@@ -59,7 +58,7 @@ class ModuleTemplate extends StatelessWidget {
                     ),
                     Container(
                       height: 300,
-                      margin: EdgeInsets.symmetric(vertical: 10),
+                      margin: const EdgeInsets.symmetric(vertical: 10),
                       child: Image.asset(
                         "assets/images/${module.name}.png",
                         color: isEnabled ? color4 : grey,

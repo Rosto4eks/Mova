@@ -18,7 +18,7 @@ class StatusBar extends StatelessWidget implements PreferredSizeWidget {
     return PreferredSize(
       preferredSize: preferredSize,
       child: Container(
-        margin: EdgeInsets.only(left: 15, right: 15, top: 50, bottom: 10),
+        margin: const EdgeInsets.only(left: 15, right: 15, top: 50, bottom: 10),
         decoration: BoxDecoration(
           color: white,
           borderRadius: BorderRadius.circular(15),
@@ -28,20 +28,18 @@ class StatusBar extends StatelessWidget implements PreferredSizeWidget {
         child: Row(
           children: [
             Container(
-              margin: EdgeInsets.only(left: 20, right: 5),
+              margin: const EdgeInsets.only(left: 20, right: 5),
               child: Image.asset(
                 "assets/images/coin.png",
                 height: 30,
               ),
             ),
-            Container(
-              child: Text(
-                "${provider.getUser().gems}",
-                style: TextStyle(
-                  color: Color.fromARGB(255, 147, 173, 243),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
+            Text(
+              "${provider.getUser().gems}",
+              style: const TextStyle(
+                color: Color.fromARGB(255, 147, 173, 243),
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
               ),
             ),
           ],

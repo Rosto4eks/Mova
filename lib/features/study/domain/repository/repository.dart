@@ -85,6 +85,7 @@ class StudyRepository implements IRepository {
     modules!.put(module.id, module);
   }
 
+  @override
   int modulesCompleted() {
     return modules!.values
         .where((element) => element.everCompleted == true)

@@ -1,4 +1,4 @@
-part of study;
+part of '../usecase/service.dart';
 
 class FakeRepository {
   late final List<Module> modules = [];
@@ -70,6 +70,4 @@ class FakeRepository {
       lessons.where((element) => element.moduleId == moduleId).toList();
   List<Task> getTasks(int lessonId) =>
       tasks.where((element) => element.lessonId == lessonId).toList();
-  // TODO SAVE
-  //
 }

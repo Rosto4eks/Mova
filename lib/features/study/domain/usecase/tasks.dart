@@ -1,4 +1,4 @@
-part of study;
+part of 'service.dart';
 
 abstract class Task extends Entity {
   late final int? lessonId;

@@ -23,6 +23,7 @@ dependencies:
   cloud_firestore: ^4.16.1
   crypto: ^3.0.3
   connectivity_plus: ^3.0.2
+  overlay_support: ^2.1.0
 
 
 dev_dependencies:
@@ -52,14 +53,16 @@ flutter:
     - assets/sounds/
 
 flutter_native_splash:
-  color: "#a85af1"
+  color: "#ffffff"
   image: assets/images/logo.png
   android_12:
-    color: "#a85af1"
+    color: "#ffffff"
     image: assets/images/logo.png
 
 flutter_launcher_icons:
-  android: "launcher_icon"
-  ios: true
   image_path: "assets/images/icon.png"
+  adaptive_icon_foreground: "assets/images/icon.png"
+  adaptive_icon_background: "#ffffff"
+  android: true
   min_sdk_android: 21 # android min sdk min:16, default 21
+

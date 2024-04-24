@@ -9,7 +9,7 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: white,
@@ -24,7 +24,7 @@ class NavBar extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(10),
       child: GNav(
-        duration: Duration(milliseconds: 350),
+        duration: const Duration(milliseconds: 350),
         onTabChange: (val) => onTabChange(val),
         activeColor: white,
         tabBackgroundColor: color4,
@@ -33,19 +33,19 @@ class NavBar extends StatelessWidget {
         iconSize: 30,
         tabs: const [
           GButton(
-            icon: Icons.home,
+            icon: Icons.home_rounded,
           ),
           GButton(
-            icon: Icons.translate,
+            icon: Icons.translate_rounded,
           ),
           GButton(
-            icon: Icons.book,
+            icon: Icons.star_rounded,
           ),
           GButton(
-            icon: Icons.archive,
+            icon: Icons.bookmark_rounded,
           ),
           GButton(
-            icon: Icons.account_circle,
+            icon: Icons.person_rounded,
           ),
         ],
       ),

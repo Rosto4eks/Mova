@@ -51,7 +51,7 @@ class UserDTO extends HiveObject {
     role = user.role;
     password = user.password;
     gems = user.gems;
-    achievements = user.Achievements;
+    achievements = user.achievements;
     books = user.books;
     progress = user.progress;
   }

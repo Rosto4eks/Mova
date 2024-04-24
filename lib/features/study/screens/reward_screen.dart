@@ -1,10 +1,10 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mova/features/study/domain/usecase/service.dart';
 import 'package:mova/features/study/screens/complete_screen.dart';
 import 'package:mova/features/users/providers/user_provider.dart';
@@ -24,7 +24,6 @@ class _RewardScreenState extends State<RewardScreen> {
   var scale = 0.01;
   var reward = 0;
   double topd = 50;
-  Timer? timer;
   @override
   Widget build(BuildContext context) {
     if (scale == 0.01) {
@@ -35,11 +34,6 @@ class _RewardScreenState extends State<RewardScreen> {
         });
         reward = Provider.of<UserProvider>(context, listen: false).reward();
         AudioPlayer().play(AssetSource("sounds/complete.mp3"), volume: 0.3);
-      });
-      timer = Timer.periodic(Duration(milliseconds: 2200), (_) {
-        setState(() {
-          topd = topd == 0 ? 50 : 0;
-        });
       });
     }
     return Scaffold(
@@ -72,7 +66,7 @@ class _RewardScreenState extends State<RewardScreen> {
               ),
               textAlign: TextAlign.center,
             ),
-            Container(
+            SizedBox(
               height: 300,
               child: Stack(
                 alignment: Alignment.center,
@@ -85,11 +79,9 @@ class _RewardScreenState extends State<RewardScreen> {
                       scale: scale,
                       curve: Curves.decelerate,
                       duration: Duration(milliseconds: 500),
-                      child: Container(
-                        child: Image.asset(
-                          "assets/images/coin.png",
-                          height: 200,
-                        ),
+                      child: Image.asset(
+                        "assets/images/coin.png",
+                        height: 200,
                       ),
                     ),
                   ),
@@ -98,7 +90,6 @@ class _RewardScreenState extends State<RewardScreen> {
             ),
             GestureDetector(
               onTap: () {
-                timer!.cancel();
                 Navigator.pushReplacement(
                   context,
                   CupertinoPageRoute(

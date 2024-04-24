@@ -27,7 +27,8 @@ class _HomeState extends State<HomePage> {
     return Scaffold(
       body: Container(
         color: lightGrey,
-        padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 20),
+        padding:
+            const EdgeInsets.only(top: 50, bottom: 100, left: 20, right: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -41,9 +42,12 @@ class _HomeState extends State<HomePage> {
             ),
             Expanded(
               child: Container(
-                height: MediaQuery.of(context).size.width / 2,
+                height: MediaQuery.of(context).size.width,
                 alignment: Alignment.bottomRight,
-                child: Image.asset("assets/images/alesya-2.png"),
+                child: Image.asset(
+                  "assets/images/alesya-1.png",
+                  width: 325,
+                ),
               ),
             ),
             Container(

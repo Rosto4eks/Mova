@@ -1,4 +1,4 @@
-part of study;
+part of 'service.dart';
 
 abstract class Entity {
   late final String name;

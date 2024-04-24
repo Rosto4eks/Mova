@@ -3,10 +3,13 @@ library study;
 import 'dart:developer';
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:mova/features/study/domain/repository/dto.dart';
 import 'package:mova/features/study/domain/repository/repository.dart';
 import 'package:mova/features/service.dart';
 import 'package:mova/features/users/domain/service.dart';
+import 'package:mova/presentation/components/colors.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 part 'module.dart';
 part 'lesson.dart';
@@ -17,11 +20,11 @@ part '../repository/fake_repository.dart';
 part 'functions.dart';
 
 extension on List<ModuleDTO> {
-  List<Module> toModules() => this.map((e) => e.toModule()).toList();
+  List<Module> toModules() => map((e) => e.toModule()).toList();
 }
 
 extension on List<LessonDTO> {
-  List<Lesson> toLessons() => this.map((e) => e.toLesson()).toList();
+  List<Lesson> toLessons() => map((e) => e.toLesson()).toList();
 }
 
 extension on List<TaskDTO> {
@@ -41,6 +44,8 @@ extension on List<TaskDTO> {
 class StudyService extends Entity with EntityContainer<Module>, Service {
   late final IRepository _repository;
   late final UserRepository _userRepository;
+
+  Function achievementListener = () {};
 
   List<Module> get avaiableModules => _elements;
 
@@ -94,6 +99,7 @@ class StudyService extends Entity with EntityContainer<Module>, Service {
   }
 
   void _elementHandler(Event event) {
+    handleAchievement(event);
     if (event.eventType == "Completed") {
       if (event.name == "Module") {
         _repository.updateModule(ModuleDTO.fromModule(
@@ -143,5 +149,75 @@ class StudyService extends Entity with EntityContainer<Module>, Service {
           .firstWhere((element) => element.id == event.data["id"])
           .addElements(_repository.getTasks(event.data["id"]).toTasks());
     }
+  }
+
+  void handleAchievement(Event event) async {
+    if (event.name == "Task" && event.eventType == "Completed") {
+      if (event.data["id"] == 9) {
+        if (!Service.user.achievements.contains(0)) {
+          Service.user.achievements.add(0);
+          showAchievement("10 заданняў выпаўнена!");
+          _userRepository.localSaveUser(Service.user);
+          _userRepository.saveUser(Service.user);
+        }
+      }
+      if (event.data["id"] == 19) {
+        if (!Service.user.achievements.contains(1)) {
+          Service.user.achievements.add(1);
+          showAchievement("20 заданняў выпаўнена!");
+          _userRepository.localSaveUser(Service.user);
+          _userRepository.saveUser(Service.user);
+        }
+      }
+      if (event.data["id"] == 29) {
+        if (!Service.user.achievements.contains(2)) {
+          Service.user.achievements.add(2);
+          showAchievement("30 заданняў выпаўнена!");
+          _userRepository.localSaveUser(Service.user);
+          _userRepository.saveUser(Service.user);
+        }
+      }
+      if (event.data["id"] == 39) {
+        if (!Service.user.achievements.contains(3)) {
+          Service.user.achievements.add(3);
+          showAchievement("40 заданняў выпаўнена!");
+          _userRepository.localSaveUser(Service.user);
+          _userRepository.saveUser(Service.user);
+        }
+      }
+      if (event.data["id"] == 49) {
+        if (!Service.user.achievements.contains(4)) {
+          Service.user.achievements.add(4);
+          showAchievement("50 заданняў выпаўнена!");
+          _userRepository.localSaveUser(Service.user);
+          _userRepository.saveUser(Service.user);
+        }
+      }
+    }
+  }
+
+  void showAchievement(String text) {
+    showOverlayNotification((context) {
+      return Card(
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                text,
+                style: const TextStyle(fontSize: 18, color: black),
+              ),
+              const Icon(
+                Icons.star_rounded,
+                color: lightGreen,
+              )
+            ],
+          ),
+        ),
+      );
+    }, duration: const Duration(seconds: 2));
   }
 }

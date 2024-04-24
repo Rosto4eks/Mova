@@ -4,6 +4,7 @@ class User {
   late final int id;
   String _role = "User";
   late String _name;
+  // ignore: prefer_final_fields
   late String _email;
   late String _password;
   int _gems = 0;
@@ -17,11 +18,11 @@ class User {
   int get gems => _gems;
   int get progress => _progress;
   String get password => _password;
-  List<int> get Achievements => _achievements;
+  List<int> get achievements => _achievements;
   List<int> get books => _books;
 
   User(this.id, this._role, this._name, this._email, this._password, this._gems,
-      this._progress, this._achievements, this._books) {}
+      this._progress, this._achievements, this._books);
 
   static User get empty => User(-1, "", "", "", "", 0, 0, [], []);
 

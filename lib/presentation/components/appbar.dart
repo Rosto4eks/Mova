@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mova/presentation/components/colors.dart';
 
 class MAppBar extends StatelessWidget implements PreferredSizeWidget {

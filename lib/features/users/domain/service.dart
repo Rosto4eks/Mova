@@ -2,16 +2,30 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:mova/features/service.dart';
 import 'package:mova/features/users/repository/dto.dart';
+import 'package:mova/presentation/components/colors.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 part "user.dart";
-part "achievements.dart";
 part "../repository/repository.dart";
 
+Map<int, String> achievements = {
+  0: "выпаўнена 10 заданняў",
+  1: "выпаўнена 20 заданняў",
+  2: "выпаўнена 30 заданняў",
+  3: "выпаўнена 40 заданняў",
+  4: "выпаўнена 50 заданняў",
+  5: "зароблена 300 крышталаў",
+  6: "зароблена 500 крышталаў",
+  7: "зароблена 1000 крышталаў",
+  8: "зароблена 5000 крышталаў",
+  9: "зароблена 10000 крышталаў"
+};
+
 class UserService extends Service {
-  List<Achievement> _achievements = [];
   late final UserRepository _repository;
 
   UserService(this._repository) {
@@ -20,7 +34,7 @@ class UserService extends Service {
 
   Future changeName(String name) async {
     if (name.length < 5) {
-      throw FormatException("даўжыня імя павінна быць больш за 6");
+      throw const FormatException("даўжыня імя павінна быць больш за 6");
     }
     Service.user._name = name;
     await _repository.saveUser(Service.user);
@@ -60,16 +74,43 @@ class UserService extends Service {
 
   void addGems(int gems) {
     Service.user._gems += gems;
+    if (Service.user._gems >= 300) {
+      if (!Service.user.achievements.contains(5)) {
+        Service.user.achievements.add(5);
+        showAchievement("зароблена 300 крышталаў!");
+      }
+    }
+
+    if (Service.user._gems >= 500) {
+      if (!Service.user.achievements.contains(6)) {
+        Service.user.achievements.add(6);
+        showAchievement("зароблена 500 крышталаў!");
+      }
+    }
+
+    if (Service.user._gems >= 1000) {
+      if (!Service.user.achievements.contains(7)) {
+        Service.user.achievements.add(7);
+        showAchievement("зароблена 1000 крышталаў!");
+      }
+    }
+
+    if (Service.user._gems >= 5000) {
+      if (!Service.user.achievements.contains(8)) {
+        Service.user.achievements.add(8);
+        showAchievement("зароблена 5000 крышталаў!");
+      }
+    }
+
+    if (Service.user._gems >= 10000) {
+      if (!Service.user.achievements.contains(9)) {
+        Service.user.achievements.add(9);
+        showAchievement("зароблена 10000 крышталаў!");
+      }
+    }
+
     _repository.saveUser(Service.user);
     _repository.localSaveUser(Service.user);
-  }
-
-  List<Achievement> getAchievements() {
-    if (_achievements.isEmpty) {
-      _achievements =
-          _repository.getUserAchievements(Service.user._achievements);
-    }
-    return _achievements;
   }
 
   Future<List<User>> getUsersByName(String name) async {
@@ -134,5 +175,30 @@ class UserService extends Service {
 
   String _hash(String str) {
     return sha256.convert(utf8.encode(str)).toString();
+  }
+
+  void showAchievement(String text) {
+    showOverlayNotification((context) {
+      return Card(
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                text,
+                style: const TextStyle(fontSize: 18, color: black),
+              ),
+              const Icon(
+                Icons.star_rounded,
+                color: lightGreen,
+              )
+            ],
+          ),
+        ),
+      );
+    }, duration: const Duration(seconds: 2));
   }
 }

@@ -1,6 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
-import "package:flutter/widgets.dart";
 import "package:mova/features/service.dart";
 import "package:mova/features/users/domain/service.dart";
 import "package:mova/features/users/providers/change_user_provider.dart";
@@ -20,7 +21,6 @@ class _UserState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     var changer = Provider.of<ChangeUserProvider>(context, listen: false);
-    var achievements = ["aboba", "bebra", "biba", "cocos", "molokosos"];
     var role = Service.user.role;
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -45,23 +45,21 @@ class _UserState extends State<UserPage> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              Container(
-                child: GestureDetector(
-                  onTap: () {
-                    if (role == "admin") {
-                      changer.clear();
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (context) => ChangeUserPage(widget.user),
-                        ),
-                      );
-                    }
-                  },
-                  child: Icon(
-                    Icons.edit,
-                    color: role == "admin" ? color6 : lightGrey,
-                  ),
+              GestureDetector(
+                onTap: () {
+                  if (role == "admin") {
+                    changer.clear();
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => ChangeUserPage(widget.user),
+                      ),
+                    );
+                  }
+                },
+                child: Icon(
+                  Icons.edit,
+                  color: role == "admin" ? color6 : lightGrey,
                 ),
               ),
             ],
@@ -160,25 +158,26 @@ class _UserState extends State<UserPage> {
           Container(
             height: 165,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-            child: ListView.builder(
+            child: PageView.builder(
+                controller: PageController(
+                  viewportFraction: 0.6,
+                ),
                 scrollDirection: Axis.horizontal,
-                itemCount: achievements.length,
+                itemCount: widget.user.achievements.length,
                 itemBuilder: (context, index) => Container(
                       decoration: BoxDecoration(
-                          gradient: const RadialGradient(
-                              colors: [color4, lightGrey],
-                              radius: 2,
-                              center: Alignment.topRight),
-                          borderRadius: BorderRadius.circular(15)),
+                        gradient: const LinearGradient(
+                            colors: [lightGrey, lightGreen]),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                       margin: const EdgeInsets.symmetric(
-                          vertical: 30, horizontal: 5),
-                      padding: const EdgeInsets.all(10),
-                      height: 100,
-                      width: 100,
+                          vertical: 30, horizontal: 20),
+                      padding: const EdgeInsets.all(5),
                       alignment: Alignment.center,
                       child: Text(
-                        achievements[index],
-                        style: TextStyle(color: color6, fontSize: 20),
+                        "${achievements[widget.user.achievements[index]]}",
+                        style: TextStyle(color: black, fontSize: 20),
+                        textAlign: TextAlign.center,
                       ),
                     )),
           ),

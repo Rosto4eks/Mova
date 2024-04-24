@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:mova/features/users/domain/service.dart';
@@ -181,11 +183,9 @@ class ChangeUserPage extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () => Navigator.pop(context),
-                child: Container(
-                  child: Text(
-                    "назад",
-                    style: TextStyle(fontSize: 20),
-                  ),
+                child: Text(
+                  "назад",
+                  style: TextStyle(fontSize: 20),
                 ),
               )
             ],

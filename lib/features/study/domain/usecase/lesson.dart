@@ -1,4 +1,4 @@
-part of study;
+part of 'service.dart';
 
 class Lesson extends Entity with EntityContainer<Task> {
   late final int? moduleId;

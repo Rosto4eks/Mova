@@ -41,7 +41,8 @@ class ChangeUserProvider extends ChangeNotifier {
   }
 
   void clear() {
-    _gems = 0;
+    _gems = -1;
+    _tasks = -1;
     _role = "";
     _error = "";
   }
@@ -56,6 +57,7 @@ class ChangeUserProvider extends ChangeNotifier {
     if (_tasks == -1) {
       _tasks = user.progress;
     }
+
     return this;
   }
 }

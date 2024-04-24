@@ -60,6 +60,7 @@ class UserProvider extends ChangeNotifier {
     return await _service.getUserById(id);
   }
 
+  // ignore: non_constant_identifier_names
   Future<String> AdminChangeUser(
       User user, int gems, int tasks, String role) async {
     try {

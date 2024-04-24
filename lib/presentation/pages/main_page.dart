@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mova/presentation/components/navbar.dart';
 import 'package:mova/features/study/screens/study_screen.dart';
 import 'package:mova/presentation/pages/home_page.dart';

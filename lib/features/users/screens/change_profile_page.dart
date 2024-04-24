@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:mova/features/users/providers/change_profile_provider.dart';
@@ -72,6 +74,7 @@ class ChangeProfilePage extends StatelessWidget {
                     if (connectivityResult == ConnectivityResult.mobile ||
                         connectivityResult == ConnectivityResult.wifi) {
                       showDialog(
+                          // ignore: use_build_context_synchronously
                           context: context,
                           builder: (context) => const Center(
                                 child: CircularProgressIndicator(

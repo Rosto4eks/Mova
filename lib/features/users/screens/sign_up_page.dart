@@ -1,7 +1,6 @@
-import 'dart:io';
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mova/features/study/providers/study_provider.dart';
 import 'package:mova/features/users/providers/signin_provider.dart';
@@ -64,7 +63,7 @@ class SignUpPage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 20),
+              margin: const EdgeInsets.symmetric(vertical: 20),
               child: Material(
                 color: Colors.transparent,
                 child: TextField(
@@ -94,7 +93,7 @@ class SignUpPage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 20),
+              margin: const EdgeInsets.symmetric(vertical: 20),
               child: Material(
                 color: Colors.transparent,
                 child: TextField(
@@ -167,8 +166,9 @@ class SignUpPage extends StatelessWidget {
                       color: black, borderRadius: BorderRadius.circular(15)),
                   width: double.infinity,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                  child: Text(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                  child: const Text(
                     "рэгістрацыя",
                     style: TextStyle(fontSize: 20, color: white),
                   ),
@@ -176,14 +176,14 @@ class SignUpPage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
+              margin: const EdgeInsets.symmetric(vertical: 10),
               child: GestureDetector(
                 onTap: () {
                   signup.clear();
                   provider.logType = "sign-in";
                   provider.refresh();
                 },
-                child: Text(
+                child: const Text(
                   "увайсці",
                   style: TextStyle(fontSize: 18, color: black),
                 ),

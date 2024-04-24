@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +31,7 @@ class _SearchUserPageState extends State<SearchUserPage> {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.symmetric(vertical: 20),
+              margin: const EdgeInsets.symmetric(vertical: 20),
               child: Material(
                 color: Colors.transparent,
                 child: TextField(
@@ -44,6 +42,7 @@ class _SearchUserPageState extends State<SearchUserPage> {
                     if (connectivityResult == ConnectivityResult.mobile ||
                         connectivityResult == ConnectivityResult.wifi) {
                       showDialog(
+                          // ignore: use_build_context_synchronously
                           context: context,
                           builder: (context) => const Center(
                                 child: CircularProgressIndicator(
@@ -52,6 +51,7 @@ class _SearchUserPageState extends State<SearchUserPage> {
                               ),
                           barrierDismissible: false);
                       var res = users = await provider.getUsersByName(value);
+                      // ignore: use_build_context_synchronously
                       Navigator.pop(context);
                       setState(
                         () {

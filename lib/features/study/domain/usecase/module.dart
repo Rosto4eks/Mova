@@ -1,4 +1,4 @@
-part of study;
+part of 'service.dart';
 
 class Module extends Entity with EntityContainer<Lesson> {
   List<Lesson> get avaiableLessons {

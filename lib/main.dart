@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mova/application/application.dart';
+import 'package:mova/features/book/domain/repository/dto.dart';
+import 'package:mova/features/book/domain/repository/repository.dart';
+import 'package:mova/features/book/domain/usecase/service.dart';
 import 'package:mova/features/study/domain/repository/dto.dart';
 import 'package:mova/features/study/domain/repository/repository.dart';
 import 'package:mova/features/study/domain/usecase/service.dart';
@@ -19,6 +22,7 @@ void main() async {
   Hive.registerAdapter(LessonDTOAdapter());
   Hive.registerAdapter(ModuleDTOAdapter());
   Hive.registerAdapter(UserDTOAdapter());
+  Hive.registerAdapter(BookDTOAdapter());
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -26,13 +30,15 @@ void main() async {
 
   var userRepository = await UserRepository().init();
   var studyRepository = await StudyRepository().init();
+  var bookRepository = await BookRepository().init();
 
   var userService = UserService(userRepository);
   var studyService = StudyService(studyRepository, userRepository, "", 2);
+  var bookService = BookService(bookRepository);
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]).then(
-      (value) => runApp(OverlaySupport(child: App(studyService, userService))));
+  ]).then((value) => runApp(
+      OverlaySupport(child: App(studyService, userService, bookService))));
 }

@@ -97,10 +97,10 @@ class SignInPage extends StatelessWidget {
               margin: const EdgeInsets.symmetric(vertical: 20),
               child: GestureDetector(
                 onTap: () async {
-                  ConnectivityResult connectivityResult =
+                  var connectivityResult =
                       await Connectivity().checkConnectivity();
-                  if (connectivityResult == ConnectivityResult.mobile ||
-                      connectivityResult == ConnectivityResult.wifi) {
+                  if (connectivityResult.contains(ConnectivityResult.mobile) ||
+                      connectivityResult.contains(ConnectivityResult.wifi)) {
                     showDialog(
                         // ignore: use_build_context_synchronously
                         context: context,

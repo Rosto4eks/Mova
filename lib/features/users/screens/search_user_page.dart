@@ -37,10 +37,11 @@ class _SearchUserPageState extends State<SearchUserPage> {
                 child: TextField(
                   maxLength: 20,
                   onSubmitted: (value) async {
-                    ConnectivityResult connectivityResult =
+                    var connectivityResult =
                         await Connectivity().checkConnectivity();
-                    if (connectivityResult == ConnectivityResult.mobile ||
-                        connectivityResult == ConnectivityResult.wifi) {
+                    if (connectivityResult
+                            .contains(ConnectivityResult.mobile) ||
+                        connectivityResult.contains(ConnectivityResult.wifi)) {
                       showDialog(
                           // ignore: use_build_context_synchronously
                           context: context,

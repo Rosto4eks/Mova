@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mova/presentation/components/navbar.dart';
 import 'package:mova/features/study/screens/study_screen.dart';
 import 'package:mova/presentation/pages/home_page.dart';
-import 'package:mova/presentation/pages/library_page.dart';
+import 'package:mova/features/book/screens/book_page.dart';
 import 'package:mova/features/users/screens/profile_page.dart';
 import 'package:mova/presentation/pages/translate_page.dart';
 
@@ -39,7 +39,7 @@ class _MainPageState extends State<MainPage> {
               HomePage(),
               TranslatePage(),
               StudyScreen(),
-              LibraryPage(),
+              BookPage(),
               ProfilePage(),
             ],
           ),

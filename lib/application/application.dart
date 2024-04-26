@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mova/features/book/domain/usecase/service.dart';
+import 'package:mova/features/book/providers/book_provider.dart';
 import 'package:mova/features/study/domain/usecase/service.dart';
 import 'package:mova/features/study/providers/module_provider.dart';
 import 'package:mova/features/study/providers/study_provider.dart';
@@ -13,7 +15,8 @@ import 'package:provider/provider.dart';
 class App extends StatelessWidget {
   final StudyService studyService;
   final UserService userService;
-  const App(this.studyService, this.userService, {super.key});
+  final BookService bookService;
+  const App(this.studyService, this.userService, this.bookService, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +27,9 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider<UserProvider>(
           create: (context) => UserProvider(userService),
+        ),
+        ChangeNotifierProvider<BookProvider>(
+          create: (context) => BookProvider(bookService),
         ),
         ChangeNotifierProvider<ModuleProvider>(
           create: (context) => ModuleProvider(0),

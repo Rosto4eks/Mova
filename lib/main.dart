@@ -34,7 +34,7 @@ void main() async {
 
   var userService = UserService(userRepository);
   var studyService = StudyService(studyRepository, userRepository, "", 2);
-  var bookService = BookService(bookRepository);
+  var bookService = BookService(bookRepository, userRepository);
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

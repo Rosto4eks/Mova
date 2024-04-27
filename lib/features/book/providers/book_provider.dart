@@ -15,7 +15,6 @@ class BookProvider extends ChangeNotifier {
   }
 
   List<Book> getLocalBooks() {
-    print(_service.getLocalBooks()[0].image);
     return _service.getLocalBooks();
   }
 
@@ -32,11 +31,15 @@ class BookProvider extends ChangeNotifier {
     _service.updateBook(book);
   }
 
+  void purchaseBook(Book book) {
+    _service.purchaseBook(book);
+  }
+
   Book getBook(int id) {
     return _service.getBook(id);
   }
 
-  Future<String> getText(String path) async {
+  Future<List<String>> getText(String path) async {
     List<int> bytes = await File(path).readAsBytes();
     EpubBookRef epubBook = await EpubReader.openBook(bytes);
     var cont = await EpubReader.readTextContentFiles(epubBook.content!.html!);
@@ -44,7 +47,7 @@ class BookProvider extends ChangeNotifier {
     for (var value in cont.values) {
       htmlList.add(value.content!);
     }
-    return htmlList.join();
+    return htmlList;
   }
 
   Future<String> getImageRef(String image) async {

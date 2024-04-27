@@ -30,6 +30,10 @@ class User {
     _progress++;
   }
 
+  void addGems(int val) {
+    _gems += val;
+  }
+
   void resetProgress() {
     _progress = 0;
   }

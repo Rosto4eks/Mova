@@ -26,6 +26,9 @@ class BookDTO extends HiveObject {
   @HiveField(6)
   late double position;
 
+  @HiveField(7)
+  late int chapter;
+
   BookDTO() {
     id = -1;
     name = "";
@@ -43,9 +46,10 @@ class BookDTO extends HiveObject {
     image = book.image;
     price = book.price;
     position = book.position;
+    chapter = book.chapter;
   }
 
   Book toBook() {
-    return Book(id, name, author, file, image, price, position);
+    return Book(id, name, author, file, image, price, position, chapter);
   }
 }

@@ -23,13 +23,14 @@ class BookDTOAdapter extends TypeAdapter<BookDTO> {
       ..file = fields[3] as String
       ..image = fields[4] as String
       ..price = fields[5] as int
-      ..position = fields[6] as double;
+      ..position = fields[6] as double
+      ..chapter = fields[7] as int;
   }
 
   @override
   void write(BinaryWriter writer, BookDTO obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -43,7 +44,9 @@ class BookDTOAdapter extends TypeAdapter<BookDTO> {
       ..writeByte(5)
       ..write(obj.price)
       ..writeByte(6)
-      ..write(obj.position);
+      ..write(obj.position)
+      ..writeByte(7)
+      ..write(obj.chapter);
   }
 
   @override

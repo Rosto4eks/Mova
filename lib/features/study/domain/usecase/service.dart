@@ -113,7 +113,6 @@ class StudyService extends Entity with EntityContainer<Module>, Service {
 
         _repository.updateModule(ModuleDTO.fromModule(tempModule));
       } else if (event.name == "Task") {
-        Service.user.incrementProgress();
         _userRepository.saveUser(Service.user);
         _userRepository.localSaveUser(Service.user);
         var tempModule = _elements
@@ -122,6 +121,10 @@ class StudyService extends Entity with EntityContainer<Module>, Service {
             .firstWhere((element) => element.id == event.data["lessonId"]);
         var task = tempLesson._elements
             .firstWhere((element) => element.id == event.data["id"]);
+
+        if (!event.data["everCompleted"]) {
+          Service.user.incrementProgress();
+        }
 
         TaskDTO taskdto = switch (event.data["type"]) {
           "WriteTranslationTask" =>

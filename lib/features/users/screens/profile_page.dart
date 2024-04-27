@@ -198,8 +198,8 @@ class _ProfileState extends State<ProfilePage> {
                 itemCount: user.achievements.length,
                 itemBuilder: (context, index) => Container(
                       decoration: BoxDecoration(
-                        color: lightGreen.withOpacity(0.4),
-                        borderRadius: BorderRadius.circular(15),
+                        border: Border(
+                            bottom: BorderSide(color: lightGreen, width: 2)),
                       ),
                       margin: const EdgeInsets.symmetric(
                           vertical: 30, horizontal: 10),
@@ -215,35 +215,19 @@ class _ProfileState extends State<ProfilePage> {
                       ),
                     )),
           ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 30),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () => provider.logout(),
-                  child: const Text(
-                    "выйсці",
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 236, 120, 112),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w900),
-                  ),
+          Center(
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 30),
+              child: GestureDetector(
+                onTap: () => provider.logout(),
+                child: const Text(
+                  "выйсці",
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 236, 120, 112),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Service.user.resetProgress();
-                    study.clear();
-                  },
-                  child: const Text(
-                    "па новай",
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 236, 120, 112),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w900),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ]),

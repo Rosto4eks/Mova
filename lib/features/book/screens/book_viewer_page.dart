@@ -7,14 +7,19 @@ import 'package:mova/presentation/components/colors.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
-class BookViewerPage extends StatelessWidget {
+class BookViewerPage extends StatefulWidget {
   final int id;
   const BookViewerPage(this.id, {super.key});
 
-  Future<String> _getText(context) async {
+  @override
+  State<BookViewerPage> createState() => _BookViewerPageState();
+}
+
+class _BookViewerPageState extends State<BookViewerPage> {
+  Future<List<String>> _getText(context) async {
     final directory = await getApplicationDocumentsDirectory();
     var provider = Provider.of<BookProvider>(context, listen: false);
-    var book = provider.getBook(id);
+    var book = provider.getBook(widget.id);
     var text = await provider.getText("${directory.path}/${book.file}");
     return text;
   }
@@ -27,17 +32,36 @@ class BookViewerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<BookProvider>(context, listen: false);
-    var book = provider.getBook(id);
+    var book = provider.getBook(widget.id);
     var controller = ScrollController(initialScrollOffset: book.position);
     return FutureBuilder(
       future: _getText(context),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator(color: black);
+          return Scaffold(
+            body: Container(
+                color: white,
+                alignment: Alignment.center,
+                child: const Text(
+                  "загрузка",
+                  style: TextStyle(
+                    color: black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 23,
+                  ),
+                )),
+          );
         } else {
           return Scaffold(
             appBar: AppBar(
-              title: Center(child: Text(book.name)),
+              title: Column(children: [
+                Text(book.name),
+                LinearProgressIndicator(
+                  value: (book.chapter + 1).toDouble() /
+                      snapshot.data!.length.toDouble(),
+                  color: lightGreen,
+                ),
+              ]),
             ),
             body: PopScope(
               onPopInvoked: (_) {
@@ -62,7 +86,71 @@ class BookViewerPage extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                       child: Html(
-                        data: snapshot.data,
+                        data: snapshot.data![book.chapter],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          book.chapter > 0
+                              ? GestureDetector(
+                                  onTap: () => setState(() {
+                                    book.chapter = 0;
+                                    provider.updateBook(book, 0);
+                                  }),
+                                  child: Container(
+                                    child: Icon(
+                                      Icons.keyboard_double_arrow_left,
+                                      size: 30,
+                                    ),
+                                  ),
+                                )
+                              : Container(),
+                          book.chapter > 0
+                              ? GestureDetector(
+                                  onTap: () => setState(() {
+                                    book.chapter--;
+                                    provider.updateBook(book, 0);
+                                  }),
+                                  child: Container(
+                                    child: Icon(
+                                      Icons.keyboard_arrow_left,
+                                      size: 30,
+                                    ),
+                                  ),
+                                )
+                              : Container(),
+                          book.chapter < snapshot.data!.length - 1
+                              ? GestureDetector(
+                                  onTap: () => setState(() {
+                                    book.chapter++;
+                                    provider.updateBook(book, 0);
+                                  }),
+                                  child: Container(
+                                    child: Icon(
+                                      Icons.keyboard_arrow_right,
+                                      size: 30,
+                                    ),
+                                  ),
+                                )
+                              : Container(),
+                          book.chapter < snapshot.data!.length - 1
+                              ? GestureDetector(
+                                  onTap: () => setState(() {
+                                    book.chapter = snapshot.data!.length - 1;
+                                    provider.updateBook(book, 0);
+                                  }),
+                                  child: Container(
+                                    child: Icon(
+                                      Icons.keyboard_double_arrow_right,
+                                      size: 30,
+                                    ),
+                                  ),
+                                )
+                              : Container(),
+                        ],
                       ),
                     ),
                   ],

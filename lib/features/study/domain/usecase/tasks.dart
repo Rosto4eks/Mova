@@ -48,12 +48,17 @@ class TranslateWordTask extends Task {
   bool check() {
     _isCompleted = _selectedIndex == rightIndex;
     if (_isCompleted) {
-      _everCompleted = true;
       notifier.notify(Event(
         "Task",
         "Completed",
-        {"id": id, "lessonId": lessonId, "type": "TranslateWordTask"},
+        {
+          "id": id,
+          "lessonId": lessonId,
+          "type": "TranslateWordTask",
+          "everCompleted": _everCompleted
+        },
       ));
+      _everCompleted = true;
     }
     return isCompleted;
   }
@@ -126,12 +131,17 @@ class InsertWordsTask extends InsertionTask {
   bool check() {
     _isCompleted = _text == text;
     if (_isCompleted) {
-      _everCompleted = true;
       notifier.notify(Event(
         "Task",
         "Completed",
-        {"id": id, "lessonId": lessonId, "type": "InsertWordsTask"},
+        {
+          "id": id,
+          "lessonId": lessonId,
+          "type": "InsertWordsTask",
+          "everCompleted": _everCompleted
+        },
       ));
+      _everCompleted = true;
     }
     return isCompleted;
   }
@@ -199,12 +209,17 @@ class TranslateTextTask extends InsertionTask {
   bool check() {
     _isCompleted = rightTranslation == translation;
     if (_isCompleted) {
-      _everCompleted = true;
       notifier.notify(Event(
         "Task",
         "Completed",
-        {"id": id, "lessonId": lessonId, "type": "TranslateTextTask"},
+        {
+          "id": id,
+          "lessonId": lessonId,
+          "type": "TranslateTextTask",
+          "everCompleted": _everCompleted
+        },
       ));
+      _everCompleted = true;
     }
     return isCompleted;
   }
@@ -245,12 +260,17 @@ class WriteTranslationTask extends Task {
   bool check() {
     _isCompleted = translation.toLowerCase() == input.toLowerCase();
     if (_isCompleted) {
-      _everCompleted = true;
       notifier.notify(Event(
         "Task",
         "Completed",
-        {"id": id, "lessonId": lessonId, "type": "WriteTranslationTask"},
+        {
+          "id": id,
+          "lessonId": lessonId,
+          "type": "WriteTranslationTask",
+          "everCompleted": _everCompleted
+        },
       ));
+      _everCompleted = true;
     }
     return isCompleted;
   }

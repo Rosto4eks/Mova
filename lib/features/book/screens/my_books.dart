@@ -38,10 +38,17 @@ class MyBooks extends StatelessWidget {
                   } else {
                     return ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.file(
-                        File("${snapshot.data!}/${books[index].image}"),
-                        width: 200,
-                      ),
+                      child: File("${snapshot.data!}/${books[index].image}")
+                              .existsSync()
+                          ? Image.file(
+                              File("${snapshot.data!}/${books[index].image}"),
+                              width: 200,
+                            )
+                          : Container(
+                              width: 200,
+                              height: 300,
+                              color: grey,
+                            ),
                     );
                   }
                 },

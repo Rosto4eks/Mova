@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:mova/features/book/domain/repository/dto.dart';
 import 'package:mova/features/book/domain/usecase/service.dart';
@@ -37,14 +38,13 @@ class BookRepository {
   }
 
   Future loadBook(int id) async {
+    if (bookBox!.containsKey(id)) return;
     late Book book;
     await db
         .collection("books")
         .doc("$id")
         .get()
         .then((value) => book = Book.fromJson(value.data()!));
-
-    bookBox!.put(book.id, BookDTO.fromBook(book));
 
     final appDir = await getApplicationDocumentsDirectory();
 
@@ -59,6 +59,8 @@ class BookRepository {
     response = await http.get(Uri.parse(url));
     file = File('${appDir.path}/${book.image}');
     await file.writeAsBytes(response.bodyBytes);
+
+    bookBox!.put(book.id, BookDTO.fromBook(book));
   }
 
   Future<String> getImageRef(String image) async {

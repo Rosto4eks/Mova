@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mova/features/book/screens/book_store.dart';
 import 'package:mova/features/book/screens/my_books.dart';
+import 'package:mova/features/service.dart';
 import 'package:mova/presentation/components/colors.dart';
 
 class BookPage extends StatefulWidget {
@@ -15,9 +16,19 @@ class _BookPageState extends State<BookPage> {
     const MyBooks(),
     const BookStore(),
   ];
+
   var selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
+    var pageController = PageController(initialPage: selectedIndex);
+    if (Service.user.id == -1) {
+      return const Scaffold(
+        backgroundColor: lightGrey,
+        body: Center(
+          child: Text("увайдзіце ў акаунт"),
+        ),
+      );
+    }
     return Scaffold(
         backgroundColor: lightGrey,
         body: Column(
@@ -33,6 +44,9 @@ class _BookPageState extends State<BookPage> {
                   GestureDetector(
                     onTap: () => setState(() {
                       selectedIndex = 0;
+                      pageController.animateToPage(selectedIndex,
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.easeInOut);
                     }),
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 100),
@@ -52,6 +66,9 @@ class _BookPageState extends State<BookPage> {
                   GestureDetector(
                     onTap: () => setState(() {
                       selectedIndex = 1;
+                      pageController.animateToPage(selectedIndex,
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.easeInOut);
                     }),
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 100),
@@ -71,7 +88,17 @@ class _BookPageState extends State<BookPage> {
                 ],
               ),
             ),
-            Expanded(child: widgets[selectedIndex]),
+            Expanded(
+                child: PageView.builder(
+              controller: pageController,
+              onPageChanged: (value) {
+                setState(() {
+                  selectedIndex = value;
+                });
+              },
+              itemCount: 2,
+              itemBuilder: (context, index) => widgets[index],
+            )),
           ],
         ));
   }

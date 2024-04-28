@@ -4,13 +4,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mova/features/book/domain/usecase/service.dart';
 import 'package:mova/features/book/providers/book_provider.dart';
+import 'package:mova/features/service.dart';
 import 'package:mova/features/users/providers/user_provider.dart';
 import 'package:mova/presentation/components/colors.dart';
 import 'package:provider/provider.dart';
 
-class BookStore extends StatelessWidget {
+class BookStore extends StatefulWidget {
   const BookStore({super.key});
 
+  @override
+  State<BookStore> createState() => _BookStoreState();
+}
+
+class _BookStoreState extends State<BookStore> {
+  var selectedSort = "сартыроўка";
+  var selectedAuthor = "";
+
+  var sorts = {
+    "↑ кошт": (Book a, Book b) => a.price.compareTo(b.price),
+    "↓ кошт": (Book a, Book b) => -a.price.compareTo(b.price),
+    "↑ імя": (Book a, Book b) => a.name.compareTo(b.name),
+    "↓ імя": (Book a, Book b) => -a.name.compareTo(b.name),
+  };
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<BookProvider>(context);
@@ -49,89 +64,213 @@ class BookStore extends StatelessWidget {
             ],
           );
         } else {
-          return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            margin: const EdgeInsets.only(bottom: 100),
-            child: FutureBuilder(
-              future: provider.getBooks(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                      child: CircularProgressIndicator(color: black));
-                } else {
-                  var storeBooks = snapshot.data!;
-                  return ListView.builder(
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) => Container(
-                      margin: const EdgeInsets.symmetric(vertical: 20),
-                      child: Column(
+          return FutureBuilder(
+            future: provider.getBooks(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                    child: CircularProgressIndicator(color: black));
+              } else {
+                var storeBooks = snapshot.data!;
+                if (selectedAuthor != "") {
+                  storeBooks = storeBooks
+                      .where((element) => element.author == selectedAuthor)
+                      .toList();
+                }
+                if (selectedSort != "сартыроўка") {
+                  storeBooks.sort(sorts[selectedSort]);
+                }
+                return Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      color: white,
+                      width: double.infinity,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          FutureBuilder(
-                            future:
-                                provider.getImageRef(storeBooks[index].image),
-                            builder: (context, snap) {
-                              if (snap.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const CircularProgressIndicator(
-                                    color: black);
-                              } else {
-                                return ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(
-                                    snap.data!,
-                                    width: 200,
-                                  ),
-                                );
-                              }
-                            },
+                          DropdownButton<String>(
+                            value: selectedSort,
+                            items: const [
+                              DropdownMenuItem(
+                                  value: "сартыроўка",
+                                  child: Text("сартыроўка")),
+                              DropdownMenuItem(
+                                  value: "↑ кошт", child: Text("↑ кошт")),
+                              DropdownMenuItem(
+                                  value: "↓ кошт", child: Text("↓ кошт")),
+                              DropdownMenuItem(
+                                  value: "↑ імя", child: Text("↑ імя")),
+                              DropdownMenuItem(
+                                  value: "↓ імя", child: Text("↓ імя")),
+                            ],
+                            onChanged: (value) => setState(() {
+                              selectedSort = value!;
+                            }),
                           ),
-                          Container(
-                            width: 300,
-                            margin: const EdgeInsets.symmetric(vertical: 15),
-                            child: Text(
-                              storeBooks[index].name,
-                              style: const TextStyle(
-                                fontSize: 23,
-                                fontWeight: FontWeight.w700,
+                          DropdownButton<String>(
+                            value: selectedAuthor,
+                            items: [
+                              DropdownMenuItem(
+                                value: "",
+                                child: Text("аўтар"),
                               ),
-                              textAlign: TextAlign.center,
-                            ),
+                              ...snapshot.data!
+                                  .map((e) => e.author)
+                                  .toSet()
+                                  .map(
+                                    (e) => DropdownMenuItem(
+                                        value: e, child: Text(e)),
+                                  )
+                            ],
+                            onChanged: (value) => setState(() {
+                              selectedAuthor = value!;
+                            }),
                           ),
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(storeBooks[index].author),
-                          ),
-                          !user.books.contains(storeBooks[index].id)
-                              ? BuyButton(storeBooks[index])
-                              : books.indexWhere((element) =>
-                                          element.id == storeBooks[index].id) ==
-                                      -1
-                                  ? DownloadButton(snapshot.data![index])
-                                  : Container(
-                                      alignment: Alignment.center,
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 20),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15)),
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 5, horizontal: 20),
-                                      child: const Text(
-                                        "дадана",
-                                        style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w700,
-                                          color: grey,
-                                        ),
-                                      ),
-                                    ),
                         ],
                       ),
                     ),
-                  );
-                }
-              },
-            ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: storeBooks.length,
+                        itemBuilder: (context, index) => Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          height: index == storeBooks.length - 1 ? 575 : 475,
+                          margin: const EdgeInsets.symmetric(vertical: 20),
+                          child: Column(
+                            children: [
+                              FutureBuilder(
+                                future: provider
+                                    .getImageRef(storeBooks[index].image),
+                                builder: (context, snap) {
+                                  if (snap.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const CircularProgressIndicator(
+                                        color: black);
+                                  } else {
+                                    return GestureDetector(
+                                      onTap: () async {
+                                        if (Service.user.role != "admin")
+                                          return;
+                                        Widget cancelButton = GestureDetector(
+                                          child: Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10,
+                                                      horizontal: 10),
+                                              child: const Text(
+                                                "адмяніць",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: black),
+                                              )),
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                        );
+                                        Widget continueButton = GestureDetector(
+                                          child: Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10,
+                                                      horizontal: 10),
+                                              child: const Text(
+                                                "выдаліць",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Colors.red),
+                                              )),
+                                          onTap: () {
+                                            provider
+                                                .removeBook(storeBooks[index])
+                                                .then((value) =>
+                                                    provider.refresh());
+                                          },
+                                        ); // set up the AlertDialog
+                                        AlertDialog alert = AlertDialog(
+                                          backgroundColor: lightGrey,
+                                          surfaceTintColor: lightGrey,
+                                          title: Text("Пацверджанне"),
+                                          content: Text(
+                                              "Выдаліць з крамы кнігу '${storeBooks[index].name}'?"),
+                                          actionsAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          actions: [
+                                            cancelButton,
+                                            continueButton,
+                                          ],
+                                        );
+                                        showCupertinoDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return alert;
+                                          },
+                                        );
+                                      },
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.network(
+                                          snap.data!,
+                                          width: 200,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                              Container(
+                                width: 300,
+                                margin:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                child: Text(
+                                  storeBooks[index].name,
+                                  style: const TextStyle(
+                                    fontSize: 23,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                child: Text(storeBooks[index].author),
+                              ),
+                              !user.books.contains(storeBooks[index].id)
+                                  ? BuyButton(storeBooks[index])
+                                  : books.indexWhere((element) =>
+                                              element.id ==
+                                              storeBooks[index].id) ==
+                                          -1
+                                      ? DownloadButton(storeBooks[index])
+                                      : Container(
+                                          alignment: Alignment.center,
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 10),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(15)),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 5, horizontal: 20),
+                                          child: const Text(
+                                            "дадана",
+                                            style: const TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w700,
+                                              color: grey,
+                                            ),
+                                          ),
+                                        ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }
+            },
           );
         }
       },
@@ -159,11 +298,8 @@ class _BuyButtonState extends State<BuyButton> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<BookProvider>(context);
-    var books = provider.getLocalBooks();
-    return books.map((e) => e.id).firstWhere(
-                (element) => element == widget.book.id,
-                orElse: () => -1) ==
-            -1
+
+    return downloadStarted
         ? Container(
             margin: EdgeInsets.symmetric(vertical: 10),
             child: const CircularProgressIndicator(
@@ -188,7 +324,7 @@ class _BuyButtonState extends State<BuyButton> {
               },
               child: Container(
                 alignment: Alignment.center,
-                margin: const EdgeInsets.symmetric(vertical: 20),
+                margin: const EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(
                     color: black, borderRadius: BorderRadius.circular(15)),
                 padding:
@@ -236,7 +372,7 @@ class _DownloadButtonState extends State<DownloadButton> {
     var provider = Provider.of<BookProvider>(context);
     return downloadStarted
         ? Container(
-            margin: EdgeInsets.symmetric(vertical: 10),
+            margin: const EdgeInsets.symmetric(vertical: 10),
             child: const CircularProgressIndicator(
               color: black,
             ),
@@ -257,7 +393,7 @@ class _DownloadButtonState extends State<DownloadButton> {
             child: Container(
               width: 200,
               alignment: Alignment.center,
-              margin: const EdgeInsets.symmetric(vertical: 20),
+              margin: const EdgeInsets.symmetric(vertical: 10),
               decoration: BoxDecoration(
                   color: black, borderRadius: BorderRadius.circular(15)),
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),

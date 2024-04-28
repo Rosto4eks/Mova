@@ -219,7 +219,10 @@ class _ProfileState extends State<ProfilePage> {
             child: Container(
               margin: EdgeInsets.symmetric(vertical: 30),
               child: GestureDetector(
-                onTap: () => provider.logout(),
+                onTap: () async {
+                  await provider.logout();
+                  Provider.of<StudyProvider>(context, listen: false).clear();
+                },
                 child: const Text(
                   "выйсці",
                   style: TextStyle(

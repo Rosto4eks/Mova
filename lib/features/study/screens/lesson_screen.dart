@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mova/features/service.dart';
 import 'package:mova/features/study/domain/usecase/service.dart';
 import 'package:mova/features/study/providers/study_provider.dart';
 import 'package:mova/features/study/screens/insert_words_task_screen.dart';
@@ -31,7 +32,8 @@ class LessonScreen extends StatelessWidget {
         w = const WriteTranslationTaskScreen();
       }
     } catch (e) {
-      return Provider.of<StudyProvider>(context).isLessonEverFinished()
+      return Provider.of<StudyProvider>(context).isLessonEverFinished() ||
+              Service.user.id == -1
           ? CompleteScreen(lesson, lessonIndex)
           : RewardScreen(lesson, lessonIndex);
     }

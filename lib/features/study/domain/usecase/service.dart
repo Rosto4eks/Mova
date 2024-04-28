@@ -42,7 +42,7 @@ extension on List<TaskDTO> {
 }
 
 class StudyService extends Entity with EntityContainer<Module>, Service {
-  late final IRepository _repository;
+  late final StudyRepository _repository;
   late final UserRepository _userRepository;
 
   Function achievementListener = () {};
@@ -155,6 +155,7 @@ class StudyService extends Entity with EntityContainer<Module>, Service {
   }
 
   void handleAchievement(Event event) async {
+    if (Service.user.id == -1) return;
     if (event.name == "Task" && event.eventType == "Completed") {
       if (event.data["id"] == 9) {
         if (!Service.user.achievements.contains(0)) {

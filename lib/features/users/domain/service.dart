@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:mova/features/book/domain/usecase/service.dart';
 import 'package:mova/features/service.dart';
+import 'package:mova/features/study/domain/repository/repository.dart';
 import 'package:mova/features/users/repository/dto.dart';
 import 'package:mova/presentation/components/colors.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -75,38 +76,41 @@ class UserService extends Service {
 
   void addGems(int gems) {
     Service.user._gems += gems;
-    if (Service.user._gems >= 300) {
-      if (!Service.user.achievements.contains(5)) {
-        Service.user.achievements.add(5);
-        showAchievement("зароблена 300 крышталаў!");
-      }
-    }
 
-    if (Service.user._gems >= 500) {
-      if (!Service.user.achievements.contains(6)) {
-        Service.user.achievements.add(6);
-        showAchievement("зароблена 500 крышталаў!");
+    if (Service.user.id != -1) {
+      if (Service.user._gems >= 300) {
+        if (!Service.user.achievements.contains(5)) {
+          Service.user.achievements.add(5);
+          showAchievement("зароблена 300 крышталаў!");
+        }
       }
-    }
 
-    if (Service.user._gems >= 1000) {
-      if (!Service.user.achievements.contains(7)) {
-        Service.user.achievements.add(7);
-        showAchievement("зароблена 1000 крышталаў!");
+      if (Service.user._gems >= 500) {
+        if (!Service.user.achievements.contains(6)) {
+          Service.user.achievements.add(6);
+          showAchievement("зароблена 500 крышталаў!");
+        }
       }
-    }
 
-    if (Service.user._gems >= 5000) {
-      if (!Service.user.achievements.contains(8)) {
-        Service.user.achievements.add(8);
-        showAchievement("зароблена 5000 крышталаў!");
+      if (Service.user._gems >= 1000) {
+        if (!Service.user.achievements.contains(7)) {
+          Service.user.achievements.add(7);
+          showAchievement("зароблена 1000 крышталаў!");
+        }
       }
-    }
 
-    if (Service.user._gems >= 10000) {
-      if (!Service.user.achievements.contains(9)) {
-        Service.user.achievements.add(9);
-        showAchievement("зароблена 10000 крышталаў!");
+      if (Service.user._gems >= 5000) {
+        if (!Service.user.achievements.contains(8)) {
+          Service.user.achievements.add(8);
+          showAchievement("зароблена 5000 крышталаў!");
+        }
+      }
+
+      if (Service.user._gems >= 10000) {
+        if (!Service.user.achievements.contains(9)) {
+          Service.user.achievements.add(9);
+          showAchievement("зароблена 10000 крышталаў!");
+        }
       }
     }
 
@@ -134,7 +138,8 @@ class UserService extends Service {
     }
     if ((await _repository.getUserByEmail(email)).id == -1) {
       var id = await _repository.getNewId();
-      User user = User(id, "user", name, email, _hash(password), 0, 0, [], []);
+      User user = User(id, "user", name, email, _hash(password), 0,
+          Service.user._progress, [], []);
       await _repository.saveUser(user);
       _repository.localSaveUser(user);
       Service.user = user;
@@ -165,7 +170,7 @@ class UserService extends Service {
     }
   }
 
-  void logOut() {
+  Future logOut() async {
     Service.user = User.empty;
     _repository.localSaveUser(User.empty);
   }

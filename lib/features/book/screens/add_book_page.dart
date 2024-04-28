@@ -1,33 +1,34 @@
-// ignore_for_file: use_build_context_synchronously
+import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mova/features/study/providers/study_provider.dart';
-import 'package:mova/features/users/providers/signin_provider.dart';
-import 'package:mova/features/users/providers/user_provider.dart';
+import 'package:flutter/widgets.dart';
+import 'package:mova/features/book/providers/add_book_provider.dart';
+import 'package:mova/features/book/providers/book_provider.dart';
 import 'package:mova/presentation/components/colors.dart';
 import 'package:provider/provider.dart';
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+class AddBookPage extends StatelessWidget {
+  const AddBookPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<UserProvider>(context);
-    var signup = Provider.of<SignupProvider>(context);
-    var study = Provider.of<StudyProvider>(context);
+    var provider = Provider.of<AddBookProvider>(context);
+    var bookProvider = Provider.of<BookProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: color4,
       body: Container(
-        margin: const EdgeInsets.symmetric(vertical: 110, horizontal: 20),
+        margin: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
         padding: const EdgeInsets.all(30),
         decoration: BoxDecoration(
             color: white, borderRadius: BorderRadius.circular(20)),
         child: Column(
           children: [
             Text(
-              signup.error,
+              provider.error,
               style: const TextStyle(
                 color: Color.fromARGB(255, 236, 73, 73),
                 fontSize: 20,
@@ -35,14 +36,16 @@ class SignUpPage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
+              margin: const EdgeInsets.symmetric(vertical: 20),
               child: Material(
                 color: Colors.transparent,
                 child: TextField(
-                  maxLength: 20,
+                  maxLength: 50,
                   onChanged: (val) {
-                    signup.setName(val);
+                    provider.setName(val);
                   },
+                  minLines: 1,
+                  maxLines: 1,
                   textAlign: TextAlign.center,
                   cursorColor: black,
                   style: const TextStyle(
@@ -63,13 +66,13 @@ class SignUpPage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
+              margin: const EdgeInsets.symmetric(vertical: 20),
               child: Material(
                 color: Colors.transparent,
                 child: TextField(
                   maxLength: 50,
                   onChanged: (val) {
-                    signup.setEmail(val);
+                    provider.setAuthor(val);
                   },
                   minLines: 1,
                   maxLines: 1,
@@ -85,7 +88,7 @@ class SignUpPage extends StatelessWidget {
                     border: const UnderlineInputBorder(),
                     focusedBorder: const UnderlineInputBorder(),
                     enabledBorder: const UnderlineInputBorder(),
-                    hintText: "пошта",
+                    hintText: "аўтар",
                     hintStyle: TextStyle(color: black.withOpacity(0.4)),
                     contentPadding: const EdgeInsets.all(10),
                   ),
@@ -93,14 +96,13 @@ class SignUpPage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
+              margin: const EdgeInsets.symmetric(vertical: 20),
               child: Material(
                 color: Colors.transparent,
                 child: TextField(
-                  maxLength: 30,
-                  obscureText: true,
+                  maxLength: 4,
                   onChanged: (val) {
-                    signup.setPassword(val);
+                    provider.setPrice(int.tryParse(val));
                   },
                   minLines: 1,
                   maxLines: 1,
@@ -116,15 +118,87 @@ class SignUpPage extends StatelessWidget {
                     border: const UnderlineInputBorder(),
                     focusedBorder: const UnderlineInputBorder(),
                     enabledBorder: const UnderlineInputBorder(),
-                    hintText: "пароль",
+                    hintText: "кошт",
                     hintStyle: TextStyle(color: black.withOpacity(0.4)),
                     contentPadding: const EdgeInsets.all(10),
                   ),
                 ),
               ),
             ),
+            GestureDetector(
+              onTap: () async {
+                var file =
+                    await FilePicker.platform.pickFiles(type: FileType.image);
+                if (file != null) {
+                  provider.setImage(
+                      File(file.files[0].path!), file.files[0].name);
+                }
+              },
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    decoration: BoxDecoration(
+                        color: black, borderRadius: BorderRadius.circular(15)),
+                    child: Text(
+                      "дадаць малюнак",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: white),
+                    ),
+                  ),
+                  if (provider.imagename.isNotEmpty)
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      child: const Icon(
+                        Icons.check_circle,
+                        color: lightGreen,
+                        size: 30,
+                      ),
+                    )
+                ],
+              ),
+            ),
+            GestureDetector(
+              onTap: () async {
+                var file = await FilePicker.platform.pickFiles(
+                    type: FileType.custom, allowedExtensions: ["epub"]);
+                if (file != null) {
+                  provider.setEpub(
+                      File(file.files[0].path!), file.files[0].name);
+                }
+              },
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    decoration: BoxDecoration(
+                        color: black, borderRadius: BorderRadius.circular(15)),
+                    child: Text(
+                      "дадаць файл",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: white),
+                    ),
+                  ),
+                  if (provider.filename.isNotEmpty)
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      child: const Icon(
+                        Icons.check_circle,
+                        color: lightGreen,
+                        size: 30,
+                      ),
+                    )
+                ],
+              ),
+            ),
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
+              margin: const EdgeInsets.symmetric(vertical: 20),
               child: GestureDetector(
                 onTap: () async {
                   var connectivityResult =
@@ -132,33 +206,37 @@ class SignUpPage extends StatelessWidget {
                   if (connectivityResult.contains(ConnectivityResult.mobile) ||
                       connectivityResult.contains(ConnectivityResult.wifi)) {
                     showDialog(
+                        // ignore: use_build_context_synchronously
                         context: context,
                         builder: (context) => const Center(
-                              child:
-                                  CircularProgressIndicator(color: lightGreen),
+                              child: CircularProgressIndicator(
+                                color: lightGreen,
+                              ),
                             ),
                         barrierDismissible: false);
-                    provider
-                        .signUp(
-                      signup.email,
-                      signup.name,
-                      signup.password,
+                    bookProvider
+                        .saveBook(
+                      provider.name,
+                      provider.author,
+                      provider.price,
+                      provider.epub,
+                      provider.filename,
+                      provider.image,
+                      provider.imagename,
                     )
                         .then(
                       (value) {
+                        Navigator.pop(context);
                         if (value == "") {
+                          bookProvider.refresh();
                           Navigator.pop(context);
-                          study.clear();
-                          provider.refresh();
-                          signup.clear();
                         } else {
-                          signup.setError(value);
+                          provider.setError(value);
                         }
                       },
                     );
                   } else {
-                    signup.setError("no internet connection");
-                    return;
+                    provider.setError("няма злучэння");
                   }
                 },
                 child: Container(
@@ -169,23 +247,9 @@ class SignUpPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                   child: const Text(
-                    "рэгістрацыя",
+                    "дадаць",
                     style: TextStyle(fontSize: 20, color: white),
                   ),
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              child: GestureDetector(
-                onTap: () {
-                  signup.clear();
-                  provider.logType = "sign-in";
-                  provider.refresh();
-                },
-                child: const Text(
-                  "увайсці",
-                  style: TextStyle(fontSize: 18, color: black),
                 ),
               ),
             ),

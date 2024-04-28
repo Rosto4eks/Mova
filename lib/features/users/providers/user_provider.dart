@@ -71,8 +71,8 @@ class UserProvider extends ChangeNotifier {
     return "";
   }
 
-  void logout() {
-    _service.logOut();
+  Future logout() async {
+    await _service.logOut();
     notifyListeners();
   }
 

@@ -18,8 +18,28 @@ class BookProvider extends ChangeNotifier {
     return _service.getLocalBooks();
   }
 
-  Future saveBook(FilePickerResult res) async {
-    await _service.saveBook(File(res.files.single.path!));
+  Future removeLocalBook(Book book) async {
+    await _service.removeLocalBook(book);
+  }
+
+  Future removeBook(Book book) async {
+    await _service.removeBook(book);
+  }
+
+  Future<String> saveBook(String name, String author, int price, File? file,
+      String filename, File? image, String imageName) async {
+    if (name == "" ||
+        author == "" ||
+        price <= 0 ||
+        filename == "" ||
+        imageName == "" ||
+        file == null ||
+        image == null) {
+      return "усе палі павінны быць запоўнены";
+    }
+    await _service.saveBook(
+        name, author, price, file, filename, image, imageName);
+    return "";
   }
 
   Future loadBook(int id) async {

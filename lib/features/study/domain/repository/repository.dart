@@ -3,23 +3,7 @@ import 'package:mova/features/service.dart';
 import 'package:mova/features/study/domain/repository/dto.dart';
 import 'package:mova/features/study/domain/usecase/service.dart';
 
-abstract interface class IRepository {
-  List<ModuleDTO> getModules();
-  List<LessonDTO> getLessons(int moduleId);
-  List<TaskDTO> getTasks(int lessonId);
-
-  void updateTask(TaskDTO task);
-
-  Future clear();
-
-  int modulesCompleted();
-
-  void updateLesson(LessonDTO lesson);
-
-  void updateModule(ModuleDTO module);
-}
-
-class StudyRepository implements IRepository {
+class StudyRepository {
   Box<ModuleDTO>? modules;
   Box<LessonDTO>? lessons;
   Box<TaskDTO>? tasks;
@@ -40,7 +24,6 @@ class StudyRepository implements IRepository {
     return this;
   }
 
-  @override
   Future clear() async {
     await Hive.deleteBoxFromDisk("tasks");
     await Hive.deleteBoxFromDisk("lessons");
@@ -49,7 +32,6 @@ class StudyRepository implements IRepository {
     await init();
   }
 
-  @override
   List<TaskDTO> getTasks(int lessonId) {
     return tasks!.values
         .where((element) => (element).lessonId == lessonId)
@@ -57,7 +39,6 @@ class StudyRepository implements IRepository {
         .toList();
   }
 
-  @override
   List<LessonDTO> getLessons(int moduleId) {
     return lessons!.values
         .where((element) => (element).moduleId == moduleId)
@@ -65,27 +46,22 @@ class StudyRepository implements IRepository {
         .toList();
   }
 
-  @override
   List<ModuleDTO> getModules() {
     return modules!.values.cast<ModuleDTO>().toList();
   }
 
-  @override
   void updateTask(TaskDTO task) {
     tasks!.put(task.id, task);
   }
 
-  @override
   void updateLesson(LessonDTO lesson) {
     lessons!.put(lesson.id, lesson);
   }
 
-  @override
   void updateModule(ModuleDTO module) {
     modules!.put(module.id, module);
   }
 
-  @override
   int modulesCompleted() {
     return modules!.values
         .where((element) => element.everCompleted == true)

@@ -28,9 +28,38 @@ class BookRepository {
     return bookBox!.values.map((e) => e.toBook()).toList();
   }
 
-  Future saveBook(File file) async {
-    var item = storage.child("bebra.jpg");
+  Future saveBook(Book book, File file, File image) async {
+    var item = storage.child(book.file);
     await item.putFile(file);
+
+    item = storage.child(book.image);
+    await item.putFile(image);
+
+    db.collection("books").doc("${book.id}").set(book.toJson());
+  }
+
+  Future removeLocalBook(Book book) async {
+    final appDir = await getApplicationDocumentsDirectory();
+    await File("${appDir.path}/${book.file}").delete();
+    await File("${appDir.path}/${book.image}").delete();
+    await bookBox!.delete(book.id);
+  }
+
+  Future removeBook(Book book) async {
+    await db.collection("books").doc("${book.id}").delete();
+    await storage.child(book.file).delete();
+    await storage.child(book.image).delete();
+  }
+
+  Future<int> getNewId() async {
+    var id = -1;
+    await db
+        .collection("books")
+        .orderBy("id", descending: true)
+        .limit(1)
+        .get()
+        .then((value) => id = value.docs[0].data()["id"]);
+    return id + 1;
   }
 
   Future updateBook(Book book) async {

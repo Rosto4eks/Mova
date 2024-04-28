@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mova/features/book/domain/usecase/service.dart';
+import 'package:mova/features/book/providers/add_book_provider.dart';
 import 'package:mova/features/book/providers/book_provider.dart';
 import 'package:mova/features/study/domain/usecase/service.dart';
 import 'package:mova/features/study/providers/module_provider.dart';
@@ -42,6 +43,9 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider<SignupProvider>(
           create: (context) => SignupProvider(),
+        ),
+        ChangeNotifierProvider<AddBookProvider>(
+          create: (context) => AddBookProvider(),
         ),
         ChangeNotifierProvider<ChangeProfileProvider>(
           create: (context) => ChangeProfileProvider(),

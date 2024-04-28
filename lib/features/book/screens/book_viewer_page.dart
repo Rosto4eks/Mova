@@ -57,8 +57,8 @@ class _BookViewerPageState extends State<BookViewerPage> {
               title: Column(children: [
                 Text(book.name),
                 LinearProgressIndicator(
-                  value: (book.chapter + 1).toDouble() /
-                      snapshot.data!.length.toDouble(),
+                  value: book.chapter.toDouble() /
+                      (snapshot.data!.length.toDouble() - 1),
                   color: lightGreen,
                 ),
               ]),

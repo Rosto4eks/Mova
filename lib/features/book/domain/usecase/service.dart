@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
@@ -79,8 +80,20 @@ class BookService extends Service {
     return books;
   }
 
-  Future saveBook(File file) async {
-    await _repository.saveBook(file);
+  Future removeLocalBook(Book book) async {
+    await _repository.removeLocalBook(book);
+  }
+
+  Future removeBook(Book book) async {
+    if (Service.user.role != "admin") return;
+    await _repository.removeBook(book);
+  }
+
+  Future saveBook(String name, String author, int price, File file,
+      String fileName, File image, String imageName) async {
+    var id = await _repository.getNewId();
+    var book = Book(id, name, author, fileName, imageName, price, 0, 0);
+    await _repository.saveBook(book, file, image);
   }
 
   void updateBook(Book book) {

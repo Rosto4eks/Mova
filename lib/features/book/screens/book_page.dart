@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mova/features/book/providers/add_book_provider.dart';
+import 'package:mova/features/book/screens/add_book_page.dart';
 import 'package:mova/features/book/screens/book_store.dart';
 import 'package:mova/features/book/screens/my_books.dart';
 import 'package:mova/features/service.dart';
 import 'package:mova/presentation/components/colors.dart';
+import 'package:provider/provider.dart';
 
 class BookPage extends StatefulWidget {
   const BookPage({super.key});
@@ -85,6 +89,23 @@ class _BookPageState extends State<BookPage> {
                       ),
                     ),
                   ),
+                  if (Service.user.role == "admin")
+                    GestureDetector(
+                      onTap: () {
+                        Provider.of<AddBookProvider>(context, listen: false)
+                            .clear();
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => const AddBookPage(),
+                          ),
+                        );
+                      },
+                      child: const Icon(
+                        Icons.add,
+                        color: black,
+                      ),
+                    )
                 ],
               ),
             ),

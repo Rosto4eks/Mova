@@ -10,6 +10,7 @@ import 'package:mova/features/users/providers/change_profile_provider.dart';
 import 'package:mova/features/users/providers/change_user_provider.dart';
 import 'package:mova/features/users/providers/signin_provider.dart';
 import 'package:mova/features/users/providers/user_provider.dart';
+import 'package:mova/presentation/components/navbar.dart';
 import 'package:mova/presentation/pages/main_page.dart';
 import 'package:provider/provider.dart';
 
@@ -31,6 +32,9 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider<BookProvider>(
           create: (context) => BookProvider(bookService),
+        ),
+        ChangeNotifierProvider<NavBarProvider>(
+          create: (context) => NavBarProvider(),
         ),
         ChangeNotifierProvider<ModuleProvider>(
           create: (context) => ModuleProvider(0),

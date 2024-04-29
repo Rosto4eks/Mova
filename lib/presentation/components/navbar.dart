@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:mova/presentation/components/colors.dart';
+import 'package:provider/provider.dart';
 
 class NavBar extends StatelessWidget {
   final void Function(int) onTabChange;
@@ -8,6 +9,7 @@ class NavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<NavBarProvider>(context);
     return Container(
       margin: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -24,8 +26,12 @@ class NavBar extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(10),
       child: GNav(
+        selectedIndex: provider.index,
         duration: const Duration(milliseconds: 350),
-        onTabChange: (val) => onTabChange(val),
+        onTabChange: (val) {
+          onTabChange(val);
+          provider.setIndex(val);
+        },
         activeColor: white,
         tabBackgroundColor: color4,
         color: const Color.fromARGB(255, 191, 207, 202),
@@ -50,5 +56,16 @@ class NavBar extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class NavBarProvider extends ChangeNotifier {
+  var _index = 0;
+
+  int get index => _index;
+
+  void setIndex(int index) {
+    _index = index;
+    notifyListeners();
   }
 }

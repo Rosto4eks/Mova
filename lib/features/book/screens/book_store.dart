@@ -145,8 +145,14 @@ class _BookStoreState extends State<BookStore> {
                                 builder: (context, snap) {
                                   if (snap.connectionState ==
                                       ConnectionState.waiting) {
-                                    return const CircularProgressIndicator(
-                                        color: black);
+                                    return Container(
+                                      width: 200,
+                                      height: 300,
+                                      alignment: Alignment.center,
+                                      color: Color.fromARGB(255, 228, 228, 228),
+                                      child: const CircularProgressIndicator(
+                                          color: black),
+                                    );
                                   } else {
                                     return GestureDetector(
                                       onTap: () async {
@@ -187,6 +193,7 @@ class _BookStoreState extends State<BookStore> {
                                                 .removeBook(storeBooks[index])
                                                 .then((value) =>
                                                     provider.refresh());
+                                            Navigator.pop(context);
                                           },
                                         ); // set up the AlertDialog
                                         AlertDialog alert = AlertDialog(
@@ -211,10 +218,20 @@ class _BookStoreState extends State<BookStore> {
                                       },
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(
-                                          snap.data!,
-                                          width: 200,
-                                        ),
+                                        child: Image.network(snap.data!,
+                                            width: 200, loadingBuilder:
+                                                (context, child,
+                                                    loadingProgress) {
+                                          if (loadingProgress == null)
+                                            return child;
+                                          else {
+                                            return Container(
+                                              color: Colors.red,
+                                              width: 200,
+                                              height: 300,
+                                            );
+                                          }
+                                        }),
                                       ),
                                     );
                                   }

@@ -5,6 +5,7 @@ import 'package:mova/features/book/providers/book_provider.dart';
 import 'package:mova/features/study/domain/usecase/service.dart';
 import 'package:mova/features/study/providers/module_provider.dart';
 import 'package:mova/features/study/providers/study_provider.dart';
+import 'package:mova/features/translate/providers/translate_provider.dart';
 import 'package:mova/features/users/domain/service.dart';
 import 'package:mova/features/users/providers/change_profile_provider.dart';
 import 'package:mova/features/users/providers/change_user_provider.dart';
@@ -56,6 +57,9 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider<ChangeUserProvider>(
           create: (context) => ChangeUserProvider(),
+        ),
+        ChangeNotifierProvider<TransalteProvider>(
+          create: (context) => TransalteProvider(),
         ),
       ],
       child: MaterialApp(

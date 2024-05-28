@@ -2,15 +2,14 @@
 
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
-import "package:mova/features/service.dart";
 import "package:mova/features/study/providers/study_provider.dart";
 import "package:mova/features/users/domain/service.dart";
 import "package:mova/features/users/providers/change_profile_provider.dart";
 import "package:mova/features/users/providers/user_provider.dart";
 import "package:mova/features/users/screens/change_profile_page.dart";
-import "package:mova/features/users/screens/search_user_page.dart";
 import "package:mova/features/users/screens/sign_in_page.dart";
 import "package:mova/features/users/screens/sign_up_page.dart";
+import "package:mova/features/users/screens/user_page.dart";
 import "package:mova/presentation/components/colors.dart";
 import "package:provider/provider.dart";
 
@@ -25,7 +24,6 @@ class _ProfileState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<UserProvider>(context);
-    var study = Provider.of<StudyProvider>(context);
     var changer = Provider.of<ChangeProfileProvider>(context, listen: false);
     var user = provider.getUser();
     if (!provider.isSignedIn()) {
@@ -35,7 +33,7 @@ class _ProfileState extends State<ProfilePage> {
       resizeToAvoidBottomInset: false,
       body: Container(
         color: lightGrey,
-        padding: EdgeInsets.only(bottom: 100, left: 20, right: 20),
+        padding: EdgeInsets.only(left: 20, right: 20),
         alignment: Alignment.center,
         child: ListView(children: [
           Row(
@@ -118,8 +116,8 @@ class _ProfileState extends State<ProfilePage> {
                 ]),
           ),
           GestureDetector(
-            onTap: () => Navigator.push(context,
-                CupertinoPageRoute(builder: (context) => SearchUserPage())),
+            onTap: () => Navigator.push(
+                context, CupertinoPageRoute(builder: (context) => UserPage())),
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -160,7 +158,15 @@ class _ProfileState extends State<ProfilePage> {
             width: double.infinity,
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-                gradient: const LinearGradient(colors: [color4, lightGrey]),
+                color: white,
+                boxShadow: [
+                  BoxShadow(
+                    color: black.withOpacity(0.05),
+                    spreadRadius: 4,
+                    blurRadius: 10,
+                    offset: const Offset(0, 3), // changes position of shadow
+                  ),
+                ],
                 borderRadius: BorderRadius.circular(15)),
             child: Text(
               "Пошта:   ${user.email}",
@@ -174,7 +180,15 @@ class _ProfileState extends State<ProfilePage> {
             width: double.infinity,
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-                gradient: const LinearGradient(colors: [color4, lightGrey]),
+                color: white,
+                boxShadow: [
+                  BoxShadow(
+                    color: black.withOpacity(0.05),
+                    spreadRadius: 4,
+                    blurRadius: 10,
+                    offset: const Offset(0, 3), // changes position of shadow
+                  ),
+                ],
                 borderRadius: BorderRadius.circular(15)),
             child: Text(
               "Роля:   ${user.role}",
@@ -217,7 +231,7 @@ class _ProfileState extends State<ProfilePage> {
           ),
           Center(
             child: Container(
-              margin: EdgeInsets.symmetric(vertical: 30),
+              margin: EdgeInsets.only(top: 30, bottom: 100),
               child: GestureDetector(
                 onTap: () async {
                   await provider.logout();

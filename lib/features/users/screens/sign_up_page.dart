@@ -27,7 +27,7 @@ class SignUpPage extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              signup.error,
+              signup.nameError,
               style: const TextStyle(
                 color: Color.fromARGB(255, 236, 73, 73),
                 fontSize: 20,
@@ -62,6 +62,14 @@ class SignUpPage extends StatelessWidget {
                 ),
               ),
             ),
+            Text(
+              signup.emailError,
+              style: const TextStyle(
+                color: Color.fromARGB(255, 236, 73, 73),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 10),
               child: Material(
@@ -90,6 +98,14 @@ class SignUpPage extends StatelessWidget {
                     contentPadding: const EdgeInsets.all(10),
                   ),
                 ),
+              ),
+            ),
+            Text(
+              signup.passwordError,
+              style: const TextStyle(
+                color: Color.fromARGB(255, 236, 73, 73),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
             ),
             Container(
@@ -146,8 +162,8 @@ class SignUpPage extends StatelessWidget {
                     )
                         .then(
                       (value) {
-                        if (value == "") {
-                          Navigator.pop(context);
+                        Navigator.pop(context);
+                        if (value.isEmpty) {
                           study.clear();
                           provider.refresh();
                           signup.clear();
@@ -157,7 +173,7 @@ class SignUpPage extends StatelessWidget {
                       },
                     );
                   } else {
-                    signup.setError("no internet connection");
+                    signup.setError(["няма злучэння"]);
                     return;
                   }
                 },

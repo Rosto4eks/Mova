@@ -1,5 +1,6 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
+import "package:flutter/widgets.dart";
 import "package:mova/features/study/domain/usecase/service.dart";
 import "package:mova/features/study/providers/study_provider.dart";
 import "package:mova/features/study/screens/lesson_screen.dart";
@@ -68,12 +69,20 @@ class _HomeState extends State<HomePage> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                        gradient:
-                            const LinearGradient(colors: [color4, lightGrey]),
+                        color: white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: black.withOpacity(0.05),
+                            spreadRadius: 4,
+                            blurRadius: 10,
+                            offset: const Offset(
+                                0, 3), // changes position of shadow
+                          ),
+                        ],
                         borderRadius: BorderRadius.circular(15)),
                     child: const Text(
                       "усё пройдзена",
-                      style: TextStyle(fontSize: 22, color: color6),
+                      style: TextStyle(fontSize: 18, color: color6),
                     ),
                   )
                 : GestureDetector(
@@ -92,23 +101,31 @@ class _HomeState extends State<HomePage> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                          gradient:
-                              const LinearGradient(colors: [color4, lightGrey]),
+                          color: color4,
+                          boxShadow: [
+                            BoxShadow(
+                              color: black.withOpacity(0.05),
+                              spreadRadius: 4,
+                              blurRadius: 10,
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
+                            ),
+                          ],
                           borderRadius: BorderRadius.circular(15)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
                             lesson.name,
-                            style: const TextStyle(fontSize: 22, color: color6),
+                            style: const TextStyle(fontSize: 18, color: black),
                           ),
                           Text(
                             "${lesson.elementsCompleted}/${lesson.elementsCount}",
-                            style: const TextStyle(fontSize: 18, color: color6),
+                            style: const TextStyle(fontSize: 18, color: black),
                           ),
                           const Icon(
                             Icons.arrow_forward_ios,
-                            color: color6,
+                            color: black,
                           )
                         ],
                       ),
@@ -126,12 +143,18 @@ class _HomeState extends State<HomePage> {
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                        gradient: const RadialGradient(
-                            colors: [color4, lightGrey],
-                            radius: 1,
-                            center: Alignment.topRight),
-                        color: white,
-                        borderRadius: BorderRadius.circular(15)),
+                      color: white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: black.withOpacity(0.05),
+                          spreadRadius: 4,
+                          blurRadius: 10,
+                          offset:
+                              const Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                     height: MediaQuery.of(context).size.width * 0.43,
                     width: MediaQuery.of(context).size.width * 0.43,
                     child: Column(
@@ -142,34 +165,47 @@ class _HomeState extends State<HomePage> {
                         ),
                         const Text(
                           "чытаць",
-                          style: TextStyle(fontSize: 16, color: color6),
+                          style: TextStyle(fontSize: 16, color: black),
                         )
                       ],
                     ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      gradient: const RadialGradient(
-                          colors: [color4, lightGrey],
-                          radius: 1,
-                          center: Alignment.topLeft),
+                GestureDetector(
+                  onTap: () {
+                    Provider.of<NavBarProvider>(context, listen: false)
+                        .setIndex(1);
+                    widget._pageController.jumpToPage(1);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
                       color: white,
-                      borderRadius: BorderRadius.circular(15)),
-                  height: MediaQuery.of(context).size.width * 0.43,
-                  width: MediaQuery.of(context).size.width * 0.43,
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        "assets/images/translate.png",
-                        height: MediaQuery.of(context).size.width * 0.3,
-                      ),
-                      const Text(
-                        "перавесці",
-                        style: TextStyle(fontSize: 16, color: color6),
-                      ),
-                    ],
+                      boxShadow: [
+                        BoxShadow(
+                          color: black.withOpacity(0.05),
+                          spreadRadius: 4,
+                          blurRadius: 10,
+                          offset:
+                              const Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    height: MediaQuery.of(context).size.width * 0.43,
+                    width: MediaQuery.of(context).size.width * 0.43,
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          "assets/images/translate.png",
+                          height: MediaQuery.of(context).size.width * 0.3,
+                        ),
+                        const Text(
+                          "перавесці",
+                          style: TextStyle(fontSize: 16, color: black),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

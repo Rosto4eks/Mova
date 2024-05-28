@@ -25,7 +25,7 @@ class SignInPage extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              signin.error,
+              signin.emailError,
               style: const TextStyle(
                 color: Color.fromARGB(255, 236, 73, 73),
                 fontSize: 20,
@@ -60,6 +60,14 @@ class SignInPage extends StatelessWidget {
                     contentPadding: const EdgeInsets.all(10),
                   ),
                 ),
+              ),
+            ),
+            Text(
+              signin.passwordError,
+              style: const TextStyle(
+                color: Color.fromARGB(255, 236, 73, 73),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
             ),
             Container(
@@ -118,7 +126,7 @@ class SignInPage extends StatelessWidget {
                         .then(
                       (value) {
                         Navigator.pop(context);
-                        if (value == "") {
+                        if (value.isEmpty) {
                           study.clear();
                           provider.refresh();
                           signin.clear();
@@ -128,7 +136,7 @@ class SignInPage extends StatelessWidget {
                       },
                     );
                   } else {
-                    signin.setError("no internet connection");
+                    signin.setError(["няма злучэння"]);
                   }
                 },
                 child: Container(

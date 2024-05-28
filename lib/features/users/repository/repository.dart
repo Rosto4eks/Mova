@@ -16,20 +16,18 @@ class UserRepository {
     return userBox!.get("user")!.toUser();
   }
 
-  Future<List<User>> getUsersByName(String name) async {
-    List<User> users = [];
+  Future<User?> getUserByName(String name) async {
+    User? user;
     await db
         .collection("users")
-        .where("name", isGreaterThanOrEqualTo: name)
-        .where("name", isLessThanOrEqualTo: "$name\uf8ff")
-        .limit(10)
+        .where("name", isEqualTo: name)
         .get()
         .then((value) {
-      for (var user in value.docs) {
-        users.add(User.fromJson(user.data()));
+      if (value.docs.isNotEmpty) {
+        user = User.fromJson(value.docs[0].data());
       }
     });
-    return users;
+    return user;
   }
 
   Future<User> getUserById(int id) async {
@@ -59,7 +57,7 @@ class UserRepository {
   }
 
   Future saveUser(User user) async {
-    if (user == User.empty) return;
+    if (user.id == User.empty.id) return;
     db.collection("users").doc("${user.id}").set(user.toJson());
   }
 

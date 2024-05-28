@@ -16,7 +16,6 @@ part 'lesson.dart';
 part 'tasks.dart';
 part 'entity.dart';
 part 'events.dart';
-part '../repository/fake_repository.dart';
 part 'functions.dart';
 
 extension on List<ModuleDTO> {

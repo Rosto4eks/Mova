@@ -226,7 +226,7 @@ class _BookStoreState extends State<BookStore> {
                                             return child;
                                           else {
                                             return Container(
-                                              color: Colors.red,
+                                              color: lightGrey,
                                               width: 200,
                                               height: 300,
                                             );

@@ -4,9 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:mova/features/book/domain/usecase/service.dart';
 import 'package:mova/features/service.dart';
-import 'package:mova/features/study/domain/repository/repository.dart';
 import 'package:mova/features/users/repository/dto.dart';
 import 'package:mova/presentation/components/colors.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -118,23 +116,28 @@ class UserService extends Service {
     _repository.localSaveUser(Service.user);
   }
 
-  Future<List<User>> getUsersByName(String name) async {
-    return await _repository.getUsersByName(name);
+  Future<User?> getUserByName(String name) async {
+    return await _repository.getUserByName(name);
   }
 
   Future<User> getUserById(int id) async {
     return await _repository.getUserById(id);
   }
 
-  Future signUp(String email, String password, String name) async {
+  Future<List<String>> signUp(
+      String email, String password, String name) async {
+    List<String> errors = [];
     if (name.length < 5) {
-      throw const FormatException("даўжыня імя павінна быць больш за 5");
+      errors.add("даўжыня імя павінна быць больш за 5");
     }
     if (email.length < 7) {
-      throw const FormatException("даўжыня пошты павінна быць больш за 7");
+      errors.add("даўжыня пошты павінна быць больш за 7");
     }
     if (password.length < 8) {
-      throw const FormatException("даўжыня пароля павінна быць больш за 8");
+      errors.add("даўжыня пароля павінна быць больш за 8");
+    }
+    if (errors.isNotEmpty) {
+      return errors;
     }
     if ((await _repository.getUserByEmail(email)).id == -1) {
       var id = await _repository.getNewId();
@@ -144,30 +147,37 @@ class UserService extends Service {
       _repository.localSaveUser(user);
       Service.user = user;
     } else {
-      throw const FormatException(
-          "карыстальнік з гэтай поштай ужо зарэгістраваны");
+      errors.add("карыстальнік з гэтай поштай ужо зарэгістраваны");
     }
+    return errors;
   }
 
-  Future signIn(String email, String password) async {
+  Future<List<String>> signIn(String email, String password) async {
     User user;
+    List<String> errors = [];
     if (email.length < 7) {
-      throw const FormatException("даўжыня пошты павінна быць больш за 7");
+      errors.add("даўжыня пошты павінна быць больш за 7");
     }
     if (password.length < 8) {
-      throw const FormatException("даўжыня пароля павінна быць больш за 8");
+      errors.add("даўжыня пароля павінна быць больш за 8");
     }
-
+    if (errors.isNotEmpty) {
+      return errors;
+    }
     user = await _repository.getUserByEmail(email);
     if (user.id == -1) {
-      throw const FormatException("карыстальнік з гэтай поштай не знойдзены");
+      errors.add("карыстальнік з гэтай поштай не знойдзены");
+    }
+    if (errors.isNotEmpty) {
+      return errors;
     }
     if (_hash(password) == user._password) {
       _repository.localSaveUser(user);
       Service.user = user;
     } else {
-      throw const FormatException("няправільны пароль");
+      errors.add("няправільны пароль");
     }
+    return errors;
   }
 
   Future logOut() async {

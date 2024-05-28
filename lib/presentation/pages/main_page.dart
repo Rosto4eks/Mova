@@ -4,7 +4,7 @@ import 'package:mova/features/study/screens/study_screen.dart';
 import 'package:mova/presentation/pages/home_page.dart';
 import 'package:mova/features/book/screens/book_page.dart';
 import 'package:mova/features/users/screens/profile_page.dart';
-import 'package:mova/presentation/pages/translate_page.dart';
+import 'package:mova/features/translate/screens/translate_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -37,10 +37,10 @@ class _MainPageState extends State<MainPage> {
             controller: _pageController,
             children: [
               HomePage(_pageController),
-              TranslatePage(),
-              StudyScreen(),
-              BookPage(),
-              ProfilePage(),
+              const TranslatePage(),
+              const StudyScreen(),
+              const BookPage(),
+              const ProfilePage(),
             ],
           ),
           Positioned(

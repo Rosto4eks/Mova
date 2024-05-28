@@ -25,22 +25,13 @@ class UserProvider extends ChangeNotifier {
     return Service.user;
   }
 
-  Future<String> signUp(String email, String name, String password) async {
-    try {
-      await _service.signUp(email, password, name);
-    } on FormatException catch (e) {
-      return e.message;
-    }
-    return "";
+  Future<List<String>> signUp(
+      String email, String name, String password) async {
+    return _service.signUp(email, password, name);
   }
 
-  Future<String> signIn(String email, String password) async {
-    try {
-      await _service.signIn(email, password);
-    } on FormatException catch (e) {
-      return e.message;
-    }
-    return "";
+  Future<List<String>> signIn(String email, String password) async {
+    return _service.signIn(email, password);
   }
 
   Future<String> changeName(String name) async {
@@ -52,8 +43,8 @@ class UserProvider extends ChangeNotifier {
     return "";
   }
 
-  Future<List<User>> getUsersByName(String name) async {
-    return await _service.getUsersByName(name);
+  Future<User?> getUserByName(String name) async {
+    return await _service.getUserByName(name);
   }
 
   Future<User> getUserById(int id) async {

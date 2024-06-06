@@ -140,14 +140,18 @@ class UserService extends Service {
       return errors;
     }
     if ((await _repository.getUserByEmail(email)).id == -1) {
-      var id = await _repository.getNewId();
-      User user = User(id, "user", name, email, _hash(password), 0,
-          Service.user._progress, [], []);
-      await _repository.saveUser(user);
-      _repository.localSaveUser(user);
-      Service.user = user;
+      if ((await _repository.getUserByName(name)) == null) {
+        var id = await _repository.getNewId();
+        User user = User(id, "user", name, email, _hash(password), 0,
+            Service.user._progress, [], []);
+        await _repository.saveUser(user);
+        _repository.localSaveUser(user);
+        Service.user = user;
+      } else {
+        errors.add('карыстальнік з гэтым іменем існуе');
+      }
     } else {
-      errors.add("карыстальнік з гэтай поштай ужо зарэгістраваны");
+      errors.add("карыстальнік з гэтай поштай існуе");
     }
     return errors;
   }

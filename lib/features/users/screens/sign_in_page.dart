@@ -19,7 +19,7 @@ class SignInPage extends StatelessWidget {
       backgroundColor: color4,
       body: Container(
         margin: const EdgeInsets.symmetric(vertical: 110, horizontal: 20),
-        padding: const EdgeInsets.all(30),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         decoration: BoxDecoration(
             color: white, borderRadius: BorderRadius.circular(20)),
         child: Column(
@@ -28,12 +28,12 @@ class SignInPage extends StatelessWidget {
               signin.emailError,
               style: const TextStyle(
                 color: Color.fromARGB(255, 236, 73, 73),
-                fontSize: 20,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 20),
+              margin: const EdgeInsets.symmetric(vertical: 10),
               child: Material(
                 color: Colors.transparent,
                 child: TextField(
@@ -66,12 +66,12 @@ class SignInPage extends StatelessWidget {
               signin.passwordError,
               style: const TextStyle(
                 color: Color.fromARGB(255, 236, 73, 73),
-                fontSize: 20,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 20),
+              margin: const EdgeInsets.symmetric(vertical: 10),
               child: Material(
                 color: Colors.transparent,
                 child: TextField(
@@ -102,7 +102,7 @@ class SignInPage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 20),
+              margin: const EdgeInsets.symmetric(vertical: 10),
               child: GestureDetector(
                 onTap: () async {
                   var connectivityResult =
@@ -145,7 +145,7 @@ class SignInPage extends StatelessWidget {
                   width: double.infinity,
                   alignment: Alignment.center,
                   padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                   child: const Text(
                     "увайсці",
                     style: TextStyle(fontSize: 20, color: white),

@@ -21,7 +21,7 @@ class SignUpPage extends StatelessWidget {
       backgroundColor: color4,
       body: Container(
         margin: const EdgeInsets.symmetric(vertical: 110, horizontal: 20),
-        padding: const EdgeInsets.all(30),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         decoration: BoxDecoration(
             color: white, borderRadius: BorderRadius.circular(20)),
         child: Column(
@@ -30,7 +30,7 @@ class SignUpPage extends StatelessWidget {
               signup.nameError,
               style: const TextStyle(
                 color: Color.fromARGB(255, 236, 73, 73),
-                fontSize: 20,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -66,7 +66,7 @@ class SignUpPage extends StatelessWidget {
               signup.emailError,
               style: const TextStyle(
                 color: Color.fromARGB(255, 236, 73, 73),
-                fontSize: 20,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -104,7 +104,7 @@ class SignUpPage extends StatelessWidget {
               signup.passwordError,
               style: const TextStyle(
                 color: Color.fromARGB(255, 236, 73, 73),
-                fontSize: 20,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -183,7 +183,7 @@ class SignUpPage extends StatelessWidget {
                   width: double.infinity,
                   alignment: Alignment.center,
                   padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                   child: const Text(
                     "рэгістрацыя",
                     style: TextStyle(fontSize: 20, color: white),

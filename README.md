@@ -1,71 +1,136 @@
 # Главный экран
+
 На главном экране располагается приветственный текст, а также  кнопки для перехода на другие экраны приложения: кнопка начала урока, кнопка перевода текста и кнопка перехода в библиотеку. Сверху расположен приветственный текст, который изменяется при авторизации пользователя.
 
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/4.jpg)
+<br>
+<div >
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/4.jpg" alt="drawing" width="200"/>
+</div>
+<br>
+<hr>
 
 # Экран перевода текста
-На этом экране располагается поле ввода текста, а также кнопка, по нажатию которой на экран выводится переведенный текст. При отсутствии соединения с сервером выводится соответствующее сообщение с ошибкой. Во время перевода текста включается анимация загрузки, которая останавливается при получении перевода.
+  На этом экране располагается поле ввода текста, а также кнопка, по нажатию которой на экран выводится переведенный текст. При отсутствии соединения с сервером выводится соответствующее сообщение с ошибкой. Во время перевода текста включается анимация загрузки, которая останавливается при получении перевода.
 
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/32.jpg)
+
+<br>
+<div >
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/32.jpg" alt="drawing" width="200"/>
+</div>
+<br>
+<hr>
 
 # Экран занятий
-На экране занятий располагается список всех модулей. Модули, доступные к прохождению, окрашены в белый цвет, недоступные модули - в бледно-серый цвет. Также в каждом модуле есть линия прогресса, отображающая отношение пройденных уроков модуля ко всем урокам модуля.
+  На экране занятий располагается список всех модулей. Модули, доступные к прохождению, окрашены в белый цвет, недоступные модули - в бледно-серый цвет. Также в каждом модуле есть линия прогресса, отображающая отношение пройденных уроков модуля ко всем урокам модуля.
 
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/5.jpg)
+
+<br>
+<div >
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/5.jpg" alt="drawing" width="200"/>
+</div>
+<br>
 
 По нажатию на доступный модуль открывается список всех уроков данного модуля. Доступные уроки окрашены в белый цвет, имеют активную кнопку для начала урока, а также линию прогресса, отображающую отношение пройденных заданий урока ко всем заданиям урока. Недоступные занятия окрашены в серый цвет.
 
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/6.jpg)
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/7.jpg)
+
+<br>
+<div >
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/6.jpg" alt="drawing" width="200"/>
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/7.jpg" alt="drawing" width="200"/>
+</div>
+<br>
 
 
 По нажатию на доступное занятие открывается первое задание данного урока. Всего есть 4 типа заданий: задание с выбором правильного перевода из предложенных вариантов, задание вставки пропущенных слов, задания перевода текста посредством выбора переведенных слов и  задание рукописного перевода текста.
 
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/1.jpg)
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/2.jpg)
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/8.jpg)
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/11.jpg)
+
+<br>
+<div >
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/1.jpg" alt="drawing" width="200"/>
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/2.jpg" alt="drawing" width="200"/>
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/8.jpg" alt="drawing" width="200"/>
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/11.jpg" alt="drawing" width="200"/>
+</div>
+<br>
 
 
 На каждом экране задания есть шкала прогресса урока, основная информация, интерактивные элементы, кнопка возвращения на экран урока и кнопка проверки задания. После нажатия на кнопку проверки появляется всплывающее окно, при правильно выполненном задании можно приступить к следующему заданию, при неправильно выполненном задании необходимо исправить ошибки и проверить еще раз правильность выполненного задания.
 
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/9.jpg)
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/10.jpg)
+
+<br>
+<div >
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/9.jpg" alt="drawing" width="200"/>
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/10.jpg" alt="drawing" width="200"/>
+</div>
+<br>
 
 После успешного прохождения всех заданий урока в случае, если этот урок не был пройдет ранее, то пользователь получает вознаграждение в виде виртуальной валюты, которую можно использовать для покупок внутри приложения. Если урок был пройден, то экран с вознаграждением пропускается и происходит переход на экран завершения урока, на котором присутствуют кнопка для повторного прохождения урока и кнопка для возвращения к списку доступных уроков модуля.
 
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/25.jpg)
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/12.jpg)
 
-
+<br>
+<div >
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/12.jpg" alt="drawing" width="200"/>
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/25.jpg" alt="drawing" width="200"/>
+</div>
+<br>
+<hr>
 
 #  Экран библиотеки
 На этом экране есть две вкладки. По умолчанию открыта первая вкладка - книги пользователя. В этой вкладке пользователь видит все свои скачанные книги, кнопки для их сортировки и фильтрации. По нажатию на одну из книг пользователю будет предложено удалить с устройства книгу, в дальнейшем книгу можно будет обратно скачать из репозитория. по нажатию на кнопку открытия книги происходит переход на экран с текстом книги.
 
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/18.jpg)
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/17.jpg)
 
+<br>
+<div >
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/8.jpg" alt="drawing" width="200"/>
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/17.jpg" alt="drawing" width="200"/>
+</div>
+<br>
 
 Во второй вкладке находится список всех доступных книг, чтобы получить книгу в свою коллекцию, необходимо её купить за виртуальную валюту, после покупки начинается автоматическое скачивание книги, после скачивания книга отобразится в коллекции пользователя, а в общей библиотеке отобразится, что книга куплена.
 
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/24.jpg)
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/19.jpg)
 
+<br>
+<div >
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/24.jpg" alt="drawing" width="200"/>
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/19.jpg" alt="drawing" width="200"/>
+</div>
+<br>
 
 Если у пользователя роль администратора, то ему также доступна вкладка добавления книги, на которой есть поля ввода названия книги, автора, цены и файлов изображения и самой книги. После нажатия на кнопку добавления книги, она автоматически отобразится в списке всех доступных книг у всех пользователей.
 
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/29.jpg)
+
+<br>
+<div >
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/29.jpg" alt="drawing" width="200"/>
+</div>
+<br>
+<hr>
 
 # Экран профиля пользователя
 На экране профиля пользователя отображается основная информация о пользователе (количество виртуальной валюты, количество пройденных уроков, почта, достижения). Вверху экрана располагается кнопка изменения личных данных пользователя. Снизу располагается кнопка выхода из аккаунта. При нажатии на кнопку происходит выход из аккаунта, а также переход на экран авторизации.
 
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/22.jpg)
+
+<br>
+<div >
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/22.jpg" alt="drawing" width="200"/>
+</div>
+<br>
 
 Ниже расположена кнопка поиска пользователя, по нажатию на которую открывается экран с полем для ввода имени пользователя. Если пользователь найден, то отобразится публичная информация о пользователе, если пользователь не найден, будет выведено соответствующее предупреждение. Для пользователей без роли администратора видны роль, количество виртуальной валюты, количество пройденных заданий и полученные достижения. Пользователю с ролью администратора также виден адрес электронной почты.
 
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/30.jpg)
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/31.jpg)
+
+<br>
+<div >
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/30.jpg" alt="drawing" width="200"/>
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/31.jpg" alt="drawing" width="200"/>
+</div>
+<br>
 
 Если у пользователя роль администратора, то ему также доступна кнопка изменения профиля другого пользователя, на которой он может изменить баланс, количество выполненных заданий и роль пользователя. При неверно введенных данных выводится соответствующее сообщение об ошибке. Роль пользователя можно сменить на admin либо на user. Количество виртуальной валюты, также как и количество пройденных заданий должно быть неотрицательным.
 
-![](https://github.com/Rosto4eks/Mova/tree/master/.github/13.jpg)
+
+<br>
+<div >
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/13.jpg" alt="drawing" width="200"/>
+</div>
+<br>

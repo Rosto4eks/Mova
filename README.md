@@ -81,7 +81,7 @@
 
 <br>
 <div >
-<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/8.jpg" alt="drawing" width="200"/>
+<img src="https://github.com/Rosto4eks/Mova/blob/master/.github/18.jpg" alt="drawing" width="200"/>
 <img src="https://github.com/Rosto4eks/Mova/blob/master/.github/17.jpg" alt="drawing" width="200"/>
 </div>
 <br>
